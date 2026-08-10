@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mvc · Design Patterns · JavaScript Mastery</title>
+<meta name="description" content="Mvc — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Design Patterns</div>
+    <ul class="nav-list">
+      <li><a href="design-patterns.html" class="">Design Patterns</a></li>
+<li><a href="singleton.html" class="">Singleton</a></li>
+<li><a href="factory.html" class="">Factory</a></li>
+<li><a href="observer.html" class="">Observer</a></li>
+<li><a href="mvc.html" class="active">Mvc</a></li>
+<li><a href="mvvm.html" class="">Mvvm</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Design Patterns</a> / <span>Mvc</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>MVC</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>MVC (Model-View-Controller) is an architectural pattern that separates an application into Model (data/state), View (UI/presentation), and Controller (input handling and coordination).</p>
+
+      <h2>Why MVC Matters</h2>
+      <p>It separates concerns clearly, making large applications easier to reason about, test, and maintain.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">class Model { /* data + business logic */ }
+class View { render(data) { /* update UI */ } }
+class Controller {
+  constructor(model, view) { this.model = model; this.view = view; }
+  handleInput(input) { /* update model, then tell view to render */ }
+}</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">class TodoModel {
+  todos = [];
+  addTodo(text) { this.todos.push(text); }
+}
+class TodoController {
+  constructor(model, view) { this.model = model; this.view = view; }
+  addTodo(text) {
+    this.model.addTodo(text);
+    this.view.render(this.model.todos);
+  }
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+User Input ──► Controller ──► updates ──► Model
+                                            │
+                            Model change triggers
+                                            ▼
+                                          View (re-renders)
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>The Controller is the only layer allowed to know about both Model and View — the Model has no knowledge of the View, so it can be tested independently.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Letting the View directly modify the Model, bypassing the Controller.</li>
+        <li>Putting business logic inside the View.</li>
+        <li>Tightly coupling the Model to a specific View implementation.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>MVC separates an application into Model, View, and Controller — improving testability and maintainability by keeping concerns cleanly separated.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

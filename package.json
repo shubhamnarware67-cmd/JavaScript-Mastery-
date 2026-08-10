@@ -1,0 +1,25 @@
+{
+  "name": "javascript-mastery",
+  "version": "0.1.0",
+  "description": "JavaScript Mastery — The Ultimate JavaScript Handbook. A complete, modular JavaScript documentation and learning platform.",
+  "author": "Shubham Narware",
+  "license": "MIT",
+  "private": false,
+  "homepage": "./index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "serve": "npx serve ."
+  },
+  "keywords": [
+    "javascript",
+    "documentation",
+    "learning-platform",
+    "handbook",
+    "interview-preparation",
+    "cheatsheet"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shubhamnarware/javascript-mastery"
+  }
+}
