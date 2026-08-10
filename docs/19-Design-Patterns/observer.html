@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Observer · Design Patterns · JavaScript Mastery</title>
+<meta name="description" content="Observer — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Design Patterns</div>
+    <ul class="nav-list">
+      <li><a href="design-patterns.html" class="">Design Patterns</a></li>
+<li><a href="singleton.html" class="">Singleton</a></li>
+<li><a href="factory.html" class="">Factory</a></li>
+<li><a href="observer.html" class="active">Observer</a></li>
+<li><a href="mvc.html" class="">Mvc</a></li>
+<li><a href="mvvm.html" class="">Mvvm</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Design Patterns</a> / <span>Observer</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Observer</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>The Observer pattern defines a one-to-many relationship where a "subject" maintains a list of "observers" and notifies them automatically whenever its state changes.</p>
+
+      <h2>Why Observer Matters</h2>
+      <p>It decouples the object whose state changes from the objects that need to react to those changes — essential for scalable event-driven architectures.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">class EventEmitter {
+  listeners = {};
+  on(event, callback) {
+    (this.listeners[event] ??= []).push(callback);
+  }
+  emit(event, data) {
+    this.listeners[event]?.forEach((cb) => cb(data));
+  }
+}</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">const emitter = new EventEmitter();
+emitter.on("userLoggedIn", (user) => console.log(`${user.name} logged in`));
+emitter.emit("userLoggedIn", { name: "Alex" });
+
+// Every DOM event listener is an Observer pattern:
+button.addEventListener("click", () => console.log("Clicked!"));</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Subject (EventEmitter)
+  listeners: { "userLoggedIn": [callback1, callback2] }
+        │
+emit("userLoggedIn", data) ──► calls every registered callback
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>The subject holds no knowledge of what its observers do with the notification — this is exactly how <code>addEventListener</code> works under the hood.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Forgetting to provide an unsubscribe mechanism, causing memory leaks.</li>
+        <li>Letting observers directly mutate the subject's internal state.</li>
+        <li>Notifying observers with too little data, forcing them to re-fetch state.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>The Observer pattern lets a subject notify many independent observers when its state changes — the foundational idea behind DOM events and state management libraries like Redux.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
