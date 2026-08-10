@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Singleton · Design Patterns · JavaScript Mastery</title>
+<meta name="description" content="Singleton — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Design Patterns</div>
+    <ul class="nav-list">
+      <li><a href="design-patterns.html" class="">Design Patterns</a></li>
+<li><a href="singleton.html" class="active">Singleton</a></li>
+<li><a href="factory.html" class="">Factory</a></li>
+<li><a href="observer.html" class="">Observer</a></li>
+<li><a href="mvc.html" class="">Mvc</a></li>
+<li><a href="mvvm.html" class="">Mvvm</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Design Patterns</a> / <span>Singleton</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Singleton</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>The Singleton pattern ensures a class or module has only <strong>one instance</strong> throughout the application, providing a single global point of access.</p>
+
+      <h2>Why Singleton Matters</h2>
+      <p>It prevents accidentally creating multiple instances of something that should logically be unique — like a single app-wide config or connection pool.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">class Singleton {
+  static instance;
+  constructor() {
+    if (Singleton.instance) return Singleton.instance;
+    Singleton.instance = this;
+  }
+}</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">// counter.js — module-based singleton
+let count = 0;
+export function increment() { return ++count; }
+export function getCount() { return count; }</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+First import of module.js ──► instance created, cached
+Second import of module.js ──► SAME cached instance returned
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Because ES Modules execute top-level code only <strong>once</strong>, a plain exported object naturally behaves as a singleton — often simpler than the class-based approach.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Overusing Singletons for things that don't need to be globally unique.</li>
+        <li>Forgetting global mutable state can make tests unpredictable.</li>
+        <li>Reimplementing class-based Singletons when a module would work better.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Singleton guarantees only one instance exists app-wide — in JavaScript, often achieved through ES Module caching rather than explicit class-based checks.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
