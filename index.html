@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Mastery — The Ultimate JavaScript Handbook by Shubham Narware</title>
+<meta name="description" content="A complete, modular JavaScript documentation and learning platform. 121+ topics, examples, interview prep, MCQs and cheat sheets. By Shubham Narware.">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="assets/images/favicon.svg">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .hero{max-width:1100px; margin:0 auto; padding:70px 32px 20px; text-align:center;}
+  .hero h1{font-size:42px; margin-bottom:6px;}
+  .hero .accent{color:var(--accent);}
+  .hero p{color:var(--muted); font-size:16px; max-width:640px; margin:14px auto;}
+  .hero-badges{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:18px;}
+  .hero-badges span{font-size:12px; pa
+    dding:5px 12px; border-radius:20px; background:var(--glass); border:1px solid var(--glass-border); color:var(--muted);}
+  .full-grid{max-width:1100px; margin:30px auto 90px; padding:0 32px; display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:16px;}
+  .top-nav{display:flex; justify-content:space-between; align-items:center; padding:16px 32px; border-bottom:1px solid var(--border);}
+  .top-nav .brand{display:flex; align-items:center; gap:10px; border:none; padding:0; margin:0;}
+  .top-nav img{width:38px; height:38px; border-radius:8px;}
+  .quick-links{display:flex; gap:16px; font-size:13.5px;}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="top-nav">
+  <div class="brand">
+    <img src="assets/images/logo.svg" alt="logo">
+    <div>
+      <div class="brand-title">JavaScript Mastery</div>
+      <div class="brand-owner">by Shubham Narware</div>
+    </div>
+  </div>
+  <div class="quick-links">
+    <a href="README.md">README</a>
+    <a href="Examples/README.md">Examples</a>
+    <a href="Practice/README.md">Practice</a>
+    <a href="Interview/README.md">Interview</a>
+    <a href="CheatSheets/README.md">Cheat Sheets</a>
+    <a href="Projects/README.md">Projects</a>
+  </div>
+  <button id="themeToggle" class="theme-toggle">🌓</button>
+</div>
+
+<section class="hero">
+  <h1>JavaScript <span class="accent">Mastery</span></h1>
+  <p style="font-weight:600; color:var(--text);">The Ultimate JavaScript Handbook</p>
+  <p>A complete, modular documentation &amp; learning platform — 22 sections, 121 topics,
+  each with examples, diagrams, interview questions, MCQs, coding practice and cheat sheets.</p>
+  <div class="hero-badges">
+    <span>🟢 Beginner</span>
+    <span>🟡 Intermediate</span>
+    <span>🔴 Advanced</span>
+    <span>📘 GitHub Pages Ready</span>
+    <span>⚡ Netlify Ready</span>
+  </div>
+</section>
+
+<div class="full-grid">
+      <a class="topic-card" href="docs/01-Introduction/index.html">
+        <h3>🟢 Introduction to JavaScript</h3>
+        <span>7 topics</span>
+      </a>
+      <a class="topic-card" href="docs/02-Setup/index.html">
+        <h3>🟢 Environment Setup</h3>
+        <span>6 topics</span>
+      </a>
+      <a class="topic-card" href="docs/03-Variables-DataTypes/index.html">
+        <h3>🟢 Variables & Data Types</h3>
+        <span>7 topics</span>
+      </a>
+      <a class="topic-card" href="docs/04-Operators/index.html">
+        <h3>🟢 Operators</h3>
+        <span>9 topics</span>
+      </a>
+      <a class="topic-card" href="docs/05-Control-Flow/index.html">
+        <h3>🟢 Control Flow</h3>
+        <span>8 topics</span>
+      </a>
+      <a class="topic-card" href="docs/06-Functions/index.html">
+        <h3>🟡 Functions</h3>
+        <span>6 topics</span>
+      </a>
+      <a class="topic-card" href="docs/07-Objects-OOP/index.html">
+        <h3>🟡 Objects & OOP</h3>
+        <span>7 topics</span>
+      </a>
+      <a class="topic-card" href="docs/08-Arrays/index.html">
+        <h3>🟡 Arrays</h3>
+        <span>7 topics</span>
+      </a>
+      <a class="topic-card" href="docs/09-Strings-Numbers-Dates/index.html">
+        <h3>🟡 Strings, Numbers & Dates</h3>
+        <span>6 topics</span>
+      </a>
+      <a class="topic-card" href="docs/10-DOM/index.html">
+        <h3>🟡 DOM Manipulation</h3>
+        <span>3 topics</span>
+      </a>
+      <a class="topic-card" href="docs/11-Events/index.html">
+        <h3>🟡 Events</h3>
+        <span>4 topics</span>
+      </a>
+      <a class="topic-card" href="docs/12-Async-JavaScript/index.html">
+        <h3>🔴 Asynchronous JavaScript</h3>
+        <span>11 topics</span>
+      </a>
+      <a class="topic-card" href="docs/13-Error-Handling/index.html">
+        <h3>🟡 Error Handling</h3>
+        <span>2 topics</span>
+      </a>
+      <a class="topic-card" href="docs/14-Modules/index.html">
+        <h3>🟡 Modules</h3>
+        <span>3 topics</span>
+      </a>
+      <a class="topic-card" href="docs/15-Browser-Storage/index.html">
+        <h3>🟡 Browser Storage</h3>
+        <span>4 topics</span>
+      </a>
+      <a class="topic-card" href="docs/16-JSON-Regex/index.html">
+        <h3>🟡 JSON & Regex</h3>
+        <span>2 topics</span>
+      </a>
+      <a class="topic-card" href="docs/17-Execution-Context-Scope/index.html">
+        <h3>🔴 Execution Context & Scope</h3>
+        <span>5 topics</span>
+      </a>
+      <a class="topic-card" href="docs/18-Advanced-Objects/index.html">
+        <h3>🔴 Advanced Object Tools</h3>
+        <span>4 topics</span>
+      </a>
+      <a class="topic-card" href="docs/19-Design-Patterns/index.html">
+        <h3>🔴 Design Patterns</h3>
+        <span>6 topics</span>
+      </a>
+      <a class="topic-card" href="docs/20-Performance/index.html">
+        <h3>🔴 Performance Optimization</h3>
+        <span>5 topics</span>
+      </a>
+      <a class="topic-card" href="docs/21-Security/index.html">
+        <h3>🔴 Security</h3>
+        <span>4 topics</span>
+      </a>
+      <a class="topic-card" href="docs/22-Node-Testing/index.html">
+        <h3>🔴 Node.js & Testing</h3>
+        <span>5 topics</span>
+      </a>
+</div>
+
+<footer class="page-footer" style="margin-bottom:40px;">Created with ❤️ by <b>Shubham Narware</b> — JavaScript Mastery</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
