@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Factory · Design Patterns · JavaScript Mastery</title>
+<meta name="description" content="Factory — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Design Patterns</div>
+    <ul class="nav-list">
+      <li><a href="design-patterns.html" class="">Design Patterns</a></li>
+<li><a href="singleton.html" class="">Singleton</a></li>
+<li><a href="factory.html" class="active">Factory</a></li>
+<li><a href="observer.html" class="">Observer</a></li>
+<li><a href="mvc.html" class="">Mvc</a></li>
+<li><a href="mvvm.html" class="">Mvvm</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Design Patterns</a> / <span>Factory</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Factory</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>The Factory pattern uses a function to create and return objects, encapsulating creation logic instead of requiring callers to use <code>new</code> directly.</p>
+
+      <h2>Why Factory Matters</h2>
+      <p>It centralizes and hides object-creation logic, making calling code simpler and easier to change later.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">function createShape(type) {
+  if (type === "circle") return { type, area: (r) => Math.PI * r * r };
+  if (type === "square") return { type, area: (s) => s * s };
+}</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">function createNotification(type, message) {
+  const base = { message, timestamp: Date.now() };
+  switch (type) {
+    case "error": return { ...base, icon: "❌", priority: "high" };
+    case "success": return { ...base, icon: "✅", priority: "normal" };
+    default: return { ...base, icon: "ℹ️", priority: "low" };
+  }
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+createShape("circle")  ──► { type: "circle", area: fn }
+createShape("square")  ──► { type: "square", area: fn }
+   (caller doesn't need internal construction logic)
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>The core value of a Factory is <strong>indirection</strong> — callers depend only on the factory's interface, not the concrete object shape being created internally.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Overcomplicating a simple object literal into an unnecessary factory function.</li>
+        <li>Duplicating default-value logic across call sites instead of centralizing it.</li>
+        <li>Confusing a Factory with a Constructor function.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>The Factory pattern centralizes object-creation logic behind a function, hiding construction details — fits naturally into JavaScript's first-class functions.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
