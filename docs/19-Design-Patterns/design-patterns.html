@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Patterns · Design Patterns · JavaScript Mastery</title>
+<meta name="description" content="Design Patterns — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Design Patterns</div>
+    <ul class="nav-list">
+      <li><a href="design-patterns.html" class="active">Design Patterns</a></li>
+<li><a href="singleton.html" class="">Singleton</a></li>
+<li><a href="factory.html" class="">Factory</a></li>
+<li><a href="observer.html" class="">Observer</a></li>
+<li><a href="mvc.html" class="">Mvc</a></li>
+<li><a href="mvvm.html" class="">Mvvm</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Design Patterns</a> / <span>Design Patterns</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Design Patterns</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Design patterns are reusable, general solutions to common software design problems — proven templates that make code more maintainable, scalable, and understandable.</p>
+
+      <h2>Why Design Patterns Matter</h2>
+      <p>They give developers a shared vocabulary and battle-tested solutions to recurring problems, instead of reinventing ad-hoc structures.</p>
+
+      <h2>Types</h2>
+      <table>
+        <tr><th>Category</th><th>Purpose</th><th>Examples</th></tr>
+        <tr><td>Creational</td><td>Control object creation</td><td>Singleton, Factory</td></tr>
+        <tr><td>Structural</td><td>Compose objects/classes</td><td>Adapter, Decorator</td></tr>
+        <tr><td>Behavioral</td><td>Manage communication</td><td>Observer, Strategy</td></tr>
+        <tr><td>Architectural</td><td>Structure entire apps</td><td>MVC, MVVM</td></tr>
+      </table>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">// A Singleton ensures only one instance exists
+class Database {
+  static instance;
+  static getInstance() {
+    if (!Database.instance) Database.instance = new Database();
+    return Database.instance;
+  }
+}</code></pre>
+
+      <h2>Internal Working</h2>
+      <p>Patterns aren't copy-pasteable code — they're conceptual templates adapted to each language's idioms; JavaScript's prototype-based, first-class-function nature changes how classic OOP patterns look.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Forcing a design pattern onto a problem that doesn't need that structure.</li>
+        <li>Confusing similar patterns due to surface-level code similarity.</li>
+        <li>Applying classic OOP implementations rigidly without adapting to JS idioms.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Design patterns are reusable, proven solutions spanning creational, structural, behavioral, and architectural categories — valuable when applied to problems that genuinely warrant that structure.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
