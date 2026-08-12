@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Stack · Asynchronous JavaScript · JavaScript Mastery</title>
+<meta name="description" content="Call Stack — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Asynchronous JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="promise.html" class="">Promise</a></li>
+<li><a href="async-await.html" class="">Async Await</a></li>
+<li><a href="fetch.html" class="">Fetch</a></li>
+<li><a href="axios.html" class="">Axios</a></li>
+<li><a href="ajax.html" class="">Ajax</a></li>
+<li><a href="xmlhttprequest.html" class="">Xmlhttprequest</a></li>
+<li><a href="event-loop.html" class="">Event Loop</a></li>
+<li><a href="call-stack.html" class="active">Call Stack</a></li>
+<li><a href="microtask.html" class="">Microtask</a></li>
+<li><a href="macrotask.html" class="">Macrotask</a></li>
+<li><a href="web-api.html" class="">Web Api</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Asynchronous JavaScript</a> / <span>Call Stack</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Call Stack</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>The Call Stack is the data structure JavaScript's engine uses to track function execution — it records which function is currently running and what to return to once it finishes.</p>
+
+      <h2>Why the Call Stack Matters</h2>
+      <p>Understanding it explains why JavaScript is single-threaded, why long-running synchronous code "blocks" everything else, and what causes a "stack overflow" error.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">function greet() { sayHi(); }
+function sayHi() { console.log("Hi"); }
+greet();</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">// Beginner
+function a() { b(); }
+function b() { c(); }
+function c() { console.log("Deepest"); }
+a(); // Stack grows a → b → c, then unwinds
+
+// Advanced: stack overflow
+function recurse() { recurse(); } // no base case
+recurse(); // Uncaught RangeError: Maximum call stack size exceeded</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Call Stack (LIFO — Last In, First Out):
+┌───────────────┐
+│ multiply(5,5) │ ← top (executing now)
+├───────────────┤
+│ square(5)     │
+├───────────────┤
+│ main / global │ ← bottom
+└───────────────┘
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Because JavaScript has <strong>one</strong> call stack, only one thing can execute at a time — long synchronous operations occupy the stack fully, blocking the event loop from processing any queued tasks until the stack empties.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Writing recursive functions without a proper base case, causing stack overflow.</li>
+        <li>Assuming synchronous, CPU-heavy code won't block the UI.</li>
+        <li>Confusing the call stack with the task queues (they're separate structures).</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>The call stack is JavaScript's single-threaded execution tracker — a LIFO structure that must be empty before the event loop can run queued async callbacks.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
