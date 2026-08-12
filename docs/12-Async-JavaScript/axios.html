@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axios · Asynchronous JavaScript · JavaScript Mastery</title>
+<meta name="description" content="Axios — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Asynchronous JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="promise.html" class="">Promise</a></li>
+<li><a href="async-await.html" class="">Async Await</a></li>
+<li><a href="fetch.html" class="">Fetch</a></li>
+<li><a href="axios.html" class="active">Axios</a></li>
+<li><a href="ajax.html" class="">Ajax</a></li>
+<li><a href="xmlhttprequest.html" class="">Xmlhttprequest</a></li>
+<li><a href="event-loop.html" class="">Event Loop</a></li>
+<li><a href="call-stack.html" class="">Call Stack</a></li>
+<li><a href="microtask.html" class="">Microtask</a></li>
+<li><a href="macrotask.html" class="">Macrotask</a></li>
+<li><a href="web-api.html" class="">Web Api</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Asynchronous JavaScript</a> / <span>Axios</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Axios</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Axios is a popular third-party, Promise-based HTTP client library for the browser and Node.js, offering a more convenient API than raw <code>fetch()</code>.</p>
+
+      <h2>Why Axios Matters</h2>
+      <p>It automatically transforms JSON, throws on HTTP error statuses (unlike <code>fetch()</code>), supports request cancellation, and provides interceptors for global request/response handling.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">axios.get(url)
+  .then(response => console.log(response.data))
+  .catch(error => console.error(error));</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">// Beginner
+axios.get("https://api.example.com/data")
+  .then(response => console.log(response.data));
+
+// Intermediate
+async function createUser(user) {
+  const response = await axios.post("https://api.example.com/users", user);
+  return response.data;
+}
+
+// Advanced
+const api = axios.create({ baseURL: "https://api.example.com", timeout: 5000 });
+api.interceptors.request.use(config => {
+  config.headers.Authorization = `Bearer ${getToken()}`;
+  return config;
+});</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+axios.get(url) ──► Promise&lt;AxiosResponse&gt;
+                        │
+                 response.data ──► already-parsed JSON
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Internally, Axios wraps either <code>XMLHttpRequest</code> (in browsers) or Node's <code>http</code>/<code>https</code> modules, adding a consistent Promise-based API, automatic JSON transformation, and an interceptor pipeline on top.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Assuming Axios and <code>fetch()</code> handle errors the same way.</li>
+        <li>Not re-using <code>axios.create()</code> instances, leading to repeated configuration.</li>
+        <li>Forgetting <code>error.response</code> may be <code>undefined</code> for network errors.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Axios is a widely-used HTTP client built on top of <code>XMLHttpRequest</code>/Node's <code>http</code>, offering automatic JSON parsing, error rejection on bad status codes, and a powerful interceptor system that native <code>fetch()</code> doesn't provide out of the box.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
