@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Async Await · Asynchronous JavaScript · JavaScript Mastery</title>
+<meta name="description" content="Async Await — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Asynchronous JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="promise.html" class="">Promise</a></li>
+<li><a href="async-await.html" class="active">Async Await</a></li>
+<li><a href="fetch.html" class="">Fetch</a></li>
+<li><a href="axios.html" class="">Axios</a></li>
+<li><a href="ajax.html" class="">Ajax</a></li>
+<li><a href="xmlhttprequest.html" class="">Xmlhttprequest</a></li>
+<li><a href="event-loop.html" class="">Event Loop</a></li>
+<li><a href="call-stack.html" class="">Call Stack</a></li>
+<li><a href="microtask.html" class="">Microtask</a></li>
+<li><a href="macrotask.html" class="">Macrotask</a></li>
+<li><a href="web-api.html" class="">Web Api</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Asynchronous JavaScript</a> / <span>Async Await</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Async Await</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p><code>async</code>/<code>await</code> lets Promise-based code read like synchronous code — <code>async</code> marks a function as always returning a Promise; <code>await</code> pauses execution within it until a Promise settles.</p>
+
+      <h2>Why Async/Await Matters</h2>
+      <p>It removes much of the visual nesting and chaining boilerplate of raw <code>.then()</code> chains, making async code easier to read and reason about.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">async function fetchData() {
+  const result = await somePromise;
+  return result;
+}</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">async function getUser() {
+  const response = await fetch("/api/user");
+  return response.json();
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+async function ──► always returns a Promise
+        │
+await promise ──► pauses function execution
+        │
+Promise settles ──► function resumes with the resolved value
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Under the hood, <code>async</code>/<code>await</code> is syntax sugar over Promises — each <code>await</code> point splits the function so the code after it runs as a microtask once the awaited Promise settles.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Forgetting to wrap <code>await</code> calls in <code>try...catch</code> for error handling.</li>
+        <li>Using sequential <code>await</code> calls when the operations could run in parallel with <code>Promise.all()</code>.</li>
+        <li>Forgetting an <code>async</code> function always returns a Promise, even if you don't explicitly return one.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p><code>async</code>/<code>await</code> makes Promise-based code read like synchronous code, built as syntax sugar over Promises introduced in ES2017.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

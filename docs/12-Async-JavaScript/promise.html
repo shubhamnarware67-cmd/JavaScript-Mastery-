@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promise · Asynchronous JavaScript · JavaScript Mastery</title>
+<meta name="description" content="Promise — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Asynchronous JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="promise.html" class="active">Promise</a></li>
+<li><a href="async-await.html" class="">Async Await</a></li>
+<li><a href="fetch.html" class="">Fetch</a></li>
+<li><a href="axios.html" class="">Axios</a></li>
+<li><a href="ajax.html" class="">Ajax</a></li>
+<li><a href="xmlhttprequest.html" class="">Xmlhttprequest</a></li>
+<li><a href="event-loop.html" class="">Event Loop</a></li>
+<li><a href="call-stack.html" class="">Call Stack</a></li>
+<li><a href="microtask.html" class="">Microtask</a></li>
+<li><a href="macrotask.html" class="">Macrotask</a></li>
+<li><a href="web-api.html" class="">Web Api</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Asynchronous JavaScript</a> / <span>Promise</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Promise</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>A Promise is an object representing the eventual completion (or failure) of an asynchronous operation, existing in one of three states: pending, fulfilled, or rejected.</p>
+
+      <h2>Why Promises Matter</h2>
+      <p>They provide a cleaner, chainable way to handle async operations and their errors, compared to deeply nested callbacks.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">const promise = new Promise((resolve, reject) => {
+  if (success) resolve(value);
+  else reject(error);
+});
+promise.then(onFulfilled).catch(onRejected).finally(onDone);</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">const promise = new Promise((resolve) => {
+  setTimeout(() => resolve("Data loaded!"), 1000);
+});
+promise.then(result => console.log(result));</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Promise states:
+   pending ──resolve()──► fulfilled ──► .then() callbacks run
+      │
+      └──reject()──► rejected ──► .catch() callbacks run
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>A Promise's executor function runs synchronously when created, but its <code>.then()</code>/<code>.catch()</code> callbacks are always scheduled as microtasks, running after the current synchronous code finishes.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Forgetting to return a value/Promise inside a <code>.then()</code> chain, breaking the chain.</li>
+        <li>Not adding a <code>.catch()</code>, causing unhandled promise rejections.</li>
+        <li>Nesting <code>.then()</code> calls instead of chaining them flat.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>A Promise represents a future value from an async operation, moving through pending, fulfilled, or rejected states, with <code>.then()</code>/<code>.catch()</code>/<code>.finally()</code> callbacks scheduled as microtasks.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xmlhttprequest · Asynchronous JavaScript · JavaScript Mastery</title>
+<meta name="description" content="Xmlhttprequest — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Asynchronous JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="promise.html" class="">Promise</a></li>
+<li><a href="async-await.html" class="">Async Await</a></li>
+<li><a href="fetch.html" class="">Fetch</a></li>
+<li><a href="axios.html" class="">Axios</a></li>
+<li><a href="ajax.html" class="">Ajax</a></li>
+<li><a href="xmlhttprequest.html" class="active">Xmlhttprequest</a></li>
+<li><a href="event-loop.html" class="">Event Loop</a></li>
+<li><a href="call-stack.html" class="">Call Stack</a></li>
+<li><a href="microtask.html" class="">Microtask</a></li>
+<li><a href="macrotask.html" class="">Macrotask</a></li>
+<li><a href="web-api.html" class="">Web Api</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Asynchronous JavaScript</a> / <span>Xmlhttprequest</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>XMLHttpRequest</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p><code>XMLHttpRequest</code> (XHR) is the original browser API for making HTTP requests from JavaScript asynchronously (or synchronously) without reloading the page.</p>
+
+      <h2>Why XMLHttpRequest Matters</h2>
+      <p>It's the low-level foundation that Ajax, jQuery's <code>$.ajax()</code>, and even some polyfills are built on — understanding it helps when maintaining legacy code or needing fine-grained control (like upload progress events) that <code>fetch()</code> doesn't expose as easily.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">const xhr = new XMLHttpRequest();
+xhr.open(method, url);
+xhr.onload = function () { /* handle response */ };
+xhr.onerror = function () { /* handle error */ };
+xhr.send(body);</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">// Beginner
+const xhr = new XMLHttpRequest();
+xhr.open("GET", "/api/data");
+xhr.onload = () => console.log(xhr.responseText);
+xhr.send();
+
+// Advanced: upload progress
+function uploadWithProgress(url, file, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable) onProgress(event.loaded / event.total);
+    };
+    xhr.onload = () => resolve(xhr.responseText);
+    xhr.onerror = () => reject(new Error("Upload failed"));
+    xhr.send(file);
+  });
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+XMLHttpRequest object
+  ├── readyState (0→4)
+  ├── status (e.g. 200, 404)
+  ├── responseText
+  └── event handlers: onload, onerror, onprogress
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Unlike <code>fetch()</code>, <code>XMLHttpRequest</code> uses an <strong>event-based</strong> model (<code>onload</code>, <code>onerror</code>, <code>onprogress</code>, <code>onreadystatechange</code>) rather than Promises, which is why it requires more boilerplate and is commonly wrapped in a Promise for use with <code>async/await</code>.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Forgetting to check <code>xhr.status</code> inside <code>onload</code> (it fires even for 404/500 responses).</li>
+        <li>Not handling <code>onerror</code> for network-level failures.</li>
+        <li>Mixing up <code>responseText</code> (string) with the need to <code>JSON.parse()</code> it.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p><code>XMLHttpRequest</code> is the original, event-driven API for async HTTP requests in the browser — more verbose than <code>fetch()</code>, but still valuable for features like upload progress tracking.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
