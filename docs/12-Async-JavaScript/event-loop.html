@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Loop · Asynchronous JavaScript · JavaScript Mastery</title>
+<meta name="description" content="Event Loop — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Asynchronous JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="promise.html" class="">Promise</a></li>
+<li><a href="async-await.html" class="">Async Await</a></li>
+<li><a href="fetch.html" class="">Fetch</a></li>
+<li><a href="axios.html" class="">Axios</a></li>
+<li><a href="ajax.html" class="">Ajax</a></li>
+<li><a href="xmlhttprequest.html" class="">Xmlhttprequest</a></li>
+<li><a href="event-loop.html" class="active">Event Loop</a></li>
+<li><a href="call-stack.html" class="">Call Stack</a></li>
+<li><a href="microtask.html" class="">Microtask</a></li>
+<li><a href="macrotask.html" class="">Macrotask</a></li>
+<li><a href="web-api.html" class="">Web Api</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Asynchronous JavaScript</a> / <span>Event Loop</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Event Loop</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>The Event Loop is the mechanism that allows JavaScript — a single-threaded language — to perform non-blocking asynchronous operations by coordinating the Call Stack, Web APIs, and task queues.</p>
+
+      <h2>Why the Event Loop Matters</h2>
+      <p>It's the reason JavaScript can handle things like <code>setTimeout</code>, network requests, and UI events without freezing the page, despite having only one thread of execution.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">console.log("1");
+setTimeout(() => console.log("2"), 0);
+Promise.resolve().then(() => console.log("3"));
+console.log("4");
+// Output: 1, 4, 3, 2</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">console.log("Start");
+setTimeout(() => console.log("Timeout"), 0);
+Promise.resolve().then(() => console.log("Promise"));
+console.log("End");
+// Start, End, Promise, Timeout</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Run all synchronous code (Call Stack)
+        │
+Call Stack empty?
+        │ Yes
+        ▼
+Run ALL microtasks (Promises) until queue is empty
+        │
+Run ONE macrotask (e.g. one setTimeout callback)
+        │
+Repeat: check microtasks again, then next macrotask...
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>On every iteration ("tick"), the event loop first drains the <strong>entire microtask queue</strong> completely before picking even a single task from the macrotask queue — this is why Promises always run before <code>setTimeout</code>, even a <code>setTimeout(fn, 0)</code>.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Assuming <code>setTimeout(fn, 0)</code> runs immediately/synchronously.</li>
+        <li>Forgetting that ALL queued microtasks run before the next single macrotask.</li>
+        <li>Confusing "asynchronous" with "multi-threaded" — JS remains single-threaded.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>The event loop is what lets single-threaded JavaScript stay non-blocking: it continuously moves completed async work from Web APIs into the microtask/macrotask queues, always draining microtasks before macrotasks.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
