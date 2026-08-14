@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Api · Asynchronous JavaScript · JavaScript Mastery</title>
+<meta name="description" content="Web Api — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Asynchronous JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="promise.html" class="">Promise</a></li>
+<li><a href="async-await.html" class="">Async Await</a></li>
+<li><a href="fetch.html" class="">Fetch</a></li>
+<li><a href="axios.html" class="">Axios</a></li>
+<li><a href="ajax.html" class="">Ajax</a></li>
+<li><a href="xmlhttprequest.html" class="">Xmlhttprequest</a></li>
+<li><a href="event-loop.html" class="">Event Loop</a></li>
+<li><a href="call-stack.html" class="">Call Stack</a></li>
+<li><a href="microtask.html" class="">Microtask</a></li>
+<li><a href="macrotask.html" class="">Macrotask</a></li>
+<li><a href="web-api.html" class="active">Web Api</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Asynchronous JavaScript</a> / <span>Web Api</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Web API</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Web APIs are browser-provided (not part of the JavaScript language itself) interfaces — like <code>setTimeout</code>, <code>fetch</code>, the DOM, and <code>localStorage</code> — that JavaScript engines use to perform tasks the core language can't do alone.</p>
+
+      <h2>Why Web APIs Matter</h2>
+      <p>JavaScript, as a language (ECMAScript), has no built-in concept of timers, DOM manipulation, or network requests — all of that is supplied by the <strong>runtime environment</strong> (browser or Node.js) via Web APIs.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">setTimeout(() => {}, 1000);       // Timers API
+fetch("/api/data");               // Fetch API
+document.querySelector("body");   // DOM API
+localStorage.setItem("key", "v"); // Web Storage API</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">console.log("Start");
+setTimeout(() => console.log("From Web API"), 1000);
+console.log("End");
+
+// Web Workers: run scripts on a separate thread
+const worker = new Worker("worker.js");
+worker.postMessage({ task: "heavy computation" });
+worker.onmessage = (e) => console.log("Result:", e.data);</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+JS Engine (Call Stack, Heap)
+        │
+        │  hands off async work
+        ▼
+Browser Web APIs (Timers, DOM, Fetch, etc.)
+        │
+        │  when ready, pushes callback to...
+        ▼
+Task Queue ──► back into Call Stack via Event Loop
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>The JavaScript engine (like V8) implements only the ECMAScript language itself; features like <code>setTimeout</code>, <code>fetch</code>, and the DOM are implemented separately by the host environment and exposed to JS as global objects/functions.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Assuming <code>setTimeout</code>/<code>fetch</code>/DOM methods are part of the JavaScript language spec itself.</li>
+        <li>Expecting browser-only APIs (like <code>document</code>) to exist in Node.js.</li>
+        <li>Not realizing Web Workers don't share memory directly — communication is via message passing only.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Web APIs are the browser's (or Node's) contribution to what feels like "JavaScript" — timers, network requests, DOM access, storage — none of which are part of the core language itself.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
