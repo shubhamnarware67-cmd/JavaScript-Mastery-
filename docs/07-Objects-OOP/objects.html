@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Objects · Objects & OOP · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Objects & OOP</div>
+    <ul class="nav-list">
+      <li><a href="objects.html" class="active">Objects</a></li>
+<li><a href="prototype.html" class="">Prototype</a></li>
+<li><a href="prototype-chain.html" class="">Prototype Chain</a></li>
+<li><a href="classes.html" class="">Classes</a></li>
+<li><a href="inheritance.html" class="">Inheritance</a></li>
+<li><a href="encapsulation.html" class="">Encapsulation</a></li>
+<li><a href="polymorphism.html" class="">Polymorphism</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Objects & OOP</a> / <span>Objects</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Objects</h1>
+<blockquote>
+<p>Section: Objects &amp; OOP · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>An object is a collection of key-value pairs (properties), where values can be primitives, other objects, or functions (methods) — JavaScript's core structure for representing structured data and behavior.</p>
+<h2>History</h2>
+<p>Objects have existed since JavaScript's creation in 1995; object literal shorthand, computed property names, and spread syntax for objects were added incrementally, mostly in ES2015 and ES2018.</p>
+<h2>Why Objects Matter</h2>
+<p>Nearly all non-trivial data in JS (API responses, configuration, application state) is represented as objects — understanding their creation, access, and manipulation is foundational.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">const user = {
+  name: &quot;Shubham&quot;,
+  age: 22,
+  greet() {
+    return `Hi, I'm ${this.name}`;
+  }
+};
+</code></pre>
+<h2>Types (ways to create objects)</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Object literal</td>
+<td><code>{ key: "value" }</code></td>
+</tr>
+<tr>
+<td><code>new Object()</code></td>
+<td><code>new Object()</code></td>
+</tr>
+<tr>
+<td><code>Object.create()</code></td>
+<td><code>Object.create(proto)</code></td>
+</tr>
+<tr>
+<td>Constructor function</td>
+<td><code>new Person("Shubham")</code></td>
+</tr>
+<tr>
+<td>Class</td>
+<td><code>new Person("Shubham")</code> (class syntax)</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const car = { brand: &quot;Toyota&quot;, year: 2022 };
+console.log(car.brand);      // dot notation
+console.log(car[&quot;year&quot;]);     // bracket notation
+car.color = &quot;blue&quot;;           // add property
+delete car.year;               // remove property
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Stack                    Heap
+┌───────────────┐      ┌──────────────────────────┐
+│ car → (ref) ────────►│ { brand: &quot;Toyota&quot;,           │
+└───────────────┘      │   color: &quot;blue&quot; }            │
+                        └──────────────────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Need structured, named data?
+        │
+       Yes
+        │
+Use an object literal { key: value }
+        │
+Need many similar objects with shared behavior?
+        │
+       Yes ──► Consider a constructor function or class instead
+</code></pre>
+<h2>Internal Working</h2>
+<p>Objects are reference types stored on the heap; property access (<code>obj.key</code>) is resolved first by checking the object's own properties, then walking up its prototype chain if not found directly.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const person = { name: &quot;Shubham&quot;, city: &quot;Indore&quot; };
+console.log(`${person.name} lives in ${person.city}`);
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Object destructuring and shorthand property names
+const name = &quot;Shubham&quot;, age = 22;
+const user = { name, age }; // shorthand — same as { name: name, age: age }
+const { name: userName, age: userAge } = user;
+console.log(userName, userAge);
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Computed property names and Object methods
+const key = &quot;role&quot;;
+const employee = { [key]: &quot;Developer&quot; };
+console.log(Object.keys(employee));    // [&quot;role&quot;]
+console.log(Object.entries(employee)); // [[&quot;role&quot;, &quot;Developer&quot;]]
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Representing an API response as an object
+const apiResponse = {
+  status: 200,
+  data: { id: 1, name: &quot;Shubham&quot; },
+  timestamp: Date.now()
+};
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Config objects are ubiquitous in real tooling (webpack.config.js, etc.)
+module.exports = {
+  mode: &quot;production&quot;,
+  entry: &quot;./src/index.js&quot;,
+  output: { filename: &quot;bundle.js&quot; }
+};
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#objects">interview.md</a>
+1. What are the different ways to create an object in JavaScript?
+2. What's the difference between dot notation and bracket notation for property access?
+3. What are computed property names, and when are they useful?
+4. How does JavaScript resolve a property access that isn't found directly on an object?
+5. What's the difference between <code>Object.keys()</code>, <code>Object.values()</code>, and <code>Object.entries()</code>?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#objects">mcq.md</a>
+1. Which notation is required for property names with spaces? (a) Dot notation (b) <strong>Bracket notation</strong> (c) Neither (d) Both equally → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#objects">practice.md</a>
+1. <strong>(Easy)</strong> Create an object representing a book (title, author, year) and log each property.
+2. <strong>(Medium)</strong> Use destructuring to extract 3 properties from a nested object, renaming one.
+3. <strong>(Hard)</strong> Write a function that deeply merges two objects (nested properties combined, not overwritten wholesale).</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Create an object using all 3 major creation methods (literal, constructor function, <code>Object.create</code>).</li>
+<li>[ ] Explain, with an example, when bracket notation is required instead of dot notation.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple "Contact Card" object with nested address/phone data, and write functions to update and display formatted contact information.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using dot notation with dynamic/variable property names (only works with bracket notation).</li>
+<li>Assuming object property order is guaranteed identically to insertion order for all key types (mostly true for string keys in practice, but numeric-like keys are reordered).</li>
+<li>Confusing shallow vs deep copying when duplicating objects with nested data.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use object literal shorthand and destructuring for cleaner, more readable code.</li>
+<li>Prefer <code>Object.freeze()</code> for objects that should never change after creation.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Keep object shapes (property sets) consistent across similar objects to help JS engines optimize property access via internal "hidden classes."</li>
+</ul>
+<h2>Summary</h2>
+<p>Objects are JavaScript's fundamental structure for representing key-value data and behavior — created via literals, constructors, or classes, and manipulated through dot/bracket notation, destructuring, and the <code>Object</code> static methods.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#objects">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="prototype.html">Prototype →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
