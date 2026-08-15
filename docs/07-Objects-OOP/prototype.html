@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototype · Objects & OOP · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Objects & OOP</div>
+    <ul class="nav-list">
+      <li><a href="objects.html" class="">Objects</a></li>
+<li><a href="prototype.html" class="active">Prototype</a></li>
+<li><a href="prototype-chain.html" class="">Prototype Chain</a></li>
+<li><a href="classes.html" class="">Classes</a></li>
+<li><a href="inheritance.html" class="">Inheritance</a></li>
+<li><a href="encapsulation.html" class="">Encapsulation</a></li>
+<li><a href="polymorphism.html" class="">Polymorphism</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Objects & OOP</a> / <span>Prototype</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Prototype</h1>
+<blockquote>
+<p>Section: Objects &amp; OOP · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Every JavaScript object has an internal link to another object called its <strong>prototype</strong>, from which it can inherit properties and methods — the mechanism underlying JS's object-oriented behavior.</p>
+<h2>History</h2>
+<p>Prototypal inheritance has been core to JavaScript since 1995 — a deliberate design choice by Brendan Eich, distinct from the class-based inheritance of languages like Java (which JS's syntax was superficially made to resemble for marketing reasons).</p>
+<h2>Why Prototypes Matter</h2>
+<p>Understanding prototypes explains how methods like <code>.map()</code> or <code>.toString()</code> are available on every array/object without being copied onto each instance individually, and is the real mechanism behind <code>class</code> syntax.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">function Person(name) {
+  this.name = name;
+}
+Person.prototype.greet = function () {
+  return `Hi, I'm ${this.name}`;
+};
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Object.prototype</code></td>
+<td>The root prototype most objects inherit from</td>
+</tr>
+<tr>
+<td><code>Function.prototype</code></td>
+<td>Shared methods for all functions (<code>call</code>, <code>apply</code>, <code>bind</code>)</td>
+</tr>
+<tr>
+<td><code>Array.prototype</code></td>
+<td>Shared methods for all arrays (<code>map</code>, <code>filter</code>, etc)</td>
+</tr>
+<tr>
+<td><code>__proto__</code></td>
+<td>The (legacy, discouraged) accessor for an object's prototype</td>
+</tr>
+<tr>
+<td><code>Object.getPrototypeOf()</code></td>
+<td>Modern way to read an object's prototype</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">function Person(name) {
+  this.name = name;
+}
+Person.prototype.greet = function () {
+  return `Hi, I'm ${this.name}`;
+};
+const p1 = new Person(&quot;Shubham&quot;);
+const p2 = new Person(&quot;Narware&quot;);
+console.log(p1.greet()); // &quot;Hi, I'm Shubham&quot;
+// Both p1 and p2 SHARE the same greet function via the prototype — not duplicated per instance
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">p1 ──► Person.prototype ──► Object.prototype ──► null
+       (has greet())         (has toString(), etc.)
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Access obj.property
+        │
+Does obj have this property directly (own property)?
+        │                              │
+       Yes                            No
+        │                              │
+Return it                    Walk up to obj's prototype
+                              and repeat the check there
+                                        │
+                              Reached null (end of chain)? ──► return undefined
+</code></pre>
+<h2>Internal Working</h2>
+<p>When you access a property, the engine first checks the object's own properties; if not found, it walks up the <strong>prototype chain</strong> (object → its prototype → that prototype's prototype → ... → <code>Object.prototype</code> → <code>null</code>), returning the first match found, or <code>undefined</code> if the chain ends without one.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const arr = [1, 2, 3];
+console.log(arr.map); // a function — inherited from Array.prototype, not defined on `arr` itself
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">function Animal(name) {
+  this.name = name;
+}
+Animal.prototype.speak = function () {
+  return `${this.name} makes a sound.`;
+};
+const dog = new Animal(&quot;Rex&quot;);
+console.log(dog.speak()); // &quot;Rex makes a sound.&quot;
+console.log(dog.hasOwnProperty(&quot;speak&quot;)); // false — it's on the prototype, not the instance
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Manually setting up prototype-based &quot;inheritance&quot; (pre-class syntax)
+function Dog(name) {
+  Animal.call(this, name); // borrow Animal's constructor logic
+}
+Dog.prototype = Object.create(Animal.prototype); // link Dog's prototype to Animal's
+Dog.prototype.constructor = Dog;
+const rex = new Dog(&quot;Rex&quot;);
+console.log(rex.speak()); // &quot;Rex makes a sound.&quot; — inherited via the prototype chain
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Every array &quot;inherits&quot; its methods this way
+console.log([1,2,3].__proto__ === Array.prototype); // true
+console.log(Array.prototype.__proto__ === Object.prototype); // true
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// `class` syntax is syntax sugar over exactly this prototype mechanism —
+// understanding prototypes explains what's really happening under a `class`.
+class Animal2 {
+  speak() { return &quot;sound&quot;; }
+}
+console.log(typeof Animal2.prototype.speak); // &quot;function&quot; — same underlying mechanism
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#prototype">interview.md</a>
+1. What is a prototype, and what problem does it solve?
+2. How does the JS engine resolve a property that isn't found directly on an object?
+3. What's the difference between <code>__proto__</code> and <code>prototype</code>?
+4. How would you manually set up prototype-based inheritance without <code>class</code> syntax?
+5. Is <code>class</code> syntax a completely different inheritance mechanism, or syntax sugar over prototypes?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#prototype">mcq.md</a>
+1. Array methods like <code>.map()</code> are defined on: (a) Each array instance individually (b) <strong><code>Array.prototype</code></strong>, shared by all arrays (c) <code>Object</code> only (d) Nowhere, they're built-in magic → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#prototype">practice.md</a>
+1. <strong>(Easy)</strong> Add a method to a constructor function's prototype and call it from two different instances.
+2. <strong>(Medium)</strong> Demonstrate that a prototype method is NOT an "own property" using <code>hasOwnProperty()</code>.
+3. <strong>(Hard)</strong> Manually implement prototype-based inheritance (without <code>class</code>) for a <code>Dog</code> "extending" an <code>Animal</code>.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Draw the prototype chain for an array literal, ending at <code>null</code>.</li>
+<li>[ ] Explain, with an example, why shared prototype methods are more memory-efficient than copying methods onto every instance.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Shape" prototype hierarchy manually (without <code>class</code>): a base <code>Shape</code> constructor with an <code>area()</code> stub, and <code>Circle</code>/<code>Rectangle</code> "subtypes" linked via <code>Object.create()</code>.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Confusing <code>prototype</code> (a property on constructor functions) with <code>__proto__</code> (the actual link on instances).</li>
+<li>Assuming prototype methods are copied onto each instance (they're shared via the chain, not duplicated).</li>
+<li>Modifying built-in prototypes (<code>Array.prototype</code>) directly in production code — strongly discouraged, causes hard-to-debug conflicts.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer <code>class</code> syntax for readability in modern code — it compiles down to the same prototype mechanism.</li>
+<li>Never modify built-in prototypes (<code>Array.prototype</code>, <code>Object.prototype</code>) in application code.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Defining methods on the prototype (rather than inside the constructor via <code>this.method = function(){}</code>) ensures they're shared, not duplicated per instance — a meaningful memory saving for many instances.</li>
+</ul>
+<h2>Summary</h2>
+<p>Every JavaScript object links to a prototype object, forming a chain the engine walks when resolving properties not found directly on the object — this prototype mechanism, not classical inheritance, is the real foundation beneath JS's <code>class</code> syntax.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#prototype">cheat-sheet.md</a></p>
+<hr />
+<p><a href="objects.html">← Objects</a> | <a href="README.html">Section Home</a> | <a href="prototype-chain.html">Prototype Chain →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
