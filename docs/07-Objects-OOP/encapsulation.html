@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encapsulation · Objects & OOP · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Objects & OOP</div>
+    <ul class="nav-list">
+      <li><a href="objects.html" class="">Objects</a></li>
+<li><a href="prototype.html" class="">Prototype</a></li>
+<li><a href="prototype-chain.html" class="">Prototype Chain</a></li>
+<li><a href="classes.html" class="">Classes</a></li>
+<li><a href="inheritance.html" class="">Inheritance</a></li>
+<li><a href="encapsulation.html" class="active">Encapsulation</a></li>
+<li><a href="polymorphism.html" class="">Polymorphism</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Objects & OOP</a> / <span>Encapsulation</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Encapsulation</h1>
+<blockquote>
+<p>Section: Objects &amp; OOP · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Encapsulation is the OOP principle of bundling data and the methods that operate on it together, while restricting direct external access to internal state — exposing only a controlled interface.</p>
+<h2>History</h2>
+<p>A foundational OOP concept long predating JavaScript; JS historically approximated it via closures and naming conventions (<code>_property</code>), until true private class fields (<code>#field</code>) arrived in <strong>ES2022</strong>.</p>
+<h2>Why Encapsulation Matters</h2>
+<p>It protects internal state from invalid external modification, letting objects enforce their own rules (validation, consistency) rather than trusting external code to behave correctly.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">class Account {
+  #balance = 0; // truly private (ES2022)
+  deposit(amount) {
+    if (amount &gt; 0) this.#balance += amount;
+  }
+  getBalance() {
+    return this.#balance;
+  }
+}
+</code></pre>
+<h2>Types (approaches to encapsulation in JS)</h2>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Privacy Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Closures (module pattern)</td>
+<td>True privacy, pre-ES2022</td>
+</tr>
+<tr>
+<td><code>_property</code> naming convention</td>
+<td>Convention only — NOT enforced</td>
+</tr>
+<tr>
+<td><code>#privateField</code> (ES2022)</td>
+<td>True privacy, enforced by the engine</td>
+</tr>
+<tr>
+<td><code>WeakMap</code>-based privacy</td>
+<td>True privacy, used in some libraries pre-ES2022</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">class BankAccount {
+  #balance;
+  constructor(initial) {
+    this.#balance = initial;
+  }
+  withdraw(amount) {
+    if (amount &gt; this.#balance) {
+      throw new Error(&quot;Insufficient funds&quot;);
+    }
+    this.#balance -= amount;
+    return this.#balance;
+  }
+}
+const acc = new BankAccount(100);
+console.log(acc.withdraw(30)); // 70
+// console.log(acc.#balance); // ❌ SyntaxError — truly inaccessible from outside
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">BankAccount instance
+┌─────────────────────────┐
+│ #balance  (NOT accessible    │  ← truly private, engine-enforced
+│            from outside)      │
+│ withdraw(), getBalance()      │  ← public interface
+└─────────────────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">External code wants to change balance
+        │
+Must go through a public method (withdraw/deposit)
+        │
+Method validates the request (e.g. sufficient funds?)
+        │
+   ┌────┴────┐
+ Valid      Invalid
+   │           │
+Update      Reject (throw error / return unchanged)
+#balance
+</code></pre>
+<h2>Internal Working</h2>
+<p>Fields prefixed with <code>#</code> are a genuinely distinct syntax the parser enforces — any attempt to access <code>obj.#field</code> from outside the class body is a <code>SyntaxError</code> at parse time, not just a runtime convention like <code>_field</code> naming.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">class Person {
+  #age;
+  constructor(age) {
+    this.#age = age;
+  }
+  getAge() {
+    return this.#age;
+  }
+}
+const p = new Person(25);
+console.log(p.getAge()); // 25
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Pre-ES2022 encapsulation via closures (module pattern)
+function createCounter() {
+  let count = 0; // private via closure, not class syntax
+  return {
+    increment: () =&gt; ++count,
+    getCount: () =&gt; count
+  };
+}
+const counter = createCounter();
+counter.increment();
+console.log(counter.getCount()); // 1
+// `count` is inaccessible directly from outside — same encapsulation goal, different mechanism
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Combining private fields with validation logic in setters
+class Temperature {
+  #celsius;
+  constructor(celsius) {
+    this.#celsius = celsius;
+  }
+  set celsius(value) {
+    if (value &lt; -273.15) throw new Error(&quot;Below absolute zero!&quot;);
+    this.#celsius = value;
+  }
+  get fahrenheit() {
+    return (this.#celsius * 9) / 5 + 32;
+  }
+}
+const temp = new Temperature(25);
+console.log(temp.fahrenheit); // 77
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// API client hiding internal auth token, exposing only safe methods
+class ApiClient {
+  #token;
+  constructor(token) {
+    this.#token = token;
+  }
+  async get(path) {
+    return fetch(path, { headers: { Authorization: `Bearer ${this.#token}` } });
+  }
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Libraries frequently hide implementation details behind private fields/closures
+// so internal refactors don't break consumers relying only on the public API surface.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#encapsulation">interview.md</a>
+1. What is encapsulation, and why does it matter in OOP?
+2. What's the difference between <code>_property</code> convention and <code>#property</code> true privacy?
+3. How did developers achieve encapsulation before ES2022's private fields?
+4. Why might a class expose a getter but not a public setter for a property?
+5. What happens if you try to access a <code>#privateField</code> from outside its class?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#encapsulation">mcq.md</a>
+1. <code>#field</code> syntax was introduced in: (a) ES2015 (b) ES2018 (c) <strong>ES2022</strong> (d) ES2023 → <strong>Answer: (c)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#encapsulation">practice.md</a>
+1. <strong>(Easy)</strong> Create a class with a <code>#private</code> field and a public getter for it.
+2. <strong>(Medium)</strong> Add setter validation to a class that rejects invalid values for a private field.
+3. <strong>(Hard)</strong> Reimplement a class's private-field encapsulation using the closure/module pattern instead, and compare the two approaches.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with a code example, why <code>_balance</code> (underscore convention) is NOT true encapsulation.</li>
+<li>[ ] Convert a closure-based private-state object into an equivalent class using <code>#private</code> fields.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a <code>Temperature</code> class with a private Celsius field, validated setters preventing physically impossible values, and computed getters for Fahrenheit/Kelvin.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Relying on <code>_property</code> naming as if it were enforced privacy (it's purely a convention — fully accessible from outside).</li>
+<li>Forgetting <code>#fields</code> must be declared in the class body (can't be added dynamically like regular properties).</li>
+<li>Exposing a public setter without validation, defeating the purpose of encapsulating the field in the first place.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>#private</code> fields for genuine internal state that shouldn't be modified directly from outside.</li>
+<li>Expose only the minimal public interface (getters/methods) actually needed by consumers of the class.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Private fields have no meaningful performance cost over public ones — the choice is purely about API design and safety.</li>
+</ul>
+<h2>Summary</h2>
+<p>Encapsulation bundles data with the methods that safely operate on it, restricting direct external access — modern JavaScript enforces this properly via <code>#private</code> class fields (ES2022), building on older closure-based patterns used before that syntax existed.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#encapsulation">cheat-sheet.md</a></p>
+<hr />
+<p><a href="inheritance.html">← Inheritance</a> | <a href="README.html">Section Home</a> | <a href="polymorphism.html">Polymorphism →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototype Chain · Objects & OOP · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Objects & OOP</div>
+    <ul class="nav-list">
+      <li><a href="objects.html" class="">Objects</a></li>
+<li><a href="prototype.html" class="">Prototype</a></li>
+<li><a href="prototype-chain.html" class="active">Prototype Chain</a></li>
+<li><a href="classes.html" class="">Classes</a></li>
+<li><a href="inheritance.html" class="">Inheritance</a></li>
+<li><a href="encapsulation.html" class="">Encapsulation</a></li>
+<li><a href="polymorphism.html" class="">Polymorphism</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Objects & OOP</a> / <span>Prototype Chain</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Prototype Chain</h1>
+<blockquote>
+<p>Section: Objects &amp; OOP · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The prototype chain is the linked sequence of prototype objects (object → its prototype → that prototype's prototype → ... → <code>null</code>) that JavaScript walks to resolve property/method lookups.</p>
+<h2>History</h2>
+<p>Part of JavaScript's design since 1995, as the mechanism enabling shared behavior between objects without classical classes.</p>
+<h2>Why the Prototype Chain Matters</h2>
+<p>It explains how deeply nested inheritance hierarchies resolve properties, and why methods like <code>toString()</code> are available even on objects that never explicitly defined them.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">Object.getPrototypeOf(obj); // read an object's prototype
+Object.setPrototypeOf(obj, proto); // set an object's prototype (use sparingly)
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — the prototype chain is a single conceptual structure, though its length/shape varies per object hierarchy.</p>
+<h2>Examples</h2>
+<pre><code class="language-js">const animal = { eats: true };
+const rabbit = Object.create(animal);
+rabbit.jumps = true;
+
+console.log(rabbit.jumps); // true (own property)
+console.log(rabbit.eats);  // true (inherited via prototype chain)
+console.log(Object.getPrototypeOf(rabbit) === animal); // true
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">rabbit ──► animal ──► Object.prototype ──► null
+(jumps)    (eats)      (toString, etc.)
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Access rabbit.eats
+        │
+Is `eats` an own property of rabbit? ──No──► check rabbit's prototype (animal)
+        │
+Is `eats` an own property of animal? ──Yes──► return animal.eats (true)
+</code></pre>
+<h2>Internal Working</h2>
+<p>Each step up the chain is a real object reference (not a copy) — so changes to a prototype object are immediately visible to every object that inherits from it, since lookups always traverse live references at access time, not at creation time.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const obj = {};
+console.log(obj.toString()); // &quot;[object Object]&quot; — inherited from Object.prototype
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Multi-level chain
+const base = { greet: () =&gt; &quot;Hello from base&quot; };
+const middle = Object.create(base);
+const top = Object.create(middle);
+console.log(top.greet()); // &quot;Hello from base&quot; — resolved by walking up 2 levels
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Shadowing — an own property &quot;hides&quot; an inherited one with the same name
+const base2 = { greet: () =&gt; &quot;base greet&quot; };
+const child = Object.create(base2);
+child.greet = () =&gt; &quot;child's own greet&quot;; // shadows the inherited one
+console.log(child.greet()); // &quot;child's own greet&quot;
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Checking inheritance relationships with instanceof
+class Animal {}
+class Dog extends Animal {}
+const rex = new Dog();
+console.log(rex instanceof Dog);    // true
+console.log(rex instanceof Animal); // true — Animal is in Dog's prototype chain
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Debugging &quot;why does this object have that method?&quot; often means
+// inspecting the prototype chain in DevTools (expand `[[Prototype]]` in the console)
+console.log(Object.getPrototypeOf([]));               // Array.prototype
+console.log(Object.getPrototypeOf(Array.prototype));   // Object.prototype
+console.log(Object.getPrototypeOf(Object.prototype));  // null — end of chain
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#prototype-chain">interview.md</a>
+1. What is the prototype chain, in your own words?
+2. What happens when the engine reaches the end of the prototype chain (<code>null</code>) without finding a property?
+3. What is "shadowing" in the context of the prototype chain?
+4. How does <code>instanceof</code> relate to the prototype chain?
+5. Why are changes to a prototype object visible to all objects inheriting from it, immediately?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#prototype-chain">mcq.md</a>
+1. The prototype chain always ends at: (a) <code>undefined</code> (b) <strong><code>null</code></strong> (c) <code>Object</code> (d) The global object → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#prototype-chain">practice.md</a>
+1. <strong>(Easy)</strong> Create an object with <code>Object.create()</code> and verify inherited properties via the chain.
+2. <strong>(Medium)</strong> Demonstrate property shadowing — an own property overriding an inherited one of the same name.
+3. <strong>(Hard)</strong> Build a 3-level prototype chain and trace, step-by-step, how a property lookup resolves through it.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Diagram the prototype chain for a <code>class Dog extends Animal</code> instance, all the way to <code>null</code>.</li>
+<li>[ ] Explain, with a code example, why mutating a shared prototype object affects all objects that inherit from it.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small 3-level prototype hierarchy (<code>Vehicle</code> → <code>Car</code> → <code>SportsCar</code>) manually with <code>Object.create()</code>, demonstrating property inheritance and shadowing at each level.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming inherited properties are copied at creation time rather than resolved live at access time.</li>
+<li>Confusing "shadowing" (an own property hiding an inherited one) with actually modifying the inherited property.</li>
+<li>Overusing <code>Object.setPrototypeOf()</code> at runtime, which is slow and generally discouraged — prefer setting up the chain at creation time.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>class</code>/<code>extends</code> syntax for readability; understand it compiles to prototype chain linking underneath.</li>
+<li>Use <code>Object.create(null)</code> when you need an object with NO prototype chain at all (e.g. a pure dictionary/map use case).</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Very long prototype chains slow down property lookups (each miss requires walking further) — keep hierarchies reasonably shallow for hot code paths.</li>
+</ul>
+<h2>Summary</h2>
+<p>The prototype chain is the sequence of linked objects JavaScript walks to resolve properties not found directly on an object, ending at <code>null</code> — it's the real mechanism behind inheritance, shared methods, and even <code>class</code>/<code>extends</code> syntax.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#prototype-chain">cheat-sheet.md</a></p>
+<hr />
+<p><a href="prototype.html">← Prototype</a> | <a href="README.html">Section Home</a> | <a href="classes.html">Classes →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

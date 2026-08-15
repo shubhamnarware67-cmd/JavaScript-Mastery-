@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inheritance · Objects & OOP · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Objects & OOP</div>
+    <ul class="nav-list">
+      <li><a href="objects.html" class="">Objects</a></li>
+<li><a href="prototype.html" class="">Prototype</a></li>
+<li><a href="prototype-chain.html" class="">Prototype Chain</a></li>
+<li><a href="classes.html" class="">Classes</a></li>
+<li><a href="inheritance.html" class="active">Inheritance</a></li>
+<li><a href="encapsulation.html" class="">Encapsulation</a></li>
+<li><a href="polymorphism.html" class="">Polymorphism</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Objects & OOP</a> / <span>Inheritance</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Inheritance</h1>
+<blockquote>
+<p>Section: Objects &amp; OOP · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Inheritance lets one class (or object) acquire the properties and methods of another, enabling code reuse and the modeling of "is-a" relationships (a <code>Dog</code> <strong>is an</strong> <code>Animal</code>).</p>
+<h2>History</h2>
+<p>Prototypal inheritance has existed since 1995; the <code>extends</code>/<code>super</code> class syntax was introduced in <strong>ES2015</strong> to express it more readably.</p>
+<h2>Why Inheritance Matters</h2>
+<p>It avoids duplicating shared logic across related types, letting a "child" class build on and specialize a "parent" class's behavior.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">class Child extends Parent {
+  constructor(...args) {
+    super(...args); // calls Parent's constructor
+  }
+}
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>extends</code></td>
+<td>Establishes the parent-child class relationship</td>
+</tr>
+<tr>
+<td><code>super()</code></td>
+<td>Calls the parent constructor from the child</td>
+</tr>
+<tr>
+<td><code>super.method()</code></td>
+<td>Calls a parent's method from an overriding child method</td>
+</tr>
+<tr>
+<td>Method overriding</td>
+<td>Child redefines a method inherited from the parent</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    return `${this.name} makes a sound.`;
+  }
+}
+class Dog extends Animal {
+  speak() {
+    return `${this.name} barks.`;
+  }
+}
+const rex = new Dog(&quot;Rex&quot;);
+console.log(rex.speak()); // &quot;Rex barks.&quot; — overridden method
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Dog.prototype ──► Animal.prototype ──► Object.prototype ──► null
+(speak - overridden)  (speak - original, name)
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">new Dog(&quot;Rex&quot;)
+        │
+Dog's constructor runs, calls super(&quot;Rex&quot;)
+        │
+Animal's constructor runs, sets this.name = &quot;Rex&quot;
+        │
+Control returns to Dog's constructor (any additional setup runs)
+        │
+rex.speak() called ──► Dog.prototype has its OWN speak() ──► used instead of Animal's
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>class Dog extends Animal</code> sets <code>Dog.prototype</code>'s internal prototype to <code>Animal.prototype</code>, so instances of <code>Dog</code> can access both <code>Dog</code>'s own methods and (via the prototype chain) any of <code>Animal</code>'s methods not overridden; <code>super()</code> must be called before using <code>this</code> in a subclass constructor.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">class Vehicle {
+  constructor(brand) {
+    this.brand = brand;
+  }
+}
+class Car extends Vehicle {
+  constructor(brand, model) {
+    super(brand);
+    this.model = model;
+  }
+}
+const myCar = new Car(&quot;Toyota&quot;, &quot;Corolla&quot;);
+console.log(myCar.brand, myCar.model); // &quot;Toyota&quot; &quot;Corolla&quot;
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Calling the parent's method via super.method() from an overriding child method
+class Animal {
+  speak() { return &quot;Some generic sound&quot;; }
+}
+class Dog extends Animal {
+  speak() {
+    return `${super.speak()}, specifically a bark`;
+  }
+}
+console.log(new Dog().speak()); // &quot;Some generic sound, specifically a bark&quot;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Multi-level inheritance chain
+class Animal {
+  constructor(name) { this.name = name; }
+  speak() { return `${this.name} makes a sound.`; }
+}
+class Dog extends Animal {
+  speak() { return `${this.name} barks.`; }
+}
+class Puppy extends Dog {
+  speak() { return `${super.speak()} (but it's just a little yip!)`; }
+}
+console.log(new Puppy(&quot;Rex&quot;).speak());
+// &quot;Rex barks. (but it's just a little yip!)&quot;
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// UI component hierarchies commonly use inheritance for shared base behavior
+class Component {
+  render() { throw new Error(&quot;Must implement render()&quot;); }
+}
+class Button extends Component {
+  render() { return &quot;&lt;button&gt;Click&lt;/button&gt;&quot;; }
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Custom Error subclasses in production error-handling code
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = &quot;ValidationError&quot;;
+  }
+}
+try {
+  throw new ValidationError(&quot;Invalid input&quot;);
+} catch (e) {
+  console.log(e.name, e.message); // &quot;ValidationError&quot; &quot;Invalid input&quot;
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#inheritance">interview.md</a>
+1. What does <code>extends</code> actually do under the hood?
+2. Why must <code>super()</code> be called before using <code>this</code> in a subclass constructor?
+3. What's the difference between overriding a method and calling <code>super.method()</code>?
+4. Can a class extend a built-in like <code>Error</code> or <code>Array</code>? Give an example.
+5. What are the risks of very deep inheritance chains?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#inheritance">mcq.md</a>
+1. <code>super()</code> in a subclass constructor: (a) Is optional always (b) <strong>Calls the parent class's constructor</strong> (c) Calls a static method (d) Deletes <code>this</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#inheritance">practice.md</a>
+1. <strong>(Easy)</strong> Create a <code>Shape</code> base class and a <code>Circle</code> subclass extending it.
+2. <strong>(Medium)</strong> Override a method in a subclass, then also call the parent's version via <code>super.method()</code>.
+3. <strong>(Hard)</strong> Build a 3-level inheritance chain (<code>Animal</code> → <code>Dog</code> → <code>Puppy</code>), each level adding to the previous <code>speak()</code> output.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Create a custom Error subclass and demonstrate catching it with the correct <code>.name</code>.</li>
+<li>[ ] Explain, with an example, why deep inheritance chains can become hard to maintain (the "fragile base class" problem).</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small shape hierarchy: <code>Shape</code> (base, with an abstract <code>area()</code> that throws if not overridden), <code>Circle</code>, and <code>Rectangle</code>, each correctly overriding <code>area()</code>.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting to call <code>super()</code> in a subclass constructor before using <code>this</code>.</li>
+<li>Overusing deep inheritance chains where composition would be clearer and more flexible.</li>
+<li>Assuming <code>extends</code> works only with custom classes (built-ins like <code>Error</code> and <code>Array</code> can also be extended).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer shallow inheritance hierarchies (1-2 levels); consider composition for more complex sharing needs.</li>
+<li>Always call <code>super(...)</code> first thing in a subclass constructor that needs <code>this</code>.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Very deep prototype/inheritance chains slow down property lookups slightly — keep hierarchies as shallow as the domain reasonably allows.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>extends</code>/<code>super</code> provide clean syntax for prototype-based inheritance, letting subclasses reuse and override parent behavior — powerful for modeling "is-a" relationships, but best kept shallow to avoid the fragility of deep inheritance chains.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#inheritance">cheat-sheet.md</a></p>
+<hr />
+<p><a href="classes.html">← Classes</a> | <a href="README.html">Section Home</a> | <a href="encapsulation.html">Encapsulation →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
