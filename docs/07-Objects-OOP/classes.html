@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classes · Objects & OOP · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Objects & OOP</div>
+    <ul class="nav-list">
+      <li><a href="objects.html" class="">Objects</a></li>
+<li><a href="prototype.html" class="">Prototype</a></li>
+<li><a href="prototype-chain.html" class="">Prototype Chain</a></li>
+<li><a href="classes.html" class="active">Classes</a></li>
+<li><a href="inheritance.html" class="">Inheritance</a></li>
+<li><a href="encapsulation.html" class="">Encapsulation</a></li>
+<li><a href="polymorphism.html" class="">Polymorphism</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Objects & OOP</a> / <span>Classes</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Classes</h1>
+<blockquote>
+<p>Section: Objects &amp; OOP · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The <code>class</code> keyword provides syntax-sugar for creating objects with shared behavior via prototypes, offering a more familiar, structured syntax for constructors, methods, inheritance, and (later) private fields.</p>
+<h2>History</h2>
+<p>Introduced in <strong>ES2015</strong>; class private fields (<code>#field</code>) were added in <strong>ES2022</strong>. Classes do not introduce a new inheritance model — they compile down to the same prototype mechanism that existed since 1995.</p>
+<h2>Why Classes Matter</h2>
+<p>They provide cleaner, more readable syntax for common OOP patterns (constructors, methods, inheritance) compared to manually wiring up constructor functions and prototypes.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    return `Hi, I'm ${this.name}`;
+  }
+}
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Constructor</td>
+<td><code>constructor(...) { }</code></td>
+</tr>
+<tr>
+<td>Instance method</td>
+<td><code>greet() { }</code></td>
+</tr>
+<tr>
+<td>Static method</td>
+<td><code>static create() { }</code></td>
+</tr>
+<tr>
+<td>Getter/Setter</td>
+<td><code>get fullName() { }</code></td>
+</tr>
+<tr>
+<td>Private field (ES2022)</td>
+<td><code>#balance = 0;</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">class Car {
+  constructor(brand) {
+    this.brand = brand;
+  }
+  describe() {
+    return `This is a ${this.brand}`;
+  }
+}
+const myCar = new Car(&quot;Toyota&quot;);
+console.log(myCar.describe()); // &quot;This is a Toyota&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">class Car { ... }
+        │
+Car.prototype gets `describe` (shared, not duplicated per instance)
+        │
+new Car(&quot;Toyota&quot;) creates an instance whose [[Prototype]] is Car.prototype
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">new Car(&quot;Toyota&quot;)
+        │
+A new object is created
+        │
+`constructor` runs, setting instance properties (this.brand = ...)
+        │
+Instance's prototype is linked to Car.prototype (for describe(), etc.)
+        │
+Fully constructed instance returned
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>class</code> is syntax sugar: methods defined inside a class body are automatically placed on the class's <code>.prototype</code>, exactly like manually assigning <code>Constructor.prototype.method = function(){}</code> — <code>class</code> just makes the syntax cleaner and adds strict-mode-by-default behavior plus some safety checks (like requiring <code>new</code>).</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    return `${this.name} makes a sound.`;
+  }
+}
+const cat = new Animal(&quot;Whiskers&quot;);
+console.log(cat.speak());
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Static methods belong to the class itself, not instances
+class MathUtils {
+  static square(n) {
+    return n * n;
+  }
+}
+console.log(MathUtils.square(5)); // 25
+// const m = new MathUtils(); m.square(5); // ❌ not available on instances
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Getters/setters and private fields (ES2022)
+class BankAccount {
+  #balance = 0;
+  constructor(initial) {
+    this.#balance = initial;
+  }
+  get balance() {
+    return this.#balance;
+  }
+  set balance(amount) {
+    if (amount &lt; 0) throw new Error(&quot;Balance cannot be negative&quot;);
+    this.#balance = amount;
+  }
+}
+const acc = new BankAccount(100);
+console.log(acc.balance); // 100 (via getter)
+acc.balance = 200;          // via setter
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Modeling a domain entity with validation baked into the class
+class Product {
+  constructor(name, price) {
+    if (price &lt; 0) throw new Error(&quot;Price cannot be negative&quot;);
+    this.name = name;
+    this.price = price;
+  }
+  applyDiscount(percent) {
+    this.price -= this.price * (percent / 100);
+  }
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Many frameworks (Angular, NestJS) rely heavily on classes and decorators
+// for structuring components, services, and dependency injection.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#classes">interview.md</a>
+1. Is <code>class</code> a new inheritance model, or syntax sugar over something else?
+2. What's the difference between an instance method and a static method?
+3. What are class private fields, and which ES version introduced them?
+4. Why must <code>class</code> constructors be called with <code>new</code>?
+5. What are getters/setters used for in a class?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#classes">mcq.md</a>
+1. Class methods are placed on: (a) Each instance individually (b) <strong>The class's prototype</strong>, shared by all instances (c) The global object (d) Nowhere until called → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#classes">practice.md</a>
+1. <strong>(Easy)</strong> Write a <code>Book</code> class with a constructor and a <code>describe()</code> method.
+2. <strong>(Medium)</strong> Add a static method and a getter/setter to a class, demonstrating both.
+3. <strong>(Hard)</strong> Build a class with a private field (<code>#</code>) enforcing validation logic through its setter.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Rewrite a constructor-function + prototype setup using <code>class</code> syntax, confirming identical behavior.</li>
+<li>[ ] Explain, with an example, why private fields (<code>#</code>) provide stronger encapsulation than a plain property convention like <code>_balance</code>.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a <code>Product</code> class with private stock tracking, a static <code>Product.compare(a, b)</code> method, and getter/setter validation for price.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting <code>new</code> when instantiating a class (throws a <code>TypeError</code> in modern class syntax, unlike old constructor functions which would silently misbehave).</li>
+<li>Trying to call a static method on an instance (it's only available on the class itself).</li>
+<li>Using a plain <code>_property</code> naming convention and assuming it's truly private (it's not — only <code>#field</code> syntax is enforced by the engine).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>class</code> syntax for new OOP-style code — clearer and safer than manual constructor-function/prototype wiring.</li>
+<li>Use <code>#private</code> fields for genuine encapsulation needs, not just an underscore naming convention.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>No inherent performance difference from constructor functions — <code>class</code> compiles to the same prototype mechanism, so the benefit is purely readability/safety.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>class</code> provides modern, readable syntax for prototype-based OOP in JavaScript — constructors, instance/static methods, getters/setters, and (since ES2022) truly private fields — all while compiling down to the same underlying prototype chain mechanism.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#classes">cheat-sheet.md</a></p>
+<hr />
+<p><a href="prototype-chain.html">← Prototype Chain</a> | <a href="README.html">Section Home</a> | <a href="inheritance.html">Inheritance →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
