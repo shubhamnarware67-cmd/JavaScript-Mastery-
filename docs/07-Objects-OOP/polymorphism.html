@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polymorphism · Objects & OOP · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Objects & OOP</div>
+    <ul class="nav-list">
+      <li><a href="objects.html" class="">Objects</a></li>
+<li><a href="prototype.html" class="">Prototype</a></li>
+<li><a href="prototype-chain.html" class="">Prototype Chain</a></li>
+<li><a href="classes.html" class="">Classes</a></li>
+<li><a href="inheritance.html" class="">Inheritance</a></li>
+<li><a href="encapsulation.html" class="">Encapsulation</a></li>
+<li><a href="polymorphism.html" class="active">Polymorphism</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Objects & OOP</a> / <span>Polymorphism</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Polymorphism</h1>
+<blockquote>
+<p>Section: Objects &amp; OOP · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Polymorphism ("many forms") lets objects of different classes respond to the same method call in ways specific to their own type — most commonly achieved in JS via method overriding in subclasses.</p>
+<h2>History</h2>
+<p>A classic OOP concept; in JavaScript it's achieved naturally through prototype-based method overriding, formalized readably with <code>class</code>/<code>extends</code> since ES2015.</p>
+<h2>Why Polymorphism Matters</h2>
+<p>It lets calling code treat different object types uniformly (e.g. "call <code>.speak()</code> on any Animal"), while each type supplies its own specific behavior — a key tool for extensible, maintainable designs.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">class Animal {
+  speak() { return &quot;...&quot;; }
+}
+class Dog extends Animal {
+  speak() { return &quot;Woof!&quot;; } // overrides parent's version
+}
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Method overriding</td>
+<td>Subclass redefines a parent method</td>
+</tr>
+<tr>
+<td>Duck typing</td>
+<td>Objects treated as compatible based on having the right methods/shape, not a formal type</td>
+</tr>
+<tr>
+<td>Polymorphic function parameters</td>
+<td>A function that behaves correctly regardless of the specific object type passed in</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">class Shape {
+  area() { return 0; }
+}
+class Circle extends Shape {
+  constructor(radius) { super(); this.radius = radius; }
+  area() { return Math.PI * this.radius ** 2; }
+}
+class Square extends Shape {
+  constructor(side) { super(); this.side = side; }
+  area() { return this.side ** 2; }
+}
+const shapes = [new Circle(3), new Square(4)];
+shapes.forEach(shape =&gt; console.log(shape.area().toFixed(2)));
+// Each shape computes area DIFFERENTLY, but is called the SAME way
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">shapes = [Circle instance, Square instance]
+        │
+Each has its OWN area() on its OWN prototype (Circle.prototype vs Square.prototype)
+        │
+shape.area() resolves to the CORRECT version for each object's actual type
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Loop over a mixed array of subclass instances
+        │
+Call the SAME method name on each (e.g. .area())
+        │
+JS resolves EACH call using that specific instance's own prototype chain
+        │
+Different implementations run automatically — no manual type-checking needed
+</code></pre>
+<h2>Internal Working</h2>
+<p>Polymorphism in JS works because method lookup always starts from the instance's own actual prototype — calling <code>shape.area()</code> doesn't care what static "type" the variable <code>shape</code> is declared as (JS has no static types); it simply resolves through whatever prototype chain that specific object actually has at runtime.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">class Animal {
+  speak() { return &quot;Some generic animal sound&quot;; }
+}
+class Cat extends Animal {
+  speak() { return &quot;Meow&quot;; }
+}
+class Dog extends Animal {
+  speak() { return &quot;Woof&quot;; }
+}
+[new Cat(), new Dog()].forEach(animal =&gt; console.log(animal.speak()));
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Polymorphic function — works correctly regardless of the specific shape passed
+function printArea(shape) {
+  console.log(`Area: ${shape.area()}`);
+}
+printArea(new Circle(2));
+printArea(new Square(3));
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Duck typing — polymorphism without formal inheritance at all
+const duck = { speak: () =&gt; &quot;Quack&quot; };
+const robot = { speak: () =&gt; &quot;Beep boop, hello&quot; };
+[duck, robot].forEach(thing =&gt; console.log(thing.speak()));
+// Neither shares a class, but both satisfy the same &quot;interface&quot; informally
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Payment processing — different payment methods, same interface
+class PaymentMethod {
+  pay(amount) { throw new Error(&quot;Must implement pay()&quot;); }
+}
+class CreditCard extends PaymentMethod {
+  pay(amount) { return `Charged $${amount} to credit card`; }
+}
+class PayPal extends PaymentMethod {
+  pay(amount) { return `Paid $${amount} via PayPal`; }
+}
+function checkout(method, amount) {
+  console.log(method.pay(amount)); // works for ANY PaymentMethod subclass
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// UI component libraries rely on polymorphism: every component implements
+// render(), but each does so completely differently (Button vs Modal vs Card)
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#polymorphism">interview.md</a>
+1. What is polymorphism, in your own words?
+2. How does method overriding relate to polymorphism?
+3. What is "duck typing," and how does it relate to polymorphism without formal classes?
+4. Why can a function that calls <code>.area()</code> on a "shape" parameter work correctly for any shape subclass?
+5. Give a real-world example where polymorphism simplifies calling code.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#polymorphism">mcq.md</a>
+1. Polymorphism primarily allows: (a) Faster code execution (b) <strong>The same method call to behave differently depending on the object's actual type</strong> (c) Private variables (d) Static typing → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#polymorphism">practice.md</a>
+1. <strong>(Easy)</strong> Create 2 subclasses overriding the same parent method differently, then call it polymorphically in a loop.
+2. <strong>(Medium)</strong> Write a function that works correctly on any object implementing a <code>.describe()</code> method, regardless of class (duck typing).
+3. <strong>(Hard)</strong> Build a small "Payment" polymorphic system with 3 payment method subclasses, each implementing <code>pay()</code> differently.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with a code example, how polymorphism avoids the need for <code>if/else</code> type-checking in calling code.</li>
+<li>[ ] Write a duck-typing example where two unrelated objects satisfy the same informal "interface."</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Notification System" with <code>EmailNotification</code>, <code>SMSNotification</code>, and <code>PushNotification</code> classes, each implementing a <code>send(message)</code> method differently, dispatched polymorphically from a single <code>notify(notifier, message)</code> function.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Writing manual <code>if (obj instanceof X) {...} else if (obj instanceof Y) {...}</code> chains instead of leveraging polymorphism to let each object handle its own behavior.</li>
+<li>Forgetting to actually override a method in a subclass, silently inheriting unwanted default behavior.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Design base classes/interfaces so calling code never needs to know the specific subclass — just call the shared method name.</li>
+<li>Use duck typing deliberately for flexible, decoupled designs where formal inheritance isn't necessary.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Polymorphic dispatch (resolving which method version runs) has effectively no meaningful runtime overhead in modern JS engines — architectural clarity, not performance, is the deciding factor.</li>
+</ul>
+<h2>Summary</h2>
+<p>Polymorphism lets different object types respond to the same method call each in their own way — achieved in JavaScript through method overriding (formal inheritance) or duck typing (informal shared interfaces) — simplifying calling code that would otherwise need explicit type-checking branches.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#polymorphism">cheat-sheet.md</a></p>
+<hr />
+<p><a href="encapsulation.html">← Encapsulation</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
