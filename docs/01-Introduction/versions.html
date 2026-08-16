@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Versions · Introduction to JavaScript · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Introduction to JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="history.html" class="">History</a></li>
+<li><a href="javascript-vs-ecmascript.html" class="">Javascript Vs Ecmascript</a></li>
+<li><a href="versions.html" class="active">Versions</a></li>
+<li><a href="engine.html" class="">Engine</a></li>
+<li><a href="runtime.html" class="">Runtime</a></li>
+<li><a href="browser-vs-node.html" class="">Browser Vs Node</a></li>
+<li><a href="execution.html" class="">Execution</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Introduction to JavaScript</a> / <span>Versions</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Versions</h1>
+<blockquote>
+<p>Section: Introduction to JavaScript · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>JavaScript "versions" refer to yearly ECMAScript editions (ES5, ES2015...ES2024+), each adding new syntax and built-in features to the language.</p>
+<h2>History</h2>
+<ul>
+<li><strong>ES1 (1997)</strong> → <strong>ES5 (2009)</strong>: infrequent releases, big gaps.</li>
+<li><strong>ES2015 (ES6)</strong>: turning point — yearly release cadence begins.</li>
+<li><strong>ES2016–ES2024</strong>: smaller, incremental yearly editions.</li>
+</ul>
+<h2>Why Versions Matter</h2>
+<p>Knowing which version introduced a feature tells you whether it'll run in older environments, and helps you set correct Babel/TypeScript compile targets.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">// No special syntax to &quot;select&quot; a version at runtime in plain JS;
+// version targeting happens in build tools (Babel, tsconfig &quot;target&quot;).
+</code></pre>
+<h2>Types (major milestones)</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Year</th>
+<th>Headline Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES5</td>
+<td>2009</td>
+<td>strict mode, <code>JSON</code>, <code>Array</code> iteration methods</td>
+</tr>
+<tr>
+<td>ES2015 (ES6)</td>
+<td>2015</td>
+<td><code>let/const</code>, classes, arrow fns, promises, modules, template literals</td>
+</tr>
+<tr>
+<td>ES2016</td>
+<td>2016</td>
+<td><code>Array.prototype.includes</code>, <code>**</code> exponent operator</td>
+</tr>
+<tr>
+<td>ES2017</td>
+<td>2017</td>
+<td><code>async/await</code>, <code>Object.entries/values</code></td>
+</tr>
+<tr>
+<td>ES2018</td>
+<td>2018</td>
+<td>rest/spread for objects, async iteration</td>
+</tr>
+<tr>
+<td>ES2019</td>
+<td>2019</td>
+<td><code>Array.flat/flatMap</code>, <code>Object.fromEntries</code></td>
+</tr>
+<tr>
+<td>ES2020</td>
+<td>2020</td>
+<td>optional chaining <code>?.</code>, nullish coalescing <code>??</code>, <code>BigInt</code>, <code>Promise.allSettled</code></td>
+</tr>
+<tr>
+<td>ES2021</td>
+<td>2021</td>
+<td><code>String.replaceAll</code>, logical assignment (<code>&amp;&amp;=</code>, <code>||=</code>, <code>??=</code>)</td>
+</tr>
+<tr>
+<td>ES2022</td>
+<td>2022</td>
+<td>class private fields <code>#</code>, top-level <code>await</code>, <code>Array.at()</code></td>
+</tr>
+<tr>
+<td>ES2023/24</td>
+<td>2023–24</td>
+<td><code>Array.toSorted/toReversed</code>, <code>Object.groupBy</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">// ES2020
+const city = user?.address?.city ?? &quot;N/A&quot;;
+
+// ES2021
+count ||= 1; // logical OR assignment
+
+// ES2022
+class Wallet {
+  #balance = 0; // private field
+  add(n) { this.#balance += n; }
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — versions describe available syntax, not memory layout.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Write code ──► Target older environments? ──Yes──► Transpile (Babel) down to ES5
+                        │
+                        No
+                        ▼
+              Ship modern ES2020+ syntax directly
+</code></pre>
+<h2>Internal Working</h2>
+<p>Engines implement features incrementally; you can check per-feature support via <code>caniuse.com</code> or <code>node -p process.version</code> combined with Node's ECMAScript compatibility table.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">// ES5 way to check array membership
+[1,2,3].indexOf(2) !== -1; // true
+
+// ES2016+ way
+[1,2,3].includes(2); // true
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// ES2017 async/await vs ES2015 Promises
+// ES2015
+fetch(&quot;/api&quot;).then(res =&gt; res.json()).then(data =&gt; console.log(data));
+
+// ES2017
+async function load() {
+  const res = await fetch(&quot;/api&quot;);
+  const data = await res.json();
+  console.log(data);
+}
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// ES2022 top-level await (only valid inside ES modules)
+// file: main.mjs
+const data = await fetch(&quot;/api&quot;).then(r =&gt; r.json());
+console.log(data);
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// tsconfig.json target controls which ES version TypeScript compiles down to
+// {
+//   &quot;compilerOptions&quot;: { &quot;target&quot;: &quot;ES2020&quot; }
+// }
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Node.js LTS releases document their ECMAScript support level,
+// e.g. Node 18 fully supports ES2022 features like class private fields.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#versions">interview.md</a>
+1. What changed about ECMAScript's release cadence after ES6?
+2. Name 3 features introduced in ES2020.
+3. What is the difference between <code>??</code> and <code>||</code>, and which ES version added <code>??</code>?
+4. What are class private fields and which version introduced them?
+5. Why might a project still target ES5 output today?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#versions">mcq.md</a>
+1. Optional chaining (<code>?.</code>) was introduced in: (a) ES2015 (b) ES2018 (c) ES2020 (d) ES2022 → <strong>Answer: (c)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#versions">practice.md</a>
+1. <strong>(Easy)</strong> Rewrite an <code>indexOf !== -1</code> check using <code>.includes()</code>.
+2. <strong>(Medium)</strong> Convert a <code>.then()</code> chain to <code>async/await</code>.
+3. <strong>(Hard)</strong> Identify the minimum ES version required to run a given code snippet using 5 different features.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Build a reference table mapping 10 features to their ES version.</li>
+<li>[ ] Configure a sample <code>tsconfig.json</code>/Babel config targeting ES2018.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>"ES Version Quiz" — show a code snippet, user guesses which ES version introduced the key feature used.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming all browsers support the latest ES version equally — always check compatibility tables.</li>
+<li>Confusing "ES6" (community name) with "ES2015" (official name) as if they're different — they're the same edition.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Pin your build target (<code>browserslist</code>, <code>tsconfig.target</code>) explicitly instead of relying on tool defaults.</li>
+<li>Regularly review caniuse.com when adopting brand-new syntax in production.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Avoid transpiling further back than your actual audience needs — every polyfill/transform adds bundle size.</li>
+</ul>
+<h2>Summary</h2>
+<p>Since ES2015, JavaScript evolves through yearly ECMAScript editions, each adding incremental, well-documented features. Knowing the version-to-feature mapping is essential for compatibility decisions and reading spec-referencing docs.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#versions">cheat-sheet.md</a></p>
+<hr />
+<p><a href="javascript-vs-ecmascript.html">← JavaScript vs ECMAScript</a> | <a href="README.html">Section Home</a> | <a href="engine.html">Engine →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
