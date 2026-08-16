@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Execution · Introduction to JavaScript · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Introduction to JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="history.html" class="">History</a></li>
+<li><a href="javascript-vs-ecmascript.html" class="">Javascript Vs Ecmascript</a></li>
+<li><a href="versions.html" class="">Versions</a></li>
+<li><a href="engine.html" class="">Engine</a></li>
+<li><a href="runtime.html" class="">Runtime</a></li>
+<li><a href="browser-vs-node.html" class="">Browser Vs Node</a></li>
+<li><a href="execution.html" class="active">Execution</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Introduction to JavaScript</a> / <span>Execution</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Execution</h1>
+<blockquote>
+<p>Section: Introduction to JavaScript · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>"Execution" describes how JavaScript code actually runs step-by-step: how the engine creates execution contexts, manages the call stack, and processes code in phases (creation + execution).</p>
+<h2>History</h2>
+<p>The execution model (single-threaded, call stack, execution contexts) has been core to JS since 1995; the <strong>event loop</strong> for async execution was refined heavily as browsers added timers, then again with Node.js and later Promises/async-await (ES2015/ES2017).</p>
+<h2>Why Execution Matters</h2>
+<p>Understanding execution order explains classic "gotchas" — like why a variable logs <code>undefined</code> instead of throwing an error (hoisting), or why <code>setTimeout(fn, 0)</code> doesn't run immediately.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">// Execution context is created implicitly whenever code runs —
+// there's no special syntax; it's a runtime process.
+</code></pre>
+<h2>Types of Execution Context</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Created when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global Execution Context</td>
+<td>Once, when the script starts</td>
+</tr>
+<tr>
+<td>Function Execution Context</td>
+<td>Every time a function is called</td>
+</tr>
+<tr>
+<td>Eval Execution Context</td>
+<td>Inside <code>eval()</code> (rarely used, avoid)</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">console.log(a); // undefined (not an error!) — due to hoisting
+var a = 5;
+
+// Under the hood, the engine does two phases:
+// 1. Creation phase: `var a` is hoisted and initialized to undefined
+// 2. Execution phase: code runs line by line, `a = 5` assigns the value
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Call Stack (grows/shrinks with function calls)
+┌─────────────────────┐
+│ innerFunction()        │ ← currently executing
+├─────────────────────┤
+│ outerFunction()        │
+├─────────────────────┤
+│ Global Execution Context│ ← always at the bottom
+└─────────────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Script starts
+    │
+Global Execution Context created
+    │
+ Creation Phase: hoist var/function declarations, set up scope, &quot;this&quot;
+    │
+ Execution Phase: run code top to bottom
+    │
+Function called? ──Yes──► New Function Execution Context pushed onto Call Stack
+    │                              │
+    No                       Function returns → context popped off stack
+    │                              │
+Continue ◄─────────────────────────┘
+</code></pre>
+<h2>Internal Working</h2>
+<ol>
+<li><strong>Creation phase</strong>: the engine scans the code, hoists <code>var</code> declarations (set to <code>undefined</code>) and function declarations (fully hoisted), sets up the scope chain and <code>this</code>.</li>
+<li><strong>Execution phase</strong>: code runs line-by-line, assigning real values and calling functions.</li>
+<li>Each function call pushes a new <strong>execution context</strong> onto the <strong>call stack</strong>; when the function returns, its context is popped off.</li>
+</ol>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">function greet() {
+  console.log(&quot;Hello!&quot;);
+}
+greet(); // Call Stack: [Global, greet] → prints &quot;Hello!&quot; → [Global]
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">function outer() {
+  function inner() {
+    console.log(&quot;inner running&quot;);
+  }
+  inner();
+}
+outer();
+// Call Stack progression: [Global] → [Global, outer] → [Global, outer, inner] → unwinds back down
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Stack overflow — infinite recursion exhausts the call stack
+function recurse() {
+  return recurse();
+}
+// recurse(); // ❌ RangeError: Maximum call stack size exceeded
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Understanding execution order explains why this logs &quot;start&quot;, &quot;end&quot;, &quot;timeout&quot;
+console.log(&quot;start&quot;);
+setTimeout(() =&gt; console.log(&quot;timeout&quot;), 0);
+console.log(&quot;end&quot;);
+// Output: start, end, timeout
+// (setTimeout callback waits for the call stack to be empty, even with delay 0)
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Debuggers (Chrome DevTools) show you the live call stack during a breakpoint —
+// professional developers read this stack trace to trace bugs back to their origin.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#execution">interview.md</a>
+1. What are the two phases of an execution context?
+2. What is the call stack, and how does it grow/shrink?
+3. Why does <code>console.log(a); var a = 5;</code> print <code>undefined</code> instead of throwing an error?
+4. What causes a "Maximum call stack size exceeded" error?
+5. Why does <code>setTimeout(fn, 0)</code> not run <code>fn</code> immediately?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#execution">mcq.md</a>
+1. Which phase hoists <code>var</code> declarations? (a) Execution phase (b) Creation phase (c) Compilation phase (d) None → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#execution">practice.md</a>
+1. <strong>(Easy)</strong> Predict the console output of a snippet mixing <code>var</code> hoisting and function calls.
+2. <strong>(Medium)</strong> Trace the call stack state at each line of a 3-level nested function call.
+3. <strong>(Hard)</strong> Explain, with a diagram, why a <code>setTimeout(fn, 0)</code> callback runs after synchronous code finishes.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Draw the call stack diagram for a 4-function chain of calls.</li>
+<li>[ ] Explain hoisting's two-phase model in your own words with an example.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple "Call Stack Visualizer" — as functions are called/return, animate pushing/popping labeled boxes on screen.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Believing JS "skips" undeclared-looking variables rather than understanding hoisting.</li>
+<li>Assuming <code>setTimeout(fn, 0)</code> runs instantly/synchronously.</li>
+<li>Writing unbounded recursion without a base case, causing stack overflow.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Always declare variables before use (avoid relying on hoisting for readability).</li>
+<li>Add clear base cases to recursive functions to prevent stack overflow.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Prefer iterative solutions over deep recursion for very large inputs to avoid stack limits.</li>
+<li>Use <code>console.trace()</code> during debugging to inspect the current call stack.</li>
+</ul>
+<h2>Summary</h2>
+<p>JavaScript execution follows a two-phase model per execution context (creation then execution) and manages nested function calls via a call stack. This foundational model explains hoisting, stack overflows, and why asynchronous callbacks run only after synchronous code completes.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#execution">cheat-sheet.md</a></p>
+<hr />
+<p><a href="browser-vs-node.html">← Browser vs Node</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
