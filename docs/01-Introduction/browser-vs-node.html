@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browser Vs Node · Introduction to JavaScript · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Introduction to JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="history.html" class="">History</a></li>
+<li><a href="javascript-vs-ecmascript.html" class="">Javascript Vs Ecmascript</a></li>
+<li><a href="versions.html" class="">Versions</a></li>
+<li><a href="engine.html" class="">Engine</a></li>
+<li><a href="runtime.html" class="">Runtime</a></li>
+<li><a href="browser-vs-node.html" class="active">Browser Vs Node</a></li>
+<li><a href="execution.html" class="">Execution</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Introduction to JavaScript</a> / <span>Browser Vs Node</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Browser vs Node</h1>
+<blockquote>
+<p>Section: Introduction to JavaScript · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>"Browser vs Node" compares JavaScript running inside a web browser (with DOM/UI access) against JavaScript running via Node.js (a server-side runtime with file system/network access, no DOM).</p>
+<h2>History</h2>
+<ul>
+<li>1995–2008: JavaScript only ran in browsers.</li>
+<li>2009: Ryan Dahl releases <strong>Node.js</strong>, pairing V8 with server-side APIs — JavaScript becomes a full-stack language.</li>
+</ul>
+<h2>Why This Comparison Matters</h2>
+<p>Many bugs and confusion come from assuming an API available in one environment works in the other. Knowing the boundary helps you write portable, correct code.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">// Browser-only
+window.alert(&quot;Hi&quot;);
+document.getElementById(&quot;app&quot;);
+
+// Node-only
+process.env.NODE_ENV;
+require(&quot;fs&quot;).readFileSync(&quot;file.txt&quot;);
+</code></pre>
+<h2>Types (side-by-side comparison)</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Browser</th>
+<th>Node.js</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global object</td>
+<td><code>window</code></td>
+<td><code>global</code> (or <code>globalThis</code> in both)</td>
+</tr>
+<tr>
+<td>UI/DOM</td>
+<td>✅ <code>document</code>, <code>window</code></td>
+<td>❌ none</td>
+</tr>
+<tr>
+<td>File system</td>
+<td>❌ (sandboxed)</td>
+<td>✅ <code>fs</code> module</td>
+</tr>
+<tr>
+<td>Modules</td>
+<td>ES Modules (<code>&lt;script type="module"&gt;</code>)</td>
+<td>CommonJS (<code>require</code>) or ES Modules</td>
+</tr>
+<tr>
+<td>Networking</td>
+<td><code>fetch</code>, <code>XMLHttpRequest</code></td>
+<td><code>http</code>, <code>fetch</code> (modern Node), 3rd-party libs</td>
+</tr>
+<tr>
+<td>Multi-threading</td>
+<td>Web Workers</td>
+<td>Worker Threads / Cluster</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">// Universal (works in both)
+console.log(&quot;Hello&quot;);
+[1,2,3].map(n =&gt; n * 2);
+
+// Browser only
+document.title = &quot;New Title&quot;;
+
+// Node only
+console.log(process.platform); // &quot;win32&quot;, &quot;linux&quot;, &quot;darwin&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">                 ECMAScript core (same everywhere)
+                            │
+        ┌───────────────────┴────────────────────┐
+     Browser                                    Node.js
+  window, document,                       process, fs, require,
+  fetch, localStorage,                    Buffer, os, path,
+  Web Workers, DOM events                 Worker Threads
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Is this API part of the ECMAScript spec (Array, Object, let/const, etc.)?
+        │
+       Yes ──► Works identically in Browser AND Node
+        │
+       No
+        │
+Is it a Browser Web API (document, window, fetch UI-related)?
+        │
+       Yes ──► Browser only
+        │
+       No ──► Likely a Node API (fs, process, require) ──► Node only
+</code></pre>
+<h2>Internal Working</h2>
+<p>Both environments embed the <strong>same V8 engine</strong> (Chrome &amp; Node), but wrap it with completely different sets of host APIs — the engine itself has no concept of "browser" or "server."</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">// Works in both
+function greet(name) { return `Hello, ${name}`; }
+console.log(greet(&quot;Shubham&quot;));
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Browser: reading a value from an input field
+const input = document.querySelector(&quot;#name&quot;);
+console.log(input.value);
+
+// Node: reading a command-line argument
+console.log(process.argv[2]);
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Universal (&quot;isomorphic&quot;) HTTP fetch code
+async function getData(url) {
+  const res = await fetch(url); // fetch is now available natively in modern Node too
+  return res.json();
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// A React app's code runs in the browser;
+// a Next.js server component with the same language runs in Node —
+// developers must know which runtime a given file executes in.
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// package.json distinguishing browser vs node builds (bundler-aware)
+// &quot;browser&quot;: &quot;dist/browser.js&quot;,
+// &quot;main&quot;: &quot;dist/node.js&quot;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#browser-vs-node">interview.md</a>
+1. What is the fundamental difference between the browser and Node.js as JavaScript environments?
+2. Why doesn't Node.js have access to the DOM?
+3. What is the Node.js equivalent of the browser's <code>window</code> object?
+4. Name two APIs unique to Node and two unique to the browser.
+5. What does "isomorphic JavaScript" mean, and why is it useful?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#browser-vs-node">mcq.md</a>
+1. Which global object exists in Node.js instead of <code>window</code>? (a) <code>global</code> (b) <code>root</code> (c) <code>self</code> (d) <code>top</code> → <strong>Answer: (a)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#browser-vs-node">practice.md</a>
+1. <strong>(Easy)</strong> Write a snippet that logs "browser" or "node" depending on environment.
+2. <strong>(Medium)</strong> Convert a browser-only <code>fetch</code> + DOM-update snippet into a Node-compatible version (without DOM).
+3. <strong>(Hard)</strong> Build a tiny module that exports different implementations depending on the runtime it's loaded in.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Create a comparison table of 8 APIs, marking Browser/Node/Both.</li>
+<li>[ ] Write a short paragraph explaining why <code>localStorage</code> doesn't exist in Node.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small CLI tool in Node (using <code>process.argv</code> and <code>fs</code>) that mirrors a simple browser form's validation logic, demonstrating the same core logic running in both environments.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using <code>document</code>/<code>window</code> inside Node scripts.</li>
+<li>Using <code>require()</code> inside browser code without a bundler (Webpack/Vite) to polyfill it.</li>
+<li>Assuming <code>global</code> and <code>window</code> are interchangeable — use <code>globalThis</code> for universal code.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>globalThis</code> instead of <code>window</code>/<code>global</code> when writing environment-agnostic code.</li>
+<li>Clearly separate UI logic (browser) from I/O/server logic (Node) in shared codebases.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Bundle only browser-needed code for the client, and keep Node-only modules (fs, heavy libs) out of client bundles to reduce size.</li>
+</ul>
+<h2>Summary</h2>
+<p>Browser and Node.js both run JavaScript via the same core engine (commonly V8), but expose entirely different host APIs — DOM/UI in the browser, filesystem/process/networking in Node. Writing portable code means knowing exactly which environment a given API belongs to.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#browser-vs-node">cheat-sheet.md</a></p>
+<hr />
+<p><a href="runtime.html">← Runtime</a> | <a href="README.html">Section Home</a> | <a href="execution.html">Execution →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
