@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History · Introduction to JavaScript · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Introduction to JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="history.html" class="active">History</a></li>
+<li><a href="javascript-vs-ecmascript.html" class="">Javascript Vs Ecmascript</a></li>
+<li><a href="versions.html" class="">Versions</a></li>
+<li><a href="engine.html" class="">Engine</a></li>
+<li><a href="runtime.html" class="">Runtime</a></li>
+<li><a href="browser-vs-node.html" class="">Browser Vs Node</a></li>
+<li><a href="execution.html" class="">Execution</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Introduction to JavaScript</a> / <span>History</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>History</h1>
+<blockquote>
+<p>Section: Introduction to JavaScript · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>JavaScript's history is the story of how a 10-day prototype at Netscape became the most widely-run programming language in the world, standardized today as ECMAScript.</p>
+<h2>History</h2>
+<ul>
+<li><strong>1995</strong> — Brendan Eich writes the first version in ~10 days at Netscape, originally named <strong>Mocha</strong>, renamed <strong>LiveScript</strong>, then <strong>JavaScript</strong> (a marketing move to ride Java's popularity, despite the languages being unrelated).</li>
+<li><strong>1996</strong> — Microsoft reverse-engineers it as <strong>JScript</strong> for Internet Explorer, causing browser incompatibility.</li>
+<li><strong>1997</strong> — Netscape submits JS to <strong>ECMA International</strong> for standardization → <strong>ECMAScript (ES1)</strong> is born.</li>
+<li><strong>1999</strong> — <strong>ES3</strong> ships (regex, try/catch) — the baseline for a decade of browsers.</li>
+<li><strong>2009</strong> — <strong>ES5</strong> ships: strict mode, JSON support, <code>Array.prototype.map/filter/reduce</code>.</li>
+<li><strong>2015</strong> — <strong>ES6 / ES2015</strong> — the biggest update ever: <code>let/const</code>, classes, arrow functions, promises, modules, template literals.</li>
+<li><strong>2016–present</strong> — Yearly releases: ES2016, ES2017 (async/await), ES2020 (optional chaining, nullish coalescing), ES2022 (class private fields), ES2023/2024 (array grouping, more).</li>
+</ul>
+<h2>Why History Matters</h2>
+<p>Understanding <em>why</em> a feature was added (e.g. <code>let</code> fixing <code>var</code>'s scoping bugs) helps you reason about <strong>when</strong> to use older vs newer syntax, and explains quirks you'll meet in legacy code.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">// Not applicable — this topic is conceptual, not syntax-based.
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable (conceptual topic).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">// ES3 style (1999) — no arrow functions, var only
+var add = function (a, b) { return a + b; };
+
+// ES6 style (2015) — arrow functions, let/const
+const add2 = (a, b) =&gt; a + b;
+
+// ES2020 style — optional chaining, nullish coalescing
+const city = user?.address?.city ?? &quot;Unknown&quot;;
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Not applicable — history is a timeline, not a runtime memory concept.
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">1995 Netscape (Mocha/LiveScript)
+        │
+1995 renamed &quot;JavaScript&quot;
+        │
+1996 Microsoft JScript (fragmentation begins)
+        │
+1997 ECMA standardization → ECMAScript
+        │
+1999 ES3 ─────────────► 2009 ES5 ─────────────► 2015 ES6/ES2015
+                                                         │
+                                          2016–present: yearly ES20XX releases
+</code></pre>
+<h2>Internal Working</h2>
+<p>Not applicable at the engine level — but note that "JavaScript" (the language people write) and "ECMAScript" (the spec) are technically different names for the same standardized language (see <a href="javascript-vs-ecmascript.html">javascript-vs-ecmascript.md</a>).</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">// Recognizing &quot;old&quot; vs &quot;modern&quot; JS in the wild
+var name = &quot;old style&quot;;   // pre-ES6 variable declaration
+let name2 = &quot;modern style&quot;; // ES6+
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// A function written the ES5 way vs the ES6+ way
+// ES5
+function Person(name) { this.name = name; }
+Person.prototype.greet = function () { return &quot;Hi &quot; + this.name; };
+
+// ES6+
+class Person2 {
+  constructor(name) { this.name = name; }
+  greet() { return `Hi ${this.name}`; }
+}
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Detecting feature availability instead of assuming a JS &quot;version&quot;
+// (real engines mix support levels — always feature-detect, don't version-sniff)
+if (typeof Promise !== &quot;undefined&quot; &amp;&amp; typeof fetch !== &quot;undefined&quot;) {
+  console.log(&quot;Modern async features available&quot;);
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Transpilers like Babel exist BECAUSE of this history —
+// they convert modern ES2015+ syntax down to ES5 for old browsers.
+// input:  const greet = name =&gt; `Hi ${name}`;
+// output: var greet = function greet(name) { return &quot;Hi &quot; + name; };
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Companies pin a &quot;browserslist&quot; config to decide which JS versions
+// their build tools (Babel/Webpack/Vite) must support, e.g.:
+// package.json
+// &quot;browserslist&quot;: [&quot;&gt; 0.5%&quot;, &quot;last 2 versions&quot;, &quot;not dead&quot;]
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#history">interview.md</a>
+1. Who created JavaScript and in how many days?
+2. Why is it called "JavaScript" if it's unrelated to Java?
+3. What is ECMAScript, and how does it relate to JavaScript?
+4. What major problem did ES6 (2015) solve compared to ES5?
+5. Why do new ECMAScript versions release yearly now instead of infrequently?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#history">mcq.md</a>
+1. JavaScript was created in the year: (a) 1993 (b) 1995 (c) 1999 (d) 2005 → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#history">practice.md</a>
+1. <strong>(Easy)</strong> Rewrite an ES5 <code>var</code>/<code>function</code> snippet using ES6 <code>const</code>/arrow functions.
+2. <strong>(Medium)</strong> Given a code snippet, identify which ECMAScript version introduced each feature used.
+3. <strong>(Hard)</strong> Write a small feature-detection utility that checks for ES2015, ES2017, and ES2020 features without relying on a version string.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Create a one-page timeline (text or diagram) of ES5 → ES2024 with one headline feature per version.</li>
+<li>[ ] Find 3 pieces of legacy <code>var</code>-based code online and rewrite them in modern syntax.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "JS Version Explorer" page: a dropdown of ES versions, and clicking one shows a code snippet demonstrating its signature feature.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Calling ECMAScript and JavaScript "different languages" — they're the same language, ECMAScript is the specification name.</li>
+<li>Assuming "ES6" and "modern JS" mean identical things — modern JS today includes ES2016 through ES2024+ features too.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer feature detection (<code>typeof x !== "undefined"</code>) over assuming a JS "version" is available.</li>
+<li>Know your target environment (browser support matrix / Node version) before using very recent syntax.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Use tools like <strong>Browserslist</strong> + <strong>Babel/SWC</strong> to automatically compile modern syntax down only as far as your actual audience needs — avoids over-transpiling and bloating bundle size.</li>
+</ul>
+<h2>Summary</h2>
+<p>JavaScript went from a 10-day Netscape prototype (1995) to a yearly-standardized global language (ECMAScript) that now powers browsers, servers (Node.js), mobile apps, and more. Knowing this timeline helps explain <em>why</em> old and new syntax coexist in real-world code.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#history">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="javascript-vs-ecmascript.html">Javascript Vs Ecmascript →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
