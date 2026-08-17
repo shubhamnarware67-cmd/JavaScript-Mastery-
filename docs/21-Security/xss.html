@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xss · Security · JavaScript Mastery</title>
+<meta name="description" content="Xss — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Security</div>
+    <ul class="nav-list">
+      <li><a href="security.html" class="">Security</a></li>
+<li><a href="cors.html" class="">Cors</a></li>
+<li><a href="csrf.html" class="">Csrf</a></li>
+<li><a href="xss.html" class="active">Xss</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Security</a> / <span>Xss</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>XSS</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>XSS (Cross-Site Scripting) is an attack where malicious JavaScript is injected into a trusted page and executed in other users' browsers.</p>
+
+      <h2>Why XSS Matters</h2>
+      <p>A successful XSS attack can steal session cookies, log keystrokes, redirect users to phishing pages, or perform actions as the victim.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">// Vulnerable
+element.innerHTML = userComment; // executes if malicious
+
+// Safe
+element.textContent = userComment;</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">import DOMPurify from "dompurify";
+element.innerHTML = DOMPurify.sanitize(userHtmlInput);</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Untrusted input ──► rendered directly as HTML
+                            │
+                Browser PARSES it as real HTML/JS
+                            │
+                Malicious script EXECUTES
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>The vulnerability is the browser's inability to distinguish trusted markup from untrusted data that looks like markup — escaping prevents parsing as executable HTML.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Using <code>innerHTML</code>, <code>document.write()</code>, or <code>eval()</code> with untrusted input.</li>
+        <li>Assuming client-side validation alone is sufficient.</li>
+        <li>Using <code>dangerouslySetInnerHTML</code> without sanitizing content.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>XSS lets attackers inject and execute malicious scripts by exploiting improperly escaped input — defended against by treating untrusted data as text and using sanitization libraries.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engine · Introduction to JavaScript · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Introduction to JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="history.html" class="">History</a></li>
+<li><a href="javascript-vs-ecmascript.html" class="">Javascript Vs Ecmascript</a></li>
+<li><a href="versions.html" class="">Versions</a></li>
+<li><a href="engine.html" class="active">Engine</a></li>
+<li><a href="runtime.html" class="">Runtime</a></li>
+<li><a href="browser-vs-node.html" class="">Browser Vs Node</a></li>
+<li><a href="execution.html" class="">Execution</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Introduction to JavaScript</a> / <span>Engine</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Engine</h1>
+<blockquote>
+<p>Section: Introduction to JavaScript · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>A <strong>JavaScript engine</strong> is a program that parses, compiles, and executes JavaScript code. Examples: <strong>V8</strong> (Chrome, Node, Edge), <strong>SpiderMonkey</strong> (Firefox), <strong>JavaScriptCore</strong> (Safari).</p>
+<h2>History</h2>
+<ul>
+<li>1995: original engine inside Netscape Navigator (simple interpreter).</li>
+<li>2008: Google releases <strong>V8</strong>, introducing JIT (Just-In-Time) compilation — a huge performance leap, and later powers Node.js (2009).</li>
+<li>Modern engines mix interpreters + multiple tiers of JIT compilers for speed.</li>
+</ul>
+<h2>Why Engines Matter</h2>
+<p>Understanding engine internals (parsing, JIT, garbage collection) explains real performance behavior — e.g. why the "same" code can be slow on first run and fast after warm-up.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">// Not syntax-specific — this is a runtime/internals topic.
+</code></pre>
+<h2>Types (V8 pipeline stages)</h2>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Tool</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parsing</td>
+<td>Parser</td>
+<td>Source → AST (Abstract Syntax Tree)</td>
+</tr>
+<tr>
+<td>Interpreting</td>
+<td>Ignition</td>
+<td>AST/bytecode → runs code immediately</td>
+</tr>
+<tr>
+<td>Optimizing</td>
+<td>TurboFan</td>
+<td>Compiles "hot" (frequently run) code to fast machine code</td>
+</tr>
+<tr>
+<td>Memory</td>
+<td>Orinoco</td>
+<td>Garbage collector, manages heap memory</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">// Code that becomes &quot;hot&quot; and gets optimized by the JIT
+function square(n) { return n * n; }
+for (let i = 0; i &lt; 1_000_000; i++) {
+  square(i); // after many calls, V8's TurboFan optimizes this function
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">   Call Stack (function calls, primitives)      Heap (objects, closures, arrays)
+   ┌───────────────┐                              ┌───────────────────────┐
+   │ square(5)       │                              │ { name: &quot;Shubham&quot; }      │
+   │ main()          │  ── references ───────────►  │ [1,2,3]                  │
+   └───────────────┘                              └───────────────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Source Code
+    │
+Parser ──► AST
+    │
+Ignition (Interpreter) ──► Bytecode, runs immediately
+    │
+   Is this function &quot;hot&quot; (called many times)?
+    │                              │
+   No                             Yes
+    │                              │
+Keep interpreting          TurboFan compiles to optimized machine code
+                                   │
+                          If assumptions break (type changes) → &quot;deopt&quot; back to bytecode
+</code></pre>
+<h2>Internal Working</h2>
+<ol>
+<li><strong>Parse</strong>: source code → tokens → AST.</li>
+<li><strong>Interpret</strong>: Ignition executes bytecode directly (fast startup).</li>
+<li><strong>Profile</strong>: engine watches which functions run often ("hot" functions) and with what argument types.</li>
+<li><strong>Optimize</strong>: TurboFan compiles hot functions into highly optimized machine code, assuming consistent types.</li>
+<li><strong>Deoptimize</strong>: if a hot function suddenly receives different types than expected, V8 discards the optimized version and falls back to the interpreter ("deopt") — this is why consistent types help performance.</li>
+</ol>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">console.log(&quot;Hello&quot;); // engine parses, interprets, and executes this line immediately
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Monomorphic (single type) function — JIT-friendly
+function add(a, b) { return a + b; }
+add(1, 2); add(3, 4); add(5, 6); // always numbers → engine can optimize confidently
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Polymorphic (mixed type) function — harder for the JIT to optimize
+function add(a, b) { return a + b; }
+add(1, 2);       // numbers
+add(&quot;a&quot;, &quot;b&quot;);   // strings — now the engine must handle multiple type shapes,
+                  // which can prevent or undo optimization
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Node.js exposes V8 flags for inspecting engine behavior, e.g.:
+// node --trace-opt --trace-deopt app.js
+// (shows which functions get optimized/deoptimized at runtime)
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// High-performance libraries intentionally keep function argument
+// types consistent (&quot;monomorphic&quot;) to stay JIT-friendly —
+// a common optimization technique in performance-critical codebases.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#engine">interview.md</a>
+1. What is a JavaScript engine? Name three real examples.
+2. What does "JIT compilation" mean?
+3. Explain the difference between Ignition and TurboFan in V8.
+4. What is a "deopt" and why does it happen?
+5. Why can functions with consistent argument types run faster?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#engine">mcq.md</a>
+1. Which company created the V8 engine? (a) Mozilla (b) Google (c) Apple (d) Microsoft → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#engine">practice.md</a>
+1. <strong>(Easy)</strong> Explain in your own words what happens when you run <code>console.log("hi")</code>.
+2. <strong>(Medium)</strong> Write two versions of a function — one monomorphic, one polymorphic — and explain the JIT implication of each.
+3. <strong>(Hard)</strong> Research and summarize V8's "hidden classes" concept and how it relates to object shape consistency.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Diagram the V8 pipeline from source code to executed machine code.</li>
+<li>[ ] List 3 other JS engines besides V8 and which browser/runtime uses each.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a benchmark page comparing a monomorphic vs polymorphic function's execution time using <code>performance.now()</code>.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming JavaScript is "purely interpreted" — modern engines use JIT compilation, a hybrid approach.</li>
+<li>Mixing argument types unnecessarily in hot functions, unknowingly hurting JIT optimization.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Keep function argument shapes/types consistent in performance-critical code paths.</li>
+<li>Avoid changing an object's shape (adding/removing properties) after creation in hot code paths.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Initialize all object properties in the constructor (consistent "hidden class") rather than adding them later.</li>
+<li>Avoid <code>arguments</code> object and prefer rest parameters (<code>...args</code>) for JIT-friendlier code.</li>
+</ul>
+<h2>Summary</h2>
+<p>A JS engine (V8, SpiderMonkey, JavaScriptCore) parses, interprets, and JIT-compiles your code, optimizing "hot" functions for speed while balancing fast startup via interpretation. Understanding this explains many real-world performance behaviors.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#engine">cheat-sheet.md</a></p>
+<hr />
+<p><a href="versions.html">← Versions</a> | <a href="README.html">Section Home</a> | <a href="runtime.html">Runtime →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

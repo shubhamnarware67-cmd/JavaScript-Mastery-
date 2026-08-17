@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Runtime · Introduction to JavaScript · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Introduction to JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="history.html" class="">History</a></li>
+<li><a href="javascript-vs-ecmascript.html" class="">Javascript Vs Ecmascript</a></li>
+<li><a href="versions.html" class="">Versions</a></li>
+<li><a href="engine.html" class="">Engine</a></li>
+<li><a href="runtime.html" class="active">Runtime</a></li>
+<li><a href="browser-vs-node.html" class="">Browser Vs Node</a></li>
+<li><a href="execution.html" class="">Execution</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Introduction to JavaScript</a> / <span>Runtime</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Runtime</h1>
+<blockquote>
+<p>Section: Introduction to JavaScript · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>A <strong>JavaScript runtime</strong> is the full environment that runs your code — the engine (V8, etc.) <em>plus</em> extra APIs like the DOM, timers, and network access, which JavaScript itself does not define.</p>
+<h2>History</h2>
+<ul>
+<li>Early runtimes = just the browser (engine + DOM + <code>window</code>).</li>
+<li><strong>2009</strong>: Node.js pairs V8 with a non-browser runtime (file system, networking, no DOM) — "JavaScript everywhere" begins.</li>
+<li>Today: Deno, Bun, and browser runtimes all wrap engines with different extra APIs.</li>
+</ul>
+<h2>Why Runtime Matters</h2>
+<p>The <em>language</em> (ECMAScript) is the same everywhere, but the <em>runtime APIs</em> differ — <code>document</code> only exists in browsers, <code>fs</code> (filesystem) only in Node — mixing them up is a common beginner error.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">// Browser runtime API example
+document.querySelector(&quot;h1&quot;);
+
+// Node.js runtime API example
+const fs = require(&quot;fs&quot;);
+fs.readFileSync(&quot;file.txt&quot;, &quot;utf8&quot;);
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Runtime</th>
+<th>Extra APIs it provides</th>
+<th>Missing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser</td>
+<td><code>document</code>, <code>window</code>, <code>fetch</code>, <code>localStorage</code></td>
+<td><code>require</code>, <code>fs</code>, <code>process</code></td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td><code>fs</code>, <code>process</code>, <code>require</code>/<code>import</code>, <code>Buffer</code></td>
+<td><code>document</code>, <code>window</code></td>
+</tr>
+<tr>
+<td>Deno</td>
+<td>Similar to Node, but secure-by-default, ES modules only</td>
+<td><code>document</code></td>
+</tr>
+<tr>
+<td>Bun</td>
+<td>Node-compatible APIs, very fast startup</td>
+<td><code>document</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">// Runtime detection pattern
+if (typeof window !== &quot;undefined&quot;) {
+  console.log(&quot;Running in a browser&quot;);
+} else if (typeof process !== &quot;undefined&quot;) {
+  console.log(&quot;Running in Node.js&quot;);
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">        JavaScript Engine (V8)
+                │
+   ┌────────────┴─────────────┐
+Browser Runtime            Node.js Runtime
+   │                            │
+ DOM, window,               fs, process,
+ fetch, setTimeout           require/import,
+                              Buffer, setTimeout
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Your JS code
+    │
+Which runtime is executing it?
+    │
+   ┌┴─────────────┬─────────────┐
+Browser          Node.js         Deno/Bun
+    │                │               │
+document/window   fs/process     Node-like APIs
+available          available      + extra security
+</code></pre>
+<h2>Internal Working</h2>
+<p>The engine (e.g. V8) only implements the ECMAScript spec (variables, functions, objects, etc). Everything else — <code>setTimeout</code>, <code>fetch</code>, <code>document</code>, <code>fs</code> — is provided by the <strong>host environment</strong> (browser or Node), not by the language itself.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">console.log(&quot;This runs the same in both browser and Node&quot;); // pure JS, no runtime API used
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// This ONLY works in a browser (uses the DOM, a browser-runtime API)
+document.body.style.background = &quot;black&quot;;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// This ONLY works in Node.js (uses the fs module, a Node-runtime API)
+const fs = require(&quot;fs&quot;);
+const data = fs.readFileSync(&quot;./data.json&quot;, &quot;utf-8&quot;);
+console.log(JSON.parse(data));
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Isomorphic/universal code checks the runtime before using runtime-specific APIs
+function getEnvName() {
+  return typeof window !== &quot;undefined&quot; ? &quot;browser&quot; : &quot;node&quot;;
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Frameworks like Next.js run the SAME JS codebase across two runtimes:
+// server-side (Node) for rendering, and client-side (browser) for interactivity —
+// requiring careful runtime-aware code (e.g. guarding `window` usage).
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#runtime">interview.md</a>
+1. What is the difference between a JavaScript engine and a JavaScript runtime?
+2. Why doesn't <code>document</code> work in Node.js?
+3. Name 3 APIs that exist in Node.js but not in browsers.
+4. What does "isomorphic/universal JavaScript" mean?
+5. How would you detect which runtime your code is executing in?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#runtime">mcq.md</a>
+1. Which of these is NOT part of the core JavaScript language but a runtime API? (a) <code>let</code> (b) <code>document</code> (c) <code>for loop</code> (d) <code>typeof</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#runtime">practice.md</a>
+1. <strong>(Easy)</strong> Write a runtime-detection function that logs "browser" or "node".
+2. <strong>(Medium)</strong> List which of 10 given API calls are browser-only, Node-only, or universal.
+3. <strong>(Hard)</strong> Write a small utility module that works correctly in both browser and Node by guarding runtime-specific calls.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Create a table of 10 APIs split into Browser-only / Node-only / Universal.</li>
+<li>[ ] Explain why Next.js (or similar frameworks) need runtime-aware code.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a tiny "Environment Detector" script that reports the runtime name and lists 3 APIs available in it.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Trying to use <code>document</code> inside a Node.js script (ReferenceError: document is not defined).</li>
+<li>Trying to use <code>require</code>/<code>fs</code> inside browser JS without a bundler polyfill.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Guard runtime-specific code with feature checks (<code>typeof window !== "undefined"</code>).</li>
+<li>Keep runtime-agnostic business logic separate from runtime-specific I/O code.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>In universal (isomorphic) apps, lazy-load runtime-specific modules only when needed, to avoid shipping unused code to the wrong environment.</li>
+</ul>
+<h2>Summary</h2>
+<p>The JS engine executes the language; the runtime (browser, Node, Deno, Bun) wraps it with extra APIs for I/O, DOM, and more. Confusing "language features" with "runtime APIs" is one of the most common beginner mix-ups.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#runtime">cheat-sheet.md</a></p>
+<hr />
+<p><a href="engine.html">← Engine</a> | <a href="README.html">Section Home</a> | <a href="browser-vs-node.html">Browser vs Node →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
