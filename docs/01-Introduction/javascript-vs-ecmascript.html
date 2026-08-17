@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Javascript Vs Ecmascript · Introduction to JavaScript · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Introduction to JavaScript</div>
+    <ul class="nav-list">
+      <li><a href="history.html" class="">History</a></li>
+<li><a href="javascript-vs-ecmascript.html" class="active">Javascript Vs Ecmascript</a></li>
+<li><a href="versions.html" class="">Versions</a></li>
+<li><a href="engine.html" class="">Engine</a></li>
+<li><a href="runtime.html" class="">Runtime</a></li>
+<li><a href="browser-vs-node.html" class="">Browser Vs Node</a></li>
+<li><a href="execution.html" class="">Execution</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Introduction to JavaScript</a> / <span>Javascript Vs Ecmascript</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>JavaScript vs ECMAScript</h1>
+<blockquote>
+<p>Section: Introduction to JavaScript · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><strong>ECMAScript (ES)</strong> is the official language <em>specification</em>. <strong>JavaScript</strong> is the most popular <em>implementation</em> of that specification (others include JScript and ActionScript, both now largely dead).</p>
+<h2>History</h2>
+<ul>
+<li>1997: Netscape hands JS to <strong>ECMA International</strong> to prevent fragmentation (Microsoft's JScript vs Netscape's JavaScript).</li>
+<li>The committee that maintains the spec is <strong>TC39</strong>.</li>
+<li>Every browser engine (V8, SpiderMonkey, JavaScriptCore) implements ECMAScript, and each may call its dialect "JavaScript."</li>
+</ul>
+<h2>Why This Distinction Matters</h2>
+<p>Job listings, docs, and specs say "ECMAScript 2015 introduces <code>let</code>" — knowing ES = the spec, JS = the language you write, avoids confusion when reading official documentation (MDN, TC39 proposals).</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">// There is no syntax difference — code you write as &quot;JavaScript&quot;
+// IS ECMAScript-compliant code.
+const es = &quot;ECMAScript&quot;;
+const js = &quot;JavaScript&quot;;
+console.log(es === &quot;the spec&quot;, js === &quot;the language you write&quot;);
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ECMAScript</td>
+<td>The specification/standard (document)</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>The implementation used in browsers/Node</td>
+</tr>
+<tr>
+<td>JScript</td>
+<td>Microsoft's old IE implementation (deprecated)</td>
+</tr>
+<tr>
+<td>ActionScript</td>
+<td>Adobe Flash's dialect (deprecated)</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">// TC39 proposals go through stages 0-4 before becoming part of ECMAScript.
+// Example: the &quot;??&quot; (nullish coalescing) operator was a Stage 4 proposal
+// before becoming official in ES2020.
+const value = null ?? &quot;default&quot;; // &quot;default&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Not applicable — this is a naming/standards concept, not a runtime concept.
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">TC39 Committee
+     │
+ Proposal (Stage 0 → 1 → 2 → 3 → 4)
+     │
+ Stage 4 = accepted into next ECMAScript edition
+     │
+ Browser/Node vendors implement it → becomes usable &quot;JavaScript&quot;
+</code></pre>
+<h2>Internal Working</h2>
+<p>Engines like V8 track which ECMAScript proposals they support (see V8's release notes). "JavaScript support" in a browser really means "how much of the current ECMAScript spec + proposals this engine implements."</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">// You'll often see version names used interchangeably:
+// &quot;ES6&quot; == &quot;ES2015&quot; == the JS features: let, const, arrow functions, classes, etc.
+let x = 10; // this IS ECMAScript 2015 syntax, executed by a JavaScript engine
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Checking which ECMAScript features your current environment (JS engine) supports
+console.log(typeof globalThis !== &quot;undefined&quot;); // ES2020 feature: globalThis
+console.log(typeof Array.prototype.flat === &quot;function&quot;); // ES2019 feature
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Following a live TC39 proposal (conceptual example):
+// &quot;Array grouping&quot; (Object.groupBy) shipped in ES2024.
+const inventory = [{type:&quot;fruit&quot;},{type:&quot;veg&quot;},{type:&quot;fruit&quot;}];
+const grouped = Object.groupBy(inventory, item =&gt; item.type);
+// grouped = { fruit: [...], veg: [...] }  (requires a modern engine)
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// package.json &quot;engines&quot; field pins a minimum JS runtime, indirectly
+// pinning ECMAScript feature support:
+// &quot;engines&quot;: { &quot;node&quot;: &quot;&gt;=18.0.0&quot; }
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Linters like ESLint use an &quot;ecmaVersion&quot; config option
+// to decide which ECMAScript syntax to allow:
+// .eslintrc.json
+// { &quot;parserOptions&quot;: { &quot;ecmaVersion&quot;: 2022 } }
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#javascript-vs-ecmascript">interview.md</a>
+1. What is the difference between JavaScript and ECMAScript?
+2. What is TC39 and what does it do?
+3. Name two other (now largely dead) implementations of ECMAScript besides JavaScript.
+4. What do proposal "stages" (0–4) mean in TC39's process?
+5. Why might two browsers behave differently even though both "support JavaScript"?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#javascript-vs-ecmascript">mcq.md</a>
+1. Which body maintains the ECMAScript specification? (a) W3C (b) ECMA International/TC39 (c) IETF (d) ISO → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#javascript-vs-ecmascript">practice.md</a>
+1. <strong>(Easy)</strong> List 5 ES2015 features you use daily.
+2. <strong>(Medium)</strong> Write a feature-detection snippet for 3 different ECMAScript versions.
+3. <strong>(Hard)</strong> Research and summarize one active Stage 3 TC39 proposal in your own words.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Visit the TC39 proposals GitHub repo and list 3 Stage 3 proposals.</li>
+<li>[ ] Write a short note explaining ES vs JS to a beginner in 3 sentences.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a "Feature Support Checker" page that tests for 10 ECMAScript features (optional chaining, <code>Object.groupBy</code>, <code>structuredClone</code>, etc.) and reports which ones the visitor's browser supports.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Saying "ECMAScript 6" when official naming moved to "ES2015" (yearly naming).</li>
+<li>Thinking ECMAScript is a separate language you could write instead of JavaScript — it's the spec JS follows.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>When citing a feature, reference its ECMAScript year (e.g. "ES2020's optional chaining") for precision in documentation.</li>
+<li>Check caniuse.com or MDN's compatibility tables against the ECMAScript version, not just "JavaScript" broadly.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Configure your linter/transpiler's <code>ecmaVersion</code>/<code>target</code> explicitly rather than leaving it as a default — this avoids silently allowing (or disallowing) syntax your users' browsers can't run.</li>
+</ul>
+<h2>Summary</h2>
+<p>JavaScript is the language you write; ECMAScript is the standard it must follow, maintained by TC39. The distinction matters mainly for reading specs, configuring tools, and understanding why "ES2015" and "modern JavaScript features" mean the same thing.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#javascript-vs-ecmascript">cheat-sheet.md</a></p>
+<hr />
+<p><a href="history.html">← History</a> | <a href="README.html">Section Home</a> | <a href="versions.html">Versions →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
