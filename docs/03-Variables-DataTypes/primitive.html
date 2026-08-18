@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primitive · Variables & Data Types · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Variables & Data Types</div>
+    <ul class="nav-list">
+      <li><a href="variables.html" class="">Variables</a></li>
+<li><a href="var.html" class="">Var</a></li>
+<li><a href="let.html" class="">Let</a></li>
+<li><a href="const.html" class="">Const</a></li>
+<li><a href="datatype.html" class="">Datatype</a></li>
+<li><a href="primitive.html" class="active">Primitive</a></li>
+<li><a href="reference.html" class="">Reference</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Variables & Data Types</a> / <span>Primitive</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Primitive</h1>
+<blockquote>
+<p>Section: Variables &amp; Data Types · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Primitive types are immutable values with <strong>value semantics</strong> — Number, String, Boolean, Undefined, Null, Symbol, and BigInt. Copying a primitive copies its actual value, not a reference.</p>
+<h2>History</h2>
+<p>The first 5 primitives (Number, String, Boolean, Undefined, Null) existed since 1995; <strong>Symbol</strong> (ES2015) and <strong>BigInt</strong> (ES2020) were added later for unique identifiers and arbitrary-precision integers respectively.</p>
+<h2>Why Primitives Matter</h2>
+<p>Understanding that primitives are copied by value (unlike objects, copied by reference) explains why changing one variable never affects another that was assigned from it.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">let a = 10;
+let b = &quot;text&quot;;
+let c = true;
+let d;
+let e = null;
+let f = Symbol(&quot;id&quot;);
+let g = 10n;
+</code></pre>
+<h2>Types (the 7 primitives)</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Immutable?</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>✅</td>
+<td><code>42</code>, <code>NaN</code>, <code>Infinity</code></td>
+</tr>
+<tr>
+<td>String</td>
+<td>✅</td>
+<td><code>"hello"</code></td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>✅</td>
+<td><code>true</code>/<code>false</code></td>
+</tr>
+<tr>
+<td>Undefined</td>
+<td>✅</td>
+<td>declared but unassigned</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>✅</td>
+<td>intentional empty value</td>
+</tr>
+<tr>
+<td>Symbol</td>
+<td>✅</td>
+<td>guaranteed-unique identifier</td>
+</tr>
+<tr>
+<td>BigInt</td>
+<td>✅</td>
+<td>arbitrary-precision integers with <code>n</code> suffix</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">let str = &quot;hello&quot;;
+str.toUpperCase(); // &quot;HELLO&quot; — but str itself is unchanged!
+console.log(str);   // &quot;hello&quot; — strings are immutable
+
+let x = 5;
+let y = x; // y is a COPY
+y = 10;
+console.log(x, y); // 5 10
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Stack
+┌──────────────┐
+│ x → 5           │
+│ y → 10  (own copy, unrelated to x after assignment)│
+└──────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Assign one primitive variable to another
+        │
+A full VALUE COPY is made
+        │
+Changing one variable NEVER affects the other
+</code></pre>
+<h2>Internal Working</h2>
+<p>Primitives are stored as immutable values; any operation that appears to "change" a string or number actually creates and returns a brand-new primitive value rather than mutating the original in place.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let count = 1;
+let countCopy = count;
+countCopy = 2;
+console.log(count); // 1 — unaffected
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// String methods never mutate the original string
+let name = &quot;shubham&quot;;
+let upper = name.toUpperCase();
+console.log(name, upper); // &quot;shubham&quot; &quot;SHUBHAM&quot;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Symbols are always unique, even with the same description
+const id1 = Symbol(&quot;id&quot;);
+const id2 = Symbol(&quot;id&quot;);
+console.log(id1 === id2); // false — every Symbol() call creates a unique value
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// BigInt for precise large-number math beyond Number.MAX_SAFE_INTEGER
+const big1 = 9007199254740993n;
+console.log(big1 + 1n); // 9007199254740994n — exact, no precision loss
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Symbols are used internally by libraries to create &quot;hidden&quot; unique object keys
+// that won't collide with user-defined properties, e.g. Symbol.iterator
+const arr = [1, 2, 3];
+console.log(typeof arr[Symbol.iterator]); // &quot;function&quot;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#primitive">interview.md</a>
+1. What does "value semantics" mean for primitives?
+2. Why does <code>str.toUpperCase()</code> not change the original string?
+3. Why are two <code>Symbol("id")</code> calls never equal to each other?
+4. When would you need <code>BigInt</code> instead of <code>Number</code>?
+5. List all 7 primitive types.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#primitive">mcq.md</a>
+1. Which of these is NOT a primitive type? (a) String (b) Boolean (c) <strong>Object</strong> (d) Symbol — <em>Correct: (c).</em></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#primitive">practice.md</a>
+1. <strong>(Easy)</strong> Show that reassigning a copied primitive doesn't affect the original.
+2. <strong>(Medium)</strong> Demonstrate that string methods return new strings rather than mutating in place.
+3. <strong>(Hard)</strong> Write a snippet demonstrating precision loss with regular numbers beyond <code>Number.MAX_SAFE_INTEGER</code>, then show <code>BigInt</code> avoiding it.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] List all 7 primitives with one example value each.</li>
+<li>[ ] Explain, with a code snippet, why primitives are said to have "value semantics."</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small script comparing <code>Number</code> vs <code>BigInt</code> precision for very large integers, printing the point where regular numbers start losing accuracy.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Believing string/number methods mutate the original value.</li>
+<li>Assuming two <code>Symbol()</code> calls with the same description are equal.</li>
+<li>Mixing <code>BigInt</code> and <code>Number</code> directly in arithmetic (<code>10n + 5</code> throws a <code>TypeError</code>).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Remember primitives are always copied by value — no shared-mutation surprises.</li>
+<li>Convert explicitly between <code>BigInt</code> and <code>Number</code> when needed (<code>Number(bigIntValue)</code>, <code>BigInt(numberValue)</code>).</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Prefer primitive <code>string</code>/<code>number</code> literals over their object-wrapper equivalents (<code>new String()</code>, <code>new Number()</code>) for both performance and predictable <code>typeof</code>/equality behavior.</li>
+</ul>
+<h2>Summary</h2>
+<p>Primitives (Number, String, Boolean, Undefined, Null, Symbol, BigInt) are immutable and copied by value — a foundational distinction from objects, which are copied by reference.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#primitive">cheat-sheet.md</a></p>
+<hr />
+<p><a href="datatype.html">← Datatype</a> | <a href="README.html">Section Home</a> | <a href="reference.html">Reference →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

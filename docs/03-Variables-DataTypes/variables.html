@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Variables · Variables & Data Types · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Variables & Data Types</div>
+    <ul class="nav-list">
+      <li><a href="variables.html" class="active">Variables</a></li>
+<li><a href="var.html" class="">Var</a></li>
+<li><a href="let.html" class="">Let</a></li>
+<li><a href="const.html" class="">Const</a></li>
+<li><a href="datatype.html" class="">Datatype</a></li>
+<li><a href="primitive.html" class="">Primitive</a></li>
+<li><a href="reference.html" class="">Reference</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Variables & Data Types</a> / <span>Variables</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Variables</h1>
+<blockquote>
+<p>Section: Variables &amp; Data Types · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>A variable is a named container that stores a value in memory, which can be read or (depending on declaration type) changed later in the program.</p>
+<h2>History</h2>
+<ul>
+<li><code>var</code> existed since JS's creation in 1995.</li>
+<li><code>let</code> and <code>const</code> were introduced in <strong>ES2015</strong> to fix <code>var</code>'s confusing function-scoping and hoisting behavior.</li>
+</ul>
+<h2>Why Variables Matter</h2>
+<p>Variables let programs store and manipulate data — user input, calculations, state — instead of hardcoding every value.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">var oldWay = &quot;avoid in modern code&quot;;
+let mutable = &quot;can change&quot;;
+const immutable = &quot;cannot be reassigned&quot;;
+</code></pre>
+<h2>Types (declaration keywords)</h2>
+<table>
+<thead>
+<tr>
+<th>Keyword</th>
+<th>Scope</th>
+<th>Reassignable</th>
+<th>Hoisted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>var</code></td>
+<td>function</td>
+<td>✅</td>
+<td>✅ (as <code>undefined</code>)</td>
+</tr>
+<tr>
+<td><code>let</code></td>
+<td>block</td>
+<td>✅</td>
+<td>✅ (Temporal Dead Zone)</td>
+</tr>
+<tr>
+<td><code>const</code></td>
+<td>block</td>
+<td>❌</td>
+<td>✅ (Temporal Dead Zone)</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">let age = 25;
+age = 26; // OK, let allows reassignment
+
+const PI = 3.14159;
+// PI = 3.14; // ❌ TypeError: Assignment to constant variable
+
+var count = 0;
+count = 1; // OK, but avoid var in modern code
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Stack (primitives)              Heap (objects/reference types)
+┌────────────────┐            ┌───────────────────────┐
+│ age    → 25       │            │ user → { name: &quot;Sam&quot; }  │
+│ PI     → 3.14159  │            └───────────────────────┘
+└────────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Need a variable?
+      │
+Will its value ever change?
+      │                    │
+     No                   Yes
+      │                    │
+   use const          use let (avoid var)
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>let</code>/<code>const</code> declarations are hoisted but placed in a "Temporal Dead Zone" (TDZ) — they exist in scope but accessing them before the declaration line throws a <code>ReferenceError</code>, unlike <code>var</code> which silently returns <code>undefined</code>.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let name = &quot;Shubham&quot;;
+console.log(name); // &quot;Shubham&quot;
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">console.log(x); // ReferenceError: Cannot access 'x' before initialization (TDZ)
+let x = 10;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">const user = { name: &quot;Shubham&quot; };
+user.name = &quot;Narware&quot;; // ✅ allowed — const prevents REASSIGNING user, not mutating its contents
+// user = {}; // ❌ TypeError
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Config values that should never change: use const
+const API_BASE_URL = &quot;https://api.example.com&quot;;
+// Loop counters/values that change: use let
+for (let i = 0; i &lt; 5; i++) { /* ... */ }
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// ESLint's &quot;prefer-const&quot; rule flags `let` variables that are never reassigned,
+// enforcing const-by-default across production codebases.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#variables">interview.md</a>
+1. What are the 3 ways to declare a variable in JS?
+2. What is the Temporal Dead Zone?
+3. Why is <code>const</code> not "truly immutable" for objects?
+4. Why should <code>var</code> generally be avoided in modern code?
+5. What's the difference between declaring, initializing, and assigning a variable?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#variables">mcq.md</a>
+1. Which keyword allows reassignment but not redeclaration in the same scope? (a) var (b) <strong>let</strong> (c) const (d) none → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#variables">practice.md</a>
+1. <strong>(Easy)</strong> Declare a <code>const</code> object and mutate one of its properties.
+2. <strong>(Medium)</strong> Demonstrate the Temporal Dead Zone with a code snippet and explain the error.
+3. <strong>(Hard)</strong> Refactor a <code>var</code>-heavy legacy snippet to use <code>let</code>/<code>const</code> correctly, explaining each choice.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Write 5 variable declarations, choosing <code>let</code> vs <code>const</code> correctly for each use case.</li>
+<li>[ ] Explain in your own words why const objects can still be mutated.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small settings object using <code>const</code>, and a counter using <code>let</code>, wiring both into a tiny console-based app that logs both values changing appropriately.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Trying to reassign a <code>const</code> primitive value.</li>
+<li>Assuming <code>const</code> makes objects/arrays fully immutable.</li>
+<li>Using <code>var</code> out of habit, causing accidental scope leaks.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Default to <code>const</code>; use <code>let</code> only when reassignment is genuinely needed.</li>
+<li>Avoid <code>var</code> entirely in new code.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Declaring variables with the narrowest necessary scope (block-scoped <code>let</code>/<code>const</code>) helps garbage collection reclaim memory sooner once the block ends.</li>
+</ul>
+<h2>Summary</h2>
+<p>Modern JavaScript uses <code>let</code> and <code>const</code> for block-scoped, predictable variable declarations — prefer <code>const</code> by default, <code>let</code> when reassignment is needed, and avoid <code>var</code>'s function-scoping quirks.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#variables">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="var.html">Var →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

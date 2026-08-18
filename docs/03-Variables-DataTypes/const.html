@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Const · Variables & Data Types · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Variables & Data Types</div>
+    <ul class="nav-list">
+      <li><a href="variables.html" class="">Variables</a></li>
+<li><a href="var.html" class="">Var</a></li>
+<li><a href="let.html" class="">Let</a></li>
+<li><a href="const.html" class="active">Const</a></li>
+<li><a href="datatype.html" class="">Datatype</a></li>
+<li><a href="primitive.html" class="">Primitive</a></li>
+<li><a href="reference.html" class="">Reference</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Variables & Data Types</a> / <span>Const</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Const</h1>
+<blockquote>
+<p>Section: Variables &amp; Data Types · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>const</code> declares a block-scoped variable whose <strong>binding</strong> cannot be reassigned after initialization — though objects/arrays it references can still be mutated internally.</p>
+<h2>History</h2>
+<p>Introduced in <strong>ES2015</strong> alongside <code>let</code>, giving developers an explicit way to signal "this reference will never change."</p>
+<h2>Why Const Matters</h2>
+<p>Defaulting to <code>const</code> communicates intent clearly (this value's binding won't be reassigned) and catches accidental reassignment bugs at parse/runtime time.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">const PI = 3.14159;
+const user = { name: &quot;Shubham&quot; };
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — single declaration form.</p>
+<h2>Examples</h2>
+<pre><code class="language-js">const MAX_USERS = 100;
+// MAX_USERS = 200; // ❌ TypeError: Assignment to constant variable.
+
+const list = [1, 2, 3];
+list.push(4); // ✅ OK — mutating contents, not reassigning `list` itself
+console.log(list); // [1, 2, 3, 4]
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">const user = { name: &quot;Shubham&quot; };
+
+Stack                     Heap
+┌───────────────┐      ┌─────────────────────┐
+│ user → (ref) ────────►│ { name: &quot;Shubham&quot; }    │
+└───────────────┘      └─────────────────────┘
+   ↑ this reference        ↑ this object's CONTENTS
+   is locked (const)          CAN still be changed
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Will this variable's binding ever be reassigned?
+        │                              │
+       No                             Yes
+        │                              │
+    use const                      use let
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>const</code> must be initialized at declaration (no <code>const x;</code> without a value) and, like <code>let</code>, sits in the Temporal Dead Zone until that line runs. The engine simply disallows any later <code>=</code> reassignment to that binding — it does not freeze the referenced value itself.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const name = &quot;Shubham&quot;;
+console.log(name); // &quot;Shubham&quot;
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">const config = { debug: false };
+config.debug = true; // allowed — object mutation, not reassignment
+console.log(config); // { debug: true }
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// To make an object's VALUES immutable too, use Object.freeze (shallow freeze)
+const settings = Object.freeze({ theme: &quot;dark&quot; });
+settings.theme = &quot;light&quot;; // silently fails in non-strict mode, throws in strict mode
+console.log(settings.theme); // &quot;dark&quot; — unchanged
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Constants for configuration/magic values
+const TAX_RATE = 0.18;
+const API_KEY = process.env.API_KEY;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// ESLint's &quot;prefer-const&quot; rule automatically suggests converting
+// any `let` that's never reassigned into a `const`, enforcing
+// const-by-default across a codebase.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#const">interview.md</a>
+1. Why is <code>const user.name = "x"</code> valid even though <code>user</code> is a <code>const</code>?
+2. What happens if you try to declare <code>const x;</code> without a value?
+3. How would you make an object's properties truly unchangeable?
+4. What's the difference between <code>const</code> immutability and <code>Object.freeze()</code>?
+5. Why might a team enforce "const by default" via linting?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#const">mcq.md</a>
+1. Which of these is TRUE about <code>const</code>? (a) Values can never change (b) <strong>Bindings can't be reassigned, but object contents can mutate</strong> (c) It's function-scoped (d) It allows redeclaration — <em>Correct: (b).</em></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#const">practice.md</a>
+1. <strong>(Easy)</strong> Declare a <code>const</code> array and push a new item onto it.
+2. <strong>(Medium)</strong> Use <code>Object.freeze()</code> to prevent an object's properties from changing, and demonstrate the attempt failing.
+3. <strong>(Hard)</strong> Write a deep-freeze utility function that recursively freezes a nested object.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with an example, why <code>const</code> doesn't make objects immutable by default.</li>
+<li>[ ] Convert a codebase snippet's unnecessary <code>let</code>s into <code>const</code>s.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple "app config" object declared with <code>const</code>, demonstrate mutating a property, then apply <code>Object.freeze()</code> and show the mutation being blocked.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Believing <code>const</code> makes the entire object/array immutable.</li>
+<li>Forgetting <code>const</code> requires immediate initialization.</li>
+<li>Trying to reassign a <code>const</code> and being confused by the <code>TypeError</code>.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Default to <code>const</code> for all variables unless reassignment is genuinely required.</li>
+<li>Use <code>Object.freeze()</code> (or a deep-freeze utility) when true immutability is needed.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Engines can sometimes make stronger optimization assumptions about <code>const</code> bindings since they're guaranteed not to be reassigned — a minor but real JIT-friendliness benefit.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>const</code> locks a variable's <em>binding</em>, not its <em>value's contents</em> — objects and arrays declared with <code>const</code> can still be mutated. Use <code>const</code> by default and reach for <code>Object.freeze()</code> when true immutability is required.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#const">cheat-sheet.md</a></p>
+<hr />
+<p><a href="let.html">← Let</a> | <a href="README.html">Section Home</a> | <a href="datatype.html">Datatype →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
