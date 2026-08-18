@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datatype · Variables & Data Types · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Variables & Data Types</div>
+    <ul class="nav-list">
+      <li><a href="variables.html" class="">Variables</a></li>
+<li><a href="var.html" class="">Var</a></li>
+<li><a href="let.html" class="">Let</a></li>
+<li><a href="const.html" class="">Const</a></li>
+<li><a href="datatype.html" class="active">Datatype</a></li>
+<li><a href="primitive.html" class="">Primitive</a></li>
+<li><a href="reference.html" class="">Reference</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Variables & Data Types</a> / <span>Datatype</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Datatype</h1>
+<blockquote>
+<p>Section: Variables &amp; Data Types · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>A data type classifies the kind of value a variable holds — JavaScript has 7 primitive types plus 1 non-primitive (Object), and is dynamically typed (types are determined at runtime).</p>
+<h2>History</h2>
+<p>The original data types (Number, String, Boolean, Undefined, Null, Object) existed since 1995; <strong>Symbol</strong> was added in ES2015, <strong>BigInt</strong> in ES2020.</p>
+<h2>Why Data Types Matter</h2>
+<p>Knowing a value's type determines what operations are valid, how equality comparisons behave, and how memory is managed (value vs reference semantics).</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">typeof 42;          // &quot;number&quot;
+typeof &quot;hi&quot;;          // &quot;string&quot;
+typeof true;          // &quot;boolean&quot;
+typeof undefined;     // &quot;undefined&quot;
+typeof null;          // &quot;object&quot; (a famous long-standing bug, kept for compatibility)
+typeof Symbol();      // &quot;symbol&quot;
+typeof 10n;            // &quot;bigint&quot;
+typeof {};             // &quot;object&quot;
+</code></pre>
+<h2>Types (the full list)</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Category</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Primitive</td>
+<td><code>42</code>, <code>3.14</code></td>
+</tr>
+<tr>
+<td>String</td>
+<td>Primitive</td>
+<td><code>"hello"</code></td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>Primitive</td>
+<td><code>true</code>, <code>false</code></td>
+</tr>
+<tr>
+<td>Undefined</td>
+<td>Primitive</td>
+<td><code>let x;</code></td>
+</tr>
+<tr>
+<td>Null</td>
+<td>Primitive</td>
+<td><code>let x = null;</code></td>
+</tr>
+<tr>
+<td>Symbol</td>
+<td>Primitive</td>
+<td><code>Symbol("id")</code></td>
+</tr>
+<tr>
+<td>BigInt</td>
+<td>Primitive</td>
+<td><code>123456789012345678901234567890n</code></td>
+</tr>
+<tr>
+<td>Object</td>
+<td>Non-primitive</td>
+<td><code>{}</code>, <code>[]</code>, functions, dates</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">let age = 25;               // Number
+let name = &quot;Shubham&quot;;        // String
+let isAdmin = false;         // Boolean
+let notSet;                   // Undefined
+let empty = null;             // Null (intentional absence of value)
+let id = Symbol(&quot;uid&quot;);       // Symbol (guaranteed unique)
+let big = 900719925474099199n; // BigInt (arbitrary-precision integers)
+let user = { name: &quot;Shubham&quot; }; // Object
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Primitives (Stack)                Objects (Heap)
+┌──────────────────┐            ┌────────────────────┐
+│ age  → 25            │            │ user → { name: &quot;...&quot; }│
+│ name → &quot;Shubham&quot;      │            └────────────────────┘
+└──────────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">typeof value
+    │
+&quot;number&quot;/&quot;string&quot;/&quot;boolean&quot;/&quot;undefined&quot;/&quot;symbol&quot;/&quot;bigint&quot; → PRIMITIVE (copied by value)
+    │
+&quot;object&quot; (or &quot;function&quot;) → NON-PRIMITIVE (copied/shared by reference)
+</code></pre>
+<h2>Internal Working</h2>
+<p>Primitives are stored directly (conceptually on the "stack") and compared/copied by value; objects live on the heap, and variables referencing them store only a pointer/reference — copying the variable copies the reference, not the underlying object.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let a = 5;
+let b = a; // b gets a COPY of the value
+b = 10;
+console.log(a, b); // 5 10 — a is unaffected
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">let obj1 = { count: 1 };
+let obj2 = obj1; // obj2 gets a COPY of the REFERENCE, same underlying object
+obj2.count = 99;
+console.log(obj1.count); // 99 — both variables point to the same object!
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// typeof null === &quot;object&quot; is a historical bug kept for backward compatibility.
+// Correctly checking for null:
+function isNull(value) {
+  return value === null;
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Form validation relying on correct type checks
+function validateAge(input) {
+  const age = Number(input);
+  return typeof age === &quot;number&quot; &amp;&amp; !Number.isNaN(age) &amp;&amp; age &gt; 0;
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// TypeScript exists largely to catch data-type mistakes at compile time
+// that plain JavaScript would only reveal at runtime.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#datatype">interview.md</a>
+1. List all 8 JavaScript data types.
+2. Why does <code>typeof null</code> return <code>"object"</code>?
+3. What's the difference between primitive and non-primitive types in terms of memory?
+4. What is Symbol used for?
+5. When would you need BigInt instead of Number?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#datatype">mcq.md</a>
+1. How many primitive types does JavaScript have? (a) 5 (b) 6 (c) <strong>7</strong> (d) 8 — <em>Correct: (c) — Number, String, Boolean, Undefined, Null, Symbol, BigInt.</em></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#datatype">practice.md</a>
+1. <strong>(Easy)</strong> Use <code>typeof</code> to log the type of 6 different values.
+2. <strong>(Medium)</strong> Write a function that correctly checks whether a value is <code>null</code> (avoiding the <code>typeof</code> bug).
+3. <strong>(Hard)</strong> Write a type-checking utility that distinguishes Array, plain Object, null, and other object types (since <code>typeof</code> treats them all as <code>"object"</code>).</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Create a table listing all 8 data types with an example value for each.</li>
+<li>[ ] Explain, with a code example, the practical difference between value and reference semantics.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Type Inspector" script: given an array of mixed values, log each value along with its precise type (correctly distinguishing arrays, null, and plain objects).</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Relying on <code>typeof</code> to detect <code>null</code> (<code>"object"</code>) or arrays (<code>"object"</code>) — use <code>=== null</code> and <code>Array.isArray()</code> instead.</li>
+<li>Confusing value vs reference semantics, leading to unexpected shared-mutation bugs.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>Array.isArray()</code> for arrays, <code>value === null</code> for null checks, and <code>typeof</code> for everything else.</li>
+<li>Understand which types are primitives (value semantics) vs objects (reference semantics) before designing data flow.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Prefer primitives over object wrappers (<code>new Number(5)</code> vs <code>5</code>) — wrapper objects add overhead and unexpected <code>typeof</code>/equality behavior.</li>
+</ul>
+<h2>Summary</h2>
+<p>JavaScript has 7 primitive types (value semantics) plus Object (reference semantics), determined dynamically at runtime. Correctly distinguishing them — especially around the <code>typeof null</code> quirk and array detection — avoids many subtle bugs.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#datatype">cheat-sheet.md</a></p>
+<hr />
+<p><a href="const.html">← Const</a> | <a href="README.html">Section Home</a> | <a href="primitive.html">Primitive →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
