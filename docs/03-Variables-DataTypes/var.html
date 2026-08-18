@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Var · Variables & Data Types · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Variables & Data Types</div>
+    <ul class="nav-list">
+      <li><a href="variables.html" class="">Variables</a></li>
+<li><a href="var.html" class="active">Var</a></li>
+<li><a href="let.html" class="">Let</a></li>
+<li><a href="const.html" class="">Const</a></li>
+<li><a href="datatype.html" class="">Datatype</a></li>
+<li><a href="primitive.html" class="">Primitive</a></li>
+<li><a href="reference.html" class="">Reference</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Variables & Data Types</a> / <span>Var</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Var</h1>
+<blockquote>
+<p>Section: Variables &amp; Data Types · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>var</code> is JavaScript's original variable declaration keyword — function-scoped (not block-scoped), hoisted and initialized to <code>undefined</code>.</p>
+<h2>History</h2>
+<p>Present since JS's creation in 1995; its quirks (function scoping, hoisting to <code>undefined</code>) motivated the addition of <code>let</code>/<code>const</code> in ES2015.</p>
+<h2>Why Var Still Matters</h2>
+<p>Countless legacy codebases use <code>var</code> — understanding its scoping/hoisting quirks is essential for reading, debugging, and safely migrating old code.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">var x = 10;
+function demo() {
+  var y = 20; // function-scoped, not block-scoped
+}
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — <code>var</code> is a single declaration form (unlike <code>let</code>/<code>const</code> distinction).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">if (true) {
+  var leaked = &quot;I escape the block!&quot;;
+}
+console.log(leaked); // &quot;I escape the block!&quot; — var ignores block scope
+
+function scoped() {
+  if (true) {
+    var trapped = &quot;only inside the function&quot;;
+  }
+  console.log(trapped); // works — still function-scoped
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Function Scope
+┌─────────────────────────────┐
+│ var y  (accessible anywhere    │
+│         inside this function,  │
+│         even before its line   │
+│         of declaration — as     │
+│         undefined until assigned)│
+└─────────────────────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">var declared inside a block ({ })?
+        │
+       Yes
+        │
+Does it &quot;leak&quot; outside the block but stay inside the enclosing function?
+        │
+       Yes — this is the classic `var` scoping gotcha
+</code></pre>
+<h2>Internal Working</h2>
+<p>During the creation phase of execution, all <code>var</code> declarations in a function are hoisted to the top of that function and initialized to <code>undefined</code> — this is why you can reference a <code>var</code> variable before its declaration line without a <code>ReferenceError</code> (unlike <code>let</code>/<code>const</code>).</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">console.log(a); // undefined (not an error!)
+var a = 5;
+console.log(a); // 5
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">for (var i = 0; i &lt; 3; i++) {
+  setTimeout(() =&gt; console.log(i), 0);
+}
+// Logs: 3, 3, 3 — because var is function/global-scoped,
+// all callbacks share the SAME `i` after the loop finishes
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Classic IIFE workaround (pre-ES6) to fix the above closure problem
+for (var i = 0; i &lt; 3; i++) {
+  (function (captured) {
+    setTimeout(() =&gt; console.log(captured), 0);
+  })(i);
+}
+// Logs: 0, 1, 2 — each IIFE call captures its own `captured` value
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Legacy jQuery-era code commonly relies on var, e.g.:
+var $modal = $(&quot;#modal&quot;);
+function openModal() {
+  $modal.show();
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Modern linters (ESLint's &quot;no-var&quot; rule) automatically flag every `var`
+// in a codebase, guiding teams toward let/const during migrations.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#var">interview.md</a>
+1. What scope does <code>var</code> use, and how does it differ from <code>let</code>/<code>const</code>?
+2. Why does <code>console.log(a); var a = 5;</code> not throw an error?
+3. Why did the classic <code>for (var i...) setTimeout(...)</code> loop log the same value for every iteration?
+4. How did developers work around <code>var</code>'s closure problem before <code>let</code> existed?
+5. Why does ESLint's "no-var" rule exist?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#var">mcq.md</a>
+1. <code>var</code> is scoped to the nearest: (a) Block (b) <strong>Function</strong> (c) Module (d) File → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#var">practice.md</a>
+1. <strong>(Easy)</strong> Demonstrate <code>var</code>'s hoisting by logging a variable before its declaration.
+2. <strong>(Medium)</strong> Show the classic <code>var</code> + <code>setTimeout</code> loop bug and fix it using <code>let</code>.
+3. <strong>(Hard)</strong> Fix the same bug using an IIFE (as if <code>let</code> didn't exist), explaining why it works.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Rewrite 3 <code>var</code>-based snippets using <code>let</code>/<code>const</code>, explaining the scoping change each time.</li>
+<li>[ ] Explain, with a diagram, why <code>var</code> "leaks" out of <code>if</code>/<code>for</code> blocks but not out of functions.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Take an old jQuery-style snippet full of <code>var</code>, refactor it entirely to <code>let</code>/<code>const</code>, and document each change and why it's safer.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming <code>var</code> is block-scoped like <code>let</code>/<code>const</code>.</li>
+<li>Being surprised by <code>var</code> "loop variable" bugs in <code>setTimeout</code>/async callbacks.</li>
+<li>Redeclaring the same <code>var</code> name in the same function without realizing it's silently allowed.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Avoid <code>var</code> in all new code; use it only when reading/maintaining legacy files.</li>
+<li>When migrating old <code>var</code> code, replace with <code>let</code> first (safest, minimal behavior change), then <code>const</code> where applicable.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Not directly a performance topic, but replacing <code>var</code> with block-scoped <code>let</code>/<code>const</code> can help engines optimize variable lifetime and scoping more predictably.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>var</code> is function-scoped and hoisted to <code>undefined</code>, causing several classic bugs (loop-variable capture, accidental scope leakage) that <code>let</code>/<code>const</code> fix. It survives today mainly in legacy code.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#var">cheat-sheet.md</a></p>
+<hr />
+<p><a href="variables.html">← Variables</a> | <a href="README.html">Section Home</a> | <a href="let.html">Let →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
