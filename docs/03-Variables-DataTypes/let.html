@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Let · Variables & Data Types · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Variables & Data Types</div>
+    <ul class="nav-list">
+      <li><a href="variables.html" class="">Variables</a></li>
+<li><a href="var.html" class="">Var</a></li>
+<li><a href="let.html" class="active">Let</a></li>
+<li><a href="const.html" class="">Const</a></li>
+<li><a href="datatype.html" class="">Datatype</a></li>
+<li><a href="primitive.html" class="">Primitive</a></li>
+<li><a href="reference.html" class="">Reference</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Variables & Data Types</a> / <span>Let</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Let</h1>
+<blockquote>
+<p>Section: Variables &amp; Data Types · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>let</code> declares a block-scoped, reassignable variable, introduced in ES2015 to fix <code>var</code>'s scoping problems.</p>
+<h2>History</h2>
+<p>Introduced in <strong>ES2015 (ES6)</strong> alongside <code>const</code>, specifically to give developers predictable block scoping.</p>
+<h2>Why Let Matters</h2>
+<p><code>let</code> confines a variable to the <code>{ }</code> block it's declared in (loops, <code>if</code> statements, etc.), preventing the accidental leaks and closure bugs common with <code>var</code>.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">let count = 0;
+count = count + 1; // reassignment allowed
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — single declaration form.</p>
+<h2>Examples</h2>
+<pre><code class="language-js">if (true) {
+  let blockScoped = &quot;only visible here&quot;;
+}
+// console.log(blockScoped); // ❌ ReferenceError — outside the block
+
+for (let i = 0; i &lt; 3; i++) {
+  setTimeout(() =&gt; console.log(i), 0);
+}
+// Logs: 0, 1, 2 — each iteration gets its OWN `i` binding
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Block Scope { }
+┌─────────────────────┐
+│ let i   (new binding    │  ← each loop iteration
+│         each iteration) │     creates a fresh `i`
+└─────────────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Declare with let inside a { } block
+        │
+Variable exists ONLY within that block
+        │
+Accessed outside the block? ──► ReferenceError
+</code></pre>
+<h2>Internal Working</h2>
+<p>Like <code>const</code>, <code>let</code> is hoisted to the top of its block but remains in the <strong>Temporal Dead Zone (TDZ)</strong> until its declaration line executes — accessing it earlier throws a <code>ReferenceError</code> rather than returning <code>undefined</code>.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let score = 0;
+score = score + 10;
+console.log(score); // 10
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">console.log(typeof y); // ReferenceError due to TDZ — NOT &quot;undefined&quot;
+let y = 5;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// let fixes the classic var+loop+setTimeout bug automatically
+for (let i = 0; i &lt; 3; i++) {
+  setTimeout(() =&gt; console.log(&quot;value:&quot;, i), 100);
+}
+// Logs value: 0, value: 1, value: 2 — each closure captures its own iteration's `i`
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Using let for a mutable loop/accumulator variable
+let total = 0;
+for (let i = 1; i &lt;= 10; i++) {
+  total += i;
+}
+console.log(total); // 55
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// ESLint's &quot;no-var&quot; + &quot;prefer-const&quot; rules together push teams toward:
+// - const by default
+// - let only when reassignment is truly needed
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#let">interview.md</a>
+1. How does <code>let</code>'s scoping differ from <code>var</code>'s?
+2. What is the Temporal Dead Zone, and how does it affect <code>let</code>?
+3. Why does the <code>for (let i...) setTimeout(...)</code> loop log 0,1,2 instead of 3,3,3?
+4. Can you redeclare a <code>let</code> variable in the same scope? What happens if you try?
+5. When would you choose <code>let</code> over <code>const</code>?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#let">mcq.md</a>
+1. <code>let</code> is scoped to the nearest: (a) Function (b) <strong>Block</strong> (c) Module (d) Global — <em>Correct: (b).</em></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#let">practice.md</a>
+1. <strong>(Easy)</strong> Declare a <code>let</code> variable, reassign it twice, and log each value.
+2. <strong>(Medium)</strong> Demonstrate the TDZ by referencing a <code>let</code> variable before its declaration.
+3. <strong>(Hard)</strong> Explain, with a diagram, why the <code>let</code>-based loop+setTimeout example logs distinct values per iteration.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Convert 3 <code>var</code> declarations to <code>let</code> and explain the scoping improvement each time.</li>
+<li>[ ] Write a short explanation of the TDZ suitable for a beginner.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple counter app (increment/decrement buttons, conceptually or in a script) using <code>let</code> for the mutable count value.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Trying to redeclare the same <code>let</code> variable in the same block (<code>SyntaxError</code>).</li>
+<li>Forgetting that <code>let</code> still respects block scope inside nested <code>if</code>/<code>for</code> statements — accessing it outside throws.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>let</code> specifically when a variable's value must change; otherwise use <code>const</code>.</li>
+<li>Declare <code>let</code> variables as close as possible to their first use, in the smallest reasonable scope.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Block-scoped <code>let</code> in loops allows engines to create a fresh binding per iteration efficiently when closures are involved — an intentional, correctness-first design over raw performance micro-optimization.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>let</code> gives JavaScript proper block scoping and Temporal-Dead-Zone-protected declarations, fixing the classic scoping/closure bugs <code>var</code> was prone to — use it whenever a variable's value needs to change.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#let">cheat-sheet.md</a></p>
+<hr />
+<p><a href="var.html">← Var</a> | <a href="README.html">Section Home</a> | <a href="const.html">Const →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
