@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reference · Variables & Data Types · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Variables & Data Types</div>
+    <ul class="nav-list">
+      <li><a href="variables.html" class="">Variables</a></li>
+<li><a href="var.html" class="">Var</a></li>
+<li><a href="let.html" class="">Let</a></li>
+<li><a href="const.html" class="">Const</a></li>
+<li><a href="datatype.html" class="">Datatype</a></li>
+<li><a href="primitive.html" class="">Primitive</a></li>
+<li><a href="reference.html" class="active">Reference</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Variables & Data Types</a> / <span>Reference</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Reference</h1>
+<blockquote>
+<p>Section: Variables &amp; Data Types · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Reference types (Objects, Arrays, Functions) are stored on the heap; a variable holding one actually holds a <strong>reference (pointer)</strong> to that memory location, not the data itself — copying the variable copies the reference, so both point to the same underlying data.</p>
+<h2>History</h2>
+<p>Object/reference semantics have existed since JS's creation in 1995, as objects and arrays were always distinct from primitives.</p>
+<h2>Why Reference Types Matter</h2>
+<p>Misunderstanding reference semantics causes one of the most common JS bugs: mutating what you think is a "copy" but is actually the same shared object.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">let obj1 = { count: 0 };
+let obj2 = obj1; // obj2 references the SAME object as obj1
+</code></pre>
+<h2>Types (reference type categories)</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Object</td>
+<td><code>{ key: "value" }</code></td>
+</tr>
+<tr>
+<td>Array</td>
+<td><code>[1, 2, 3]</code></td>
+</tr>
+<tr>
+<td>Function</td>
+<td><code>function () {}</code></td>
+</tr>
+<tr>
+<td>Date</td>
+<td><code>new Date()</code></td>
+</tr>
+<tr>
+<td>Map/Set</td>
+<td><code>new Map()</code>, <code>new Set()</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">let arr1 = [1, 2, 3];
+let arr2 = arr1;
+arr2.push(4);
+console.log(arr1); // [1, 2, 3, 4] — arr1 changed too! Same underlying array.
+
+let arr3 = [1, 2, 3];
+let arr4 = [...arr3]; // spread creates a SHALLOW COPY — new array
+arr4.push(4);
+console.log(arr3); // [1, 2, 3] — unaffected this time
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">let obj1 = { count: 0 };
+let obj2 = obj1;
+
+Stack                    Heap
+┌───────────────┐      ┌─────────────────┐
+│ obj1 → (ref A) ───────►│ { count: 0 }      │
+│ obj2 → (ref A) ───────►│  (SAME object)     │
+└───────────────┘      └─────────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Assign object/array variable to another variable
+        │
+Only the REFERENCE is copied, not the underlying data
+        │
+Mutating via EITHER variable affects the SAME object
+        │
+Need an independent copy? ──► use spread {...obj}/[...arr] (shallow)
+                              or structuredClone(obj) (deep)
+</code></pre>
+<h2>Internal Working</h2>
+<p>The variable itself stores a small pointer to a location on the heap; assignment (<code>obj2 = obj1</code>) copies that pointer value, not the object's contents — so both variables end up pointing at the exact same heap memory.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let a = { name: &quot;Shubham&quot; };
+let b = a;
+b.name = &quot;Narware&quot;;
+console.log(a.name); // &quot;Narware&quot; — a and b share the same object
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Shallow copy with spread — top-level properties are copied,
+// but NESTED objects are still shared references
+let original = { user: { name: &quot;Shubham&quot; } };
+let shallow = { ...original };
+shallow.user.name = &quot;Changed&quot;;
+console.log(original.user.name); // &quot;Changed&quot; — nested object still shared!
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Deep copy using structuredClone (modern, built-in)
+let original = { user: { name: &quot;Shubham&quot; }, tags: [&quot;a&quot;, &quot;b&quot;] };
+let deep = structuredClone(original);
+deep.user.name = &quot;Changed&quot;;
+console.log(original.user.name); // &quot;Shubham&quot; — fully independent copy
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// React (and similar libraries) rely on reference equality to detect changes —
+// mutating state directly (same reference) often fails to trigger a re-render;
+// you must create a NEW object/array reference to signal &quot;this changed.&quot;
+setState(prevState =&gt; ({ ...prevState, count: prevState.count + 1 }));
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Redux's core rule: never mutate state directly — always return a new
+// object/array reference — precisely because of reference-equality semantics.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#reference">interview.md</a>
+1. What's the difference between value semantics (primitives) and reference semantics (objects)?
+2. Why does mutating a variable that "copied" an object affect the original?
+3. What's the difference between a shallow copy and a deep copy?
+4. Why do React/Redux insist on creating new object/array references instead of mutating in place?
+5. Name two ways to create a deep copy of an object in modern JavaScript.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#reference">mcq.md</a>
+1. Assigning one object variable to another copies: (a) The full object contents (b) <strong>Only the reference/pointer</strong> (c) Nothing (d) A deep clone — <em>Correct: (b).</em></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#reference">practice.md</a>
+1. <strong>(Easy)</strong> Show that two variables assigned to the same object share mutations.
+2. <strong>(Medium)</strong> Demonstrate the shallow-copy pitfall with a nested object using spread syntax.
+3. <strong>(Hard)</strong> Write a simple recursive <code>deepClone(obj)</code> function without using <code>structuredClone</code>.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with a diagram, the difference between value and reference semantics.</li>
+<li>[ ] Demonstrate <code>structuredClone</code> fixing a shallow-copy nested-object bug.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Immutable Update" utility function that takes a nested state object and a path/value to update, returning a new object without mutating the original (a simplified Redux-style reducer helper).</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming <code>{ ...obj }</code> or <code>[...arr]</code> creates a full deep copy (it's shallow — nested objects are still shared).</li>
+<li>Mutating state directly in React and wondering why the UI doesn't update.</li>
+<li>Comparing two structurally-identical objects with <code>===</code> and expecting <code>true</code> (reference equality, not deep equality).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>structuredClone()</code> (or a deep-clone utility/library) when you need a fully independent nested copy.</li>
+<li>In state-management code (React, Redux), always create new references instead of mutating in place.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Prefer shallow copies when only top-level changes matter — deep cloning large objects is comparatively expensive and often unnecessary.</li>
+</ul>
+<h2>Summary</h2>
+<p>Objects, arrays, and functions are reference types — variables store pointers to shared heap memory, so copying a variable doesn't copy the underlying data. Understanding shallow vs deep copying is essential for avoiding subtle shared-mutation bugs, especially in state-driven UI frameworks.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#reference">cheat-sheet.md</a></p>
+<hr />
+<p><a href="primitive.html">← Primitive</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
