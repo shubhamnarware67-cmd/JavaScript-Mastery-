@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vscode · Environment Setup · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Environment Setup</div>
+    <ul class="nav-list">
+      <li><a href="installation.html" class="">Installation</a></li>
+<li><a href="vscode.html" class="active">Vscode</a></li>
+<li><a href="node.html" class="">Node</a></li>
+<li><a href="npm.html" class="">Npm</a></li>
+<li><a href="extensions.html" class="">Extensions</a></li>
+<li><a href="debugging.html" class="">Debugging</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Environment Setup</a> / <span>Vscode</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>VS Code</h1>
+<blockquote>
+<p>Section: Environment Setup · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><strong>Visual Studio Code (VS Code)</strong> is a free, extensible code editor by Microsoft — the most widely used editor for JavaScript development, thanks to built-in IntelliSense, debugging, and a huge extension ecosystem.</p>
+<h2>History</h2>
+<ul>
+<li>Released by Microsoft in <strong>2015</strong>.</li>
+<li>Built on Electron (itself built with... JavaScript!) — VS Code is literally a JS/TS app.</li>
+<li>Became the most popular editor in Stack Overflow's developer surveys within a few years of release.</li>
+</ul>
+<h2>Why VS Code Matters</h2>
+<p>Its built-in JavaScript/TypeScript language service (autocomplete, inline errors, go-to-definition) dramatically speeds up development and reduces simple bugs before you even run the code.</p>
+<h2>Syntax</h2>
+<pre><code class="language-json">// settings.json — VS Code's own configuration is written in JSON
+{
+  &quot;editor.formatOnSave&quot;: true,
+  &quot;editor.tabSize&quot;: 2
+}
+</code></pre>
+<h2>Types (ways to extend/configure VS Code)</h2>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extensions</td>
+<td>Add language support, linters, themes, tools</td>
+</tr>
+<tr>
+<td><code>settings.json</code></td>
+<td>Editor-wide or project-specific preferences</td>
+</tr>
+<tr>
+<td><code>launch.json</code></td>
+<td>Debugger configurations</td>
+</tr>
+<tr>
+<td>Snippets</td>
+<td>Reusable code templates</td>
+</tr>
+<tr>
+<td>Workspaces</td>
+<td>Multi-folder project setups</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-json">// .vscode/launch.json — debug a Node script directly in VS Code
+{
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    {
+      &quot;type&quot;: &quot;node&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;name&quot;: &quot;Launch Program&quot;,
+      &quot;program&quot;: &quot;${workspaceFolder}/app.js&quot;
+    }
+  ]
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — this is a tooling topic.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Open a .js file in VS Code
+        │
+Built-in TypeScript/JavaScript Language Service activates
+        │
+   ┌────┴─────┬───────────────┬────────────────┐
+IntelliSense  Inline errors   Go-to-definition  Auto-import suggestions
+</code></pre>
+<h2>Internal Working</h2>
+<p>VS Code uses the <strong>TypeScript Language Server</strong> (yes, even for plain <code>.js</code> files) under the hood to provide autocomplete, type-checking hints (via JSDoc or inferred types), and refactoring tools — all without you writing a line of TypeScript.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">// Type &quot;console.&quot; in VS Code and IntelliSense shows all available methods
+console.log(&quot;autocomplete works here&quot;);
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// JSDoc comments give VS Code enough info to type-check plain JS
+/**
+ * @param {number} a
+ * @param {number} b
+ * @returns {number}
+ */
+function add(a, b) { return a + b; }
+add(&quot;1&quot;, 2); // VS Code will flag this as a likely type error via JSDoc inference
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-json">// .vscode/settings.json enabling stricter JS checking project-wide
+{
+  &quot;js/ts.implicitProjectConfig.checkJs&quot;: true
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-javascript">Popular extensions used daily by professional JS developers:
+- ESLint (linting)
+- Prettier (formatting)
+- GitLens (git blame/history inline)
+- Live Server (quick static preview)
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-json">// Teams commit a shared .vscode/extensions.json to recommend
+// consistent tooling for every contributor:
+{
+  &quot;recommendations&quot;: [&quot;dbaeumer.vscode-eslint&quot;, &quot;esbenp.prettier-vscode&quot;]
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#vscode">interview.md</a>
+1. What technology is VS Code itself built with?
+2. How does VS Code provide type-checking for plain <code>.js</code> files without TypeScript?
+3. What is <code>launch.json</code> used for?
+4. Name 3 essential extensions for JavaScript development.
+5. What's the benefit of committing <code>.vscode/extensions.json</code> to a repo?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#vscode">mcq.md</a>
+1. VS Code was released by: (a) Google (b) <strong>Microsoft</strong> (c) Meta (d) JetBrains → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#vscode">practice.md</a>
+1. <strong>(Easy)</strong> Write a <code>settings.json</code> snippet enabling format-on-save with 2-space tabs.
+2. <strong>(Medium)</strong> Write a JSDoc-annotated function and explain how VS Code type-checks it.
+3. <strong>(Hard)</strong> Create a <code>launch.json</code> config to debug an Express server with a custom port.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Install ESLint and Prettier extensions and configure format-on-save.</li>
+<li>[ ] Create a <code>launch.json</code> and successfully debug a simple Node script with breakpoints.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Configure a small Node project in VS Code with ESLint, Prettier, and a working debugger launch config — document the steps in a README.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Not installing ESLint/Prettier, missing early bug/style feedback.</li>
+<li>Ignoring inline red squiggles from the TS language service in plain JS files.</li>
+<li>Debugging by only using <code>console.log</code> instead of VS Code's built-in breakpoint debugger.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use JSDoc comments in plain JS for lightweight type safety without migrating to TypeScript.</li>
+<li>Commit <code>.vscode/settings.json</code> and <code>extensions.json</code> for team consistency.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Use the "Format on Save" + Prettier combo to avoid manual formatting time entirely.</li>
+<li>Use multi-cursor editing and VS Code's built-in refactor tools (rename symbol) to speed up repetitive edits.</li>
+</ul>
+<h2>Summary</h2>
+<p>VS Code is the dominant JavaScript editor, offering built-in IntelliSense, debugging, and a vast extension ecosystem — mastering its JS-specific features (JSDoc checking, launch configs, recommended extensions) meaningfully speeds up development.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#vscode">cheat-sheet.md</a></p>
+<hr />
+<p><a href="installation.html">← Installation</a> | <a href="README.html">Section Home</a> | <a href="node.html">Node →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
