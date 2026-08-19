@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debugging · Environment Setup · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Environment Setup</div>
+    <ul class="nav-list">
+      <li><a href="installation.html" class="">Installation</a></li>
+<li><a href="vscode.html" class="">Vscode</a></li>
+<li><a href="node.html" class="">Node</a></li>
+<li><a href="npm.html" class="">Npm</a></li>
+<li><a href="extensions.html" class="">Extensions</a></li>
+<li><a href="debugging.html" class="active">Debugging</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Environment Setup</a> / <span>Debugging</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Debugging</h1>
+<blockquote>
+<p>Section: Environment Setup · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Debugging is the process of finding and fixing errors in code using tools like breakpoints, the browser/Node debugger, and console methods — rather than only guessing via <code>console.log</code>.</p>
+<h2>History</h2>
+<ul>
+<li>Early JS debugging: <code>alert()</code> boxes and <code>console.log</code>.</li>
+<li><strong>Chrome DevTools</strong> (2008 onward) brought a full visual debugger, breakpoints, and network inspection to browser JS.</li>
+<li><strong>Node's <code>--inspect</code> flag</strong> (and the <code>node inspect</code> CLI) later brought the same DevTools-based debugging experience to server-side code.</li>
+</ul>
+<h2>Why Debugging Matters</h2>
+<p>Proper debugging (breakpoints, call stack inspection, watch expressions) finds root causes far faster than sprinkling <code>console.log</code> everywhere and guessing.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">debugger; // pauses execution here when DevTools/Node inspector is open
+
+console.log(value);     // simple output
+console.table(array);   // tabular view for arrays/objects
+console.trace();        // prints the current call stack
+</code></pre>
+<h2>Types (debugging tools)</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser DevTools (Sources panel)</td>
+<td>Breakpoints, step-through, scope inspection in browser JS</td>
+</tr>
+<tr>
+<td>VS Code built-in debugger</td>
+<td>Breakpoints for Node scripts, directly in the editor</td>
+</tr>
+<tr>
+<td><code>node --inspect</code></td>
+<td>Attach Chrome DevTools to a running Node process</td>
+</tr>
+<tr>
+<td><code>console.*</code> methods</td>
+<td>Quick, lightweight inline inspection</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">function add(a, b) {
+  debugger; // execution pauses here if DevTools is open
+  return a + b;
+}
+add(2, 3);
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Not applicable directly — but debuggers let you INSPECT the call stack
+and scope chain live, which are the same structures covered in
+01-Introduction/execution.md
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Bug reported / unexpected output
+        │
+Reproduce it reliably
+        │
+Set a breakpoint near the suspected code
+        │
+Step through line-by-line, inspect variables/scope
+        │
+Identify where actual behavior diverges from expected
+        │
+Fix, then verify with the same reproduction steps
+</code></pre>
+<h2>Internal Working</h2>
+<p>When a breakpoint is hit, the engine pauses the call stack exactly where it is — the debugger UI then lets you inspect every variable in scope (via the scope chain), the current <code>this</code>, and step forward one line ("step over"), into a function ("step into"), or out of it ("step out").</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">// Browser: open DevTools (F12) → Sources tab → click a line number to set a breakpoint
+let total = 0;
+for (let i = 1; i &lt;= 5; i++) {
+  total += i; // set a breakpoint here, inspect `total` and `i` each iteration
+}
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-json">// VS Code launch.json to debug a Node script with breakpoints set in the editor
+{
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;configurations&quot;: [
+    { &quot;type&quot;: &quot;node&quot;, &quot;request&quot;: &quot;launch&quot;, &quot;name&quot;: &quot;Debug App&quot;, &quot;program&quot;: &quot;${workspaceFolder}/app.js&quot; }
+  ]
+}
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-bash"># Attach Chrome DevTools to a running Node process
+node --inspect-brk app.js
+# then open chrome://inspect in Chrome to connect
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Conditional breakpoints (set via DevTools UI) only pause when a condition is true,
+// e.g. only pause when `userId === 42`, instead of every loop iteration.
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Production issues are often debugged via structured logging + tools like
+// Sentry, which capture stack traces and variable context automatically
+// when errors occur in deployed apps — an extension of local debugging habits.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#debugging">interview.md</a>
+1. What does the <code>debugger;</code> statement do?
+2. What's the difference between "step over," "step into," and "step out" in a debugger?
+3. How would you debug a running Node.js process using Chrome DevTools?
+4. Why is <code>console.table()</code> sometimes more useful than <code>console.log()</code>?
+5. What is a conditional breakpoint and when would you use one?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#debugging">mcq.md</a>
+1. Which flag lets Chrome DevTools attach to a Node process? (a) <code>--debug</code> (b) <strong><code>--inspect</code></strong> (c) <code>--trace</code> (d) <code>--devtools</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#debugging">practice.md</a>
+1. <strong>(Easy)</strong> Add a <code>debugger;</code> statement inside a loop and describe what you'd inspect at each pause.
+2. <strong>(Medium)</strong> Set up a VS Code <code>launch.json</code> to debug a Node script and set a breakpoint inside a function.
+3. <strong>(Hard)</strong> Debug a snippet with an off-by-one loop bug using only breakpoints and scope inspection (no guessing).</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Practice setting a breakpoint in Chrome DevTools and stepping through a loop.</li>
+<li>[ ] Configure and use VS Code's Node debugger on a real script.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Intentionally write a small buggy script (off-by-one error, wrong variable reference) and document, step-by-step, how you used breakpoints to find and fix it.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Debugging solely with <code>console.log</code> for complex issues, missing the call stack/scope context a real debugger shows.</li>
+<li>Forgetting to remove <code>debugger;</code> statements before committing code.</li>
+<li>Not using conditional breakpoints, wasting time stepping through many irrelevant iterations.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Reach for the debugger (breakpoints) before adding more <code>console.log</code> lines for non-trivial bugs.</li>
+<li>Use conditional breakpoints and watch expressions to target exactly the problematic state.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Use <code>console.table()</code> for arrays/objects instead of manually formatting <code>console.log</code> output.</li>
+<li>Use the "Copy as cURL" / Network panel in DevTools to quickly reproduce and debug failing API calls.</li>
+</ul>
+<h2>Summary</h2>
+<p>Real debugging tools (breakpoints, call stack/scope inspection, conditional breakpoints) in the browser and VS Code are far more effective than relying only on <code>console.log</code> — they let you directly observe program state instead of guessing.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#debugging">cheat-sheet.md</a></p>
+<hr />
+<p><a href="extensions.html">← Extensions</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

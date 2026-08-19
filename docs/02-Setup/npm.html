@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Npm · Environment Setup · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Environment Setup</div>
+    <ul class="nav-list">
+      <li><a href="installation.html" class="">Installation</a></li>
+<li><a href="vscode.html" class="">Vscode</a></li>
+<li><a href="node.html" class="">Node</a></li>
+<li><a href="npm.html" class="active">Npm</a></li>
+<li><a href="extensions.html" class="">Extensions</a></li>
+<li><a href="debugging.html" class="">Debugging</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Environment Setup</a> / <span>Npm</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>NPM</h1>
+<blockquote>
+<p>Section: Environment Setup · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><strong>npm (Node Package Manager)</strong> is the default package manager for Node.js — used to install, share, and manage JavaScript libraries ("packages") and project scripts.</p>
+<h2>History</h2>
+<ul>
+<li>Created by <strong>Isaac Schlueter</strong>, released alongside early Node.js in <strong>2010</strong>, bundled with Node since 2011.</li>
+<li>Grew into the largest software registry in the world (over a million packages).</li>
+<li>Alternatives emerged later: <strong>Yarn</strong> (2016, Facebook), <strong>pnpm</strong> (faster, disk-efficient) — all compatible with the same <code>package.json</code> format.</li>
+</ul>
+<h2>Why NPM Matters</h2>
+<p>Nearly every real JS project depends on third-party packages (React, Express, Lodash, etc.) — npm is how you install, version, and manage them reliably.</p>
+<h2>Syntax</h2>
+<pre><code class="language-bash">npm init -y                 # create a package.json
+npm install &lt;package&gt;       # install and save as a dependency
+npm install &lt;package&gt; -D    # install as a dev dependency
+npm uninstall &lt;package&gt;     # remove a package
+npm run &lt;script-name&gt;       # run a custom script from package.json
+npm update                  # update packages within allowed version ranges
+</code></pre>
+<h2>Types (dependency categories)</h2>
+<table>
+<thead>
+<tr>
+<th>Field in package.json</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dependencies</code></td>
+<td>Needed at runtime (e.g. <code>express</code>)</td>
+</tr>
+<tr>
+<td><code>devDependencies</code></td>
+<td>Only needed during development (e.g. <code>eslint</code>, <code>jest</code>)</td>
+</tr>
+<tr>
+<td><code>peerDependencies</code></td>
+<td>Expected to be provided by the consuming project</td>
+</tr>
+<tr>
+<td><code>scripts</code></td>
+<td>Named shell commands runnable via <code>npm run</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-json">// package.json
+{
+  &quot;name&quot;: &quot;my-app&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;node index.js&quot;,
+    &quot;test&quot;: &quot;jest&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;express&quot;: &quot;^4.19.2&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;eslint&quot;: &quot;^9.0.0&quot;
+  }
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — npm is a package/tooling system, not a runtime memory concept.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">npm install express
+        │
+npm reads package.json (or creates dependency entry)
+        │
+Downloads package + its own dependencies from the npm registry
+        │
+Writes exact resolved versions into package-lock.json
+        │
+Places files inside node_modules/
+</code></pre>
+<h2>Internal Working</h2>
+<p>When you run <code>npm install</code>, npm resolves your declared version ranges (like <code>^4.19.2</code>) against the npm registry, downloads the packages (and their transitive dependencies) into <code>node_modules/</code>, and records the exact versions actually installed in <code>package-lock.json</code> for reproducibility.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-bash">mkdir demo &amp;&amp; cd demo
+npm init -y
+npm install chalk
+</code></pre>
+<pre><code class="language-js">const chalk = require(&quot;chalk&quot;);
+console.log(chalk.green(&quot;Installed successfully!&quot;));
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-json">// Using npm scripts to standardize commands across a team
+&quot;scripts&quot;: {
+  &quot;start&quot;: &quot;node server.js&quot;,
+  &quot;dev&quot;: &quot;nodemon server.js&quot;,
+  &quot;lint&quot;: &quot;eslint .&quot;,
+  &quot;test&quot;: &quot;jest --coverage&quot;
+}
+</code></pre>
+<pre><code class="language-bash">npm run dev
+npm run lint
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-bash"># Semantic versioning ranges in package.json
+# &quot;^4.19.2&quot; → accepts 4.x.x (not 5.0.0)  — minor/patch updates allowed
+# &quot;~4.19.2&quot; → accepts 4.19.x only        — patch updates only
+# &quot;4.19.2&quot;  → exact version only
+npm install express@^4.19.2
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-bash"># CI pipelines use `npm ci` instead of `npm install` for
+# fast, exact, lockfile-based installs (no version resolution surprises)
+npm ci
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-json">// Monorepos use npm workspaces to manage multiple packages in one repo
+// root package.json
+{
+  &quot;workspaces&quot;: [&quot;packages/*&quot;]
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#npm">interview.md</a>
+1. What is the difference between <code>dependencies</code> and <code>devDependencies</code>?
+2. What does <code>package-lock.json</code> do, and why commit it?
+3. Explain the difference between <code>npm install</code> and <code>npm ci</code>.
+4. What do <code>^</code> and <code>~</code> mean in a version range?
+5. What are npm workspaces used for?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#npm">mcq.md</a>
+1. Which file locks exact installed dependency versions? (a) <code>package.json</code> (b) <strong><code>package-lock.json</code></strong> (c) <code>npmrc</code> (d) <code>node_modules.json</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#npm">practice.md</a>
+1. <strong>(Easy)</strong> Initialize a new npm project and add a <code>start</code> script.
+2. <strong>(Medium)</strong> Explain the difference in behavior between <code>npm install lodash@^4.0.0</code> and <code>npm install lodash@~4.0.0</code>.
+3. <strong>(Hard)</strong> Set up an npm workspaces monorepo with two packages, one depending on the other.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Create a <code>package.json</code>, add 2 dependencies and 1 devDependency, and write 2 custom scripts.</li>
+<li>[ ] Explain, with an example, why <code>package-lock.json</code> should be committed to version control.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small CLI tool packaged with npm — include a <code>bin</code> field in <code>package.json</code> so it can be run via <code>npx</code> or globally installed.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Committing <code>node_modules/</code> to version control instead of <code>.gitignore</code>-ing it.</li>
+<li>Not committing <code>package-lock.json</code>, causing inconsistent installs across machines.</li>
+<li>Confusing <code>dependencies</code> vs <code>devDependencies</code>, bloating production bundles with dev-only tools.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Always commit <code>package-lock.json</code> for reproducible builds.</li>
+<li>Use <code>npm ci</code> in CI/CD pipelines, not <code>npm install</code>.</li>
+<li>Regularly audit dependencies with <code>npm audit</code> for known vulnerabilities.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Use <code>npm dedupe</code> or a faster package manager (pnpm) for large monorepos to reduce disk usage and install time.</li>
+<li>Remove unused dependencies periodically (<code>npx depcheck</code>) to keep bundles lean.</li>
+</ul>
+<h2>Summary</h2>
+<p>npm is the default package manager bundled with Node.js, used to install/manage dependencies and run project scripts via <code>package.json</code>. Understanding version ranges, lockfiles, and dependency types is essential for reliable, reproducible JavaScript projects.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#npm">cheat-sheet.md</a></p>
+<hr />
+<p><a href="node.html">← Node</a> | <a href="README.html">Section Home</a> | <a href="extensions.html">Extensions →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
