@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arithmetic · Operators · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Operators</div>
+    <ul class="nav-list">
+      <li><a href="operators.html" class="">Operators</a></li>
+<li><a href="arithmetic.html" class="active">Arithmetic</a></li>
+<li><a href="comparison.html" class="">Comparison</a></li>
+<li><a href="logical.html" class="">Logical</a></li>
+<li><a href="bitwise.html" class="">Bitwise</a></li>
+<li><a href="assignment.html" class="">Assignment</a></li>
+<li><a href="ternary.html" class="">Ternary</a></li>
+<li><a href="nullish.html" class="">Nullish</a></li>
+<li><a href="optional-chaining.html" class="">Optional Chaining</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Operators</a> / <span>Arithmetic</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Arithmetic</h1>
+<blockquote>
+<p>Section: Operators · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Arithmetic operators perform mathematical calculations: addition, subtraction, multiplication, division, remainder (modulo), and exponentiation.</p>
+<h2>History</h2>
+<p><code>+ - * /</code> and <code>%</code> existed since 1995; the exponent operator <code>**</code> was added in <strong>ES2016</strong> as shorthand for <code>Math.pow()</code>.</p>
+<h2>Why Arithmetic Matters</h2>
+<p>Nearly every program does some math — totals, indexes, percentages — and JS has some unique quirks (like <code>+</code> also being string concatenation) worth understanding precisely.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">a + b
+a - b
+a * b
+a / b
+a % b
+a ** b
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>+</code></td>
+<td>Addition (or string concat)</td>
+<td><code>2 + 3</code> → <code>5</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>Subtraction</td>
+<td><code>5 - 2</code> → <code>3</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>Multiplication</td>
+<td><code>4 * 3</code> → <code>12</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td>Division</td>
+<td><code>10 / 4</code> → <code>2.5</code></td>
+</tr>
+<tr>
+<td><code>%</code></td>
+<td>Remainder (modulo)</td>
+<td><code>10 % 3</code> → <code>1</code></td>
+</tr>
+<tr>
+<td><code>**</code></td>
+<td>Exponentiation</td>
+<td><code>2 ** 3</code> → <code>8</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">console.log(10 + 5);  // 15
+console.log(10 - 5);  // 5
+console.log(10 * 5);  // 50
+console.log(10 / 5);  // 2
+console.log(10 % 3);  // 1
+console.log(2 ** 10); // 1024
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — arithmetic operates on existing primitive values.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Are BOTH operands numbers?
+        │                    │
+       Yes                  No (one is a string)
+        │                    │
+  Standard math          `+` triggers STRING CONCATENATION instead
+                          (other ops like -, * still coerce to numbers)
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>+</code> is special: if either operand is a string, JS converts both to strings and concatenates; all other arithmetic operators (<code>- * / % **</code>) coerce operands to numbers first.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let total = 5 + 10;
+console.log(total); // 15
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">console.log(&quot;5&quot; + 3);   // &quot;53&quot;  → string concatenation
+console.log(&quot;5&quot; - 3);   // 2     → coerced to number
+console.log(&quot;5&quot; * &quot;2&quot;); // 10    → both coerced to numbers
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Floating point precision quirk (IEEE-754), common interview trap
+console.log(0.1 + 0.2); // 0.30000000000000004, NOT exactly 0.3
+console.log((0.1 + 0.2).toFixed(2)); // &quot;0.30&quot; — rounded for display
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Calculating a shopping cart total with tax
+const subtotal = 49.99 + 19.99;
+const taxRate = 0.08;
+const total = subtotal * (1 + taxRate);
+console.log(total.toFixed(2)); // &quot;75.58&quot;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Pagination logic frequently uses modulo and division together
+const itemsPerPage = 10;
+const totalPages = Math.ceil(totalItems / itemsPerPage);
+const isLastItemOnPage = (index + 1) % itemsPerPage === 0;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#arithmetic">interview.md</a>
+1. Why does <code>"5" + 3</code> return <code>"53"</code> but <code>"5" - 3</code> return <code>2</code>?
+2. What causes <code>0.1 + 0.2</code> to not equal exactly <code>0.3</code>?
+3. What does the modulo (<code>%</code>) operator actually compute?
+4. What's the shorthand <code>**</code> equivalent to?
+5. How would you safely compare floating-point numbers for "equality"?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#arithmetic">mcq.md</a>
+1. <code>2 ** 3</code> evaluates to: (a) 6 (b) <strong>8</strong> (c) 9 (d) 5 → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#arithmetic">practice.md</a>
+1. <strong>(Easy)</strong> Write a function that returns the remainder of two numbers using <code>%</code>.
+2. <strong>(Medium)</strong> Write a function that checks if a number is even using modulo.
+3. <strong>(Hard)</strong> Write a <code>roughlyEqual(a, b, epsilon)</code> function that safely compares floats accounting for precision errors.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Demonstrate <code>+</code> behaving as concatenation vs addition with 3 different input types.</li>
+<li>[ ] Explain why <code>0.1 + 0.2 !== 0.3</code> using IEEE-754 floating point in your own words.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Tax Calculator" that takes a subtotal and tax rate, computes the total using arithmetic operators, and correctly rounds the display value.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Expecting <code>+</code> to always add numbers, forgetting it concatenates when either side is a string.</li>
+<li>Comparing floating-point results with <code>===</code> and being surprised by precision errors.</li>
+<li>Confusing <code>%</code> (remainder) with true mathematical modulo for negative numbers (<code>-1 % 3</code> is <code>-1</code> in JS, not <code>2</code>).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Explicitly convert types (<code>Number(x)</code>) before arithmetic when input sources (like form fields) are uncertain.</li>
+<li>Use <code>.toFixed()</code> or a small epsilon comparison for float-sensitive logic (money, measurements).</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Prefer <code>**</code> over <code>Math.pow()</code> for simple exponentiation — equivalent result, more concise syntax.</li>
+</ul>
+<h2>Summary</h2>
+<p>Arithmetic operators handle numeric computation, with <code>+</code> uniquely also serving as string concatenation. Floating-point precision and type coercion are the two biggest sources of arithmetic-related bugs to watch for.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#arithmetic">cheat-sheet.md</a></p>
+<hr />
+<p><a href="operators.html">← Operators</a> | <a href="README.html">Section Home</a> | <a href="comparison.html">Comparison →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
