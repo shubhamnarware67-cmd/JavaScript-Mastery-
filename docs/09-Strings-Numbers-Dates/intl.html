@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intl · Strings, Numbers & Dates · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Strings, Numbers & Dates</div>
+    <ul class="nav-list">
+      <li><a href="strings.html" class="">Strings</a></li>
+<li><a href="template-literals.html" class="">Template Literals</a></li>
+<li><a href="numbers.html" class="">Numbers</a></li>
+<li><a href="math.html" class="">Math</a></li>
+<li><a href="date.html" class="">Date</a></li>
+<li><a href="intl.html" class="active">Intl</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Strings, Numbers & Dates</a> / <span>Intl</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Intl</h1>
+<blockquote>
+<p>Section: Strings, Numbers &amp; Dates · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The <code>Intl</code> object provides built-in internationalization tools for locale-aware formatting of numbers, currencies, dates, and text comparisons — without needing external libraries for basic cases.</p>
+<h2>History</h2>
+<p>Introduced in <strong>ES5.1/ECMA-402</strong> (a companion spec to ECMAScript), with steadily expanded capabilities (<code>Intl.RelativeTimeFormat</code>, <code>Intl.ListFormat</code>, etc.) added through later years.</p>
+<h2>Why Intl Matters</h2>
+<p>Formatting numbers, currency, and dates correctly varies enormously by locale (decimal separators, currency symbols, date order) — <code>Intl</code> handles this correctly without manual string manipulation.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">new Intl.NumberFormat(locale, options).format(value);
+new Intl.DateTimeFormat(locale, options).format(date);
+</code></pre>
+<h2>Types (common Intl constructors)</h2>
+<table>
+<thead>
+<tr>
+<th>Constructor</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Intl.NumberFormat</code></td>
+<td>Format numbers/currencies/percentages</td>
+</tr>
+<tr>
+<td><code>Intl.DateTimeFormat</code></td>
+<td>Format dates/times per locale</td>
+</tr>
+<tr>
+<td><code>Intl.RelativeTimeFormat</code></td>
+<td>"3 days ago", "in 2 hours" style formatting</td>
+</tr>
+<tr>
+<td><code>Intl.Collator</code></td>
+<td>Locale-aware string comparison/sorting</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const price = 1234.5;
+console.log(new Intl.NumberFormat(&quot;en-US&quot;, { style: &quot;currency&quot;, currency: &quot;USD&quot; }).format(price));
+// &quot;$1,234.50&quot;
+console.log(new Intl.NumberFormat(&quot;en-IN&quot;).format(1234567));
+// &quot;12,34,567&quot; — Indian digit grouping
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — <code>Intl</code> formatters are stateless utility objects operating on the values passed to <code>.format()</code>.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Need locale-aware formatting?
+        │
+Numbers/currency/percent? ──► Intl.NumberFormat
+Dates/times? ──► Intl.DateTimeFormat
+&quot;X time ago&quot; phrasing? ──► Intl.RelativeTimeFormat
+Sorting strings correctly per locale? ──► Intl.Collator
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>Intl</code> formatters are created once with a locale and options, then reused via <code>.format(value)</code> — this two-step (create once, format many times) design is intentional for performance, since locale/formatting rule setup has real overhead.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const num = 1000000;
+console.log(new Intl.NumberFormat(&quot;en-US&quot;).format(num)); // &quot;1,000,000&quot;
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Currency formatting for different locales
+const amount = 99.5;
+console.log(new Intl.NumberFormat(&quot;en-US&quot;, { style: &quot;currency&quot;, currency: &quot;USD&quot; }).format(amount)); // &quot;$99.50&quot;
+console.log(new Intl.NumberFormat(&quot;de-DE&quot;, { style: &quot;currency&quot;, currency: &quot;EUR&quot; }).format(amount)); // &quot;99,50 €&quot;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Relative time formatting
+const rtf = new Intl.RelativeTimeFormat(&quot;en&quot;, { numeric: &quot;auto&quot; });
+console.log(rtf.format(-1, &quot;day&quot;));  // &quot;yesterday&quot;
+console.log(rtf.format(3, &quot;day&quot;));    // &quot;in 3 days&quot;
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Formatting a date consistently for a user's locale
+const date = new Date(2026, 6, 10);
+console.log(new Intl.DateTimeFormat(&quot;en-GB&quot;).format(date)); // &quot;10/07/2026&quot;
+console.log(new Intl.DateTimeFormat(&quot;en-US&quot;).format(date)); // &quot;7/10/2026&quot;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// E-commerce sites use Intl.NumberFormat to correctly display prices
+// and Intl.DateTimeFormat for order dates across international user bases,
+// without needing separate manual formatting logic per country.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#intl">interview.md</a>
+1. What problem does <code>Intl</code> solve that manual string formatting doesn't handle well?
+2. How would you format a number as currency for a specific locale?
+3. What does <code>Intl.RelativeTimeFormat</code> produce, and give an example?
+4. Why is it recommended to create an <code>Intl</code> formatter once and reuse it via <code>.format()</code>?
+5. How does <code>Intl.DateTimeFormat</code> output differ between <code>"en-US"</code> and <code>"en-GB"</code> locales?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#intl">mcq.md</a>
+1. Which <code>Intl</code> constructor formats currency values? (a) <code>Intl.Collator</code> (b) <strong><code>Intl.NumberFormat</code></strong> (c) <code>Intl.DateTimeFormat</code> (d) <code>Intl.ListFormat</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#intl">practice.md</a>
+1. <strong>(Easy)</strong> Format a number as USD currency using <code>Intl.NumberFormat</code>.
+2. <strong>(Medium)</strong> Format the current date for both <code>"en-US"</code> and <code>"en-GB"</code> locales, noting the difference.
+3. <strong>(Hard)</strong> Use <code>Intl.RelativeTimeFormat</code> to build a "time ago" utility function for a list of timestamped comments.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Format the same number as currency for 3 different locales and compare the outputs.</li>
+<li>[ ] Explain, with an example, why locale-aware date formatting matters for international users.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Locale Price Display" component (conceptually) that formats a given price correctly for a selectable list of locales/currencies using <code>Intl.NumberFormat</code>.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Manually building currency/date strings instead of using <code>Intl</code>, missing correct locale conventions.</li>
+<li>Creating a new <code>Intl</code> formatter instance inside a hot loop instead of creating it once and reusing it.</li>
+<li>Assuming all locales format dates in the same order (day/month/year varies significantly).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Create <code>Intl</code> formatter instances once (e.g. at module load) and reuse them via <code>.format()</code> across many calls.</li>
+<li>Always specify an explicit locale rather than relying on defaults, for consistent behavior across environments.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Reusing formatter instances (rather than recreating them per call) avoids repeated locale-data setup overhead, meaningfully faster in formatting-heavy code (e.g. rendering large tables).</li>
+</ul>
+<h2>Summary</h2>
+<p>The built-in <code>Intl</code> object provides robust, locale-aware formatting for numbers, currencies, dates, and relative times — avoiding the correctness pitfalls of manual string formatting across different international conventions.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#intl">cheat-sheet.md</a></p>
+<hr />
+<p><a href="date.html">← Date</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
