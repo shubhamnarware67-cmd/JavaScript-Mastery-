@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extensions · Environment Setup · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Environment Setup</div>
+    <ul class="nav-list">
+      <li><a href="installation.html" class="">Installation</a></li>
+<li><a href="vscode.html" class="">Vscode</a></li>
+<li><a href="node.html" class="">Node</a></li>
+<li><a href="npm.html" class="">Npm</a></li>
+<li><a href="extensions.html" class="active">Extensions</a></li>
+<li><a href="debugging.html" class="">Debugging</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Environment Setup</a> / <span>Extensions</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Extensions</h1>
+<blockquote>
+<p>Section: Environment Setup · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>VS Code <strong>extensions</strong> are add-ons that enhance the editor with new language support, linters, formatters, themes, and productivity tools — essential for a modern JavaScript workflow.</p>
+<h2>History</h2>
+<ul>
+<li>VS Code's extension marketplace launched alongside the editor in 2015.</li>
+<li>Popular JS tools like ESLint and Prettier started as standalone CLI tools, then got official VS Code extensions to surface their feedback inline.</li>
+</ul>
+<h2>Why Extensions Matter</h2>
+<p>The right extensions catch bugs and style issues <em>before</em> you run code, auto-format on save, and visualize things like Git history or API calls — significantly speeding up development.</p>
+<h2>Syntax</h2>
+<pre><code class="language-json">// .vscode/extensions.json — recommend extensions to teammates
+{
+  &quot;recommendations&quot;: [
+    &quot;dbaeumer.vscode-eslint&quot;,
+    &quot;esbenp.prettier-vscode&quot;
+  ]
+}
+</code></pre>
+<h2>Types (essential categories for JS devs)</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Example Extension</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linting</td>
+<td>ESLint</td>
+<td>Catches bugs/style issues live</td>
+</tr>
+<tr>
+<td>Formatting</td>
+<td>Prettier</td>
+<td>Auto-formats code consistently</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>GitLens</td>
+<td>Inline blame, history, comparisons</td>
+</tr>
+<tr>
+<td>API testing</td>
+<td>Thunder Client / REST Client</td>
+<td>Test APIs without leaving the editor</td>
+</tr>
+<tr>
+<td>Live preview</td>
+<td>Live Server</td>
+<td>Auto-reloading static page preview</td>
+</tr>
+<tr>
+<td>Snippets</td>
+<td>ES7+ React/Redux snippets</td>
+<td>Fast boilerplate typing</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-json">// settings.json — auto-format with Prettier on save
+{
+  &quot;editor.defaultFormatter&quot;: &quot;esbenp.prettier-vscode&quot;,
+  &quot;editor.formatOnSave&quot;: true
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — tooling/setup topic.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Install extension from Marketplace
+        │
+VS Code activates its &quot;contribution points&quot;
+   (linters, formatters, language services, UI panels)
+        │
+Extension hooks into editor events
+   (on save, on type, on open) to provide feedback
+</code></pre>
+<h2>Internal Working</h2>
+<p>Extensions run in a separate "Extension Host" process from the core editor UI, communicating via VS Code's API — this isolation means a buggy extension can't crash the whole editor, only itself.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-javascript">1. Open the Extensions panel (Ctrl+Shift+X / Cmd+Shift+X)
+2. Search &quot;ESLint&quot;
+3. Click Install
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-json">// .eslintrc.json paired with the ESLint extension for live linting
+{
+  &quot;extends&quot;: &quot;eslint:recommended&quot;,
+  &quot;env&quot;: { &quot;browser&quot;: true, &quot;node&quot;: true, &quot;es2022&quot;: true },
+  &quot;rules&quot;: { &quot;no-unused-vars&quot;: &quot;warn&quot; }
+}
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-json">// Combine ESLint + Prettier without conflicts using eslint-config-prettier
+{
+  &quot;extends&quot;: [&quot;eslint:recommended&quot;, &quot;prettier&quot;]
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-javascript">A typical professional JS setup:
+ESLint (catch bugs) + Prettier (format) + GitLens (history) +
+Error Lens (inline error highlighting) + Path Intellisense (import autocomplete)
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-json">// Teams enforce a consistent extension set via .vscode/extensions.json
+// checked into the repo, so every new hire gets the same tooling automatically
+{
+  &quot;recommendations&quot;: [&quot;dbaeumer.vscode-eslint&quot;, &quot;esbenp.prettier-vscode&quot;, &quot;eamodio.gitlens&quot;]
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#extensions">interview.md</a>
+1. What is the purpose of the ESLint extension versus the ESLint CLI tool?
+2. How does VS Code isolate extensions from crashing the main editor?
+3. What does <code>.vscode/extensions.json</code> do for a team?
+4. Why combine ESLint and Prettier instead of using just one?
+5. Name 3 extensions that improve JS developer productivity and explain why.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#extensions">mcq.md</a>
+1. Extensions run in a separate process called the: (a) Renderer (b) <strong>Extension Host</strong> (c) Worker Thread (d) Sandbox VM → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#extensions">practice.md</a>
+1. <strong>(Easy)</strong> Write an <code>.vscode/extensions.json</code> recommending 3 JS-related extensions.
+2. <strong>(Medium)</strong> Configure <code>settings.json</code> to format-on-save using Prettier as the default formatter.
+3. <strong>(Hard)</strong> Set up ESLint + Prettier together without rule conflicts using <code>eslint-config-prettier</code>.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Install and configure ESLint + Prettier in a sample project.</li>
+<li>[ ] Create a shareable <code>.vscode/extensions.json</code> for a team project.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Set up a "batteries-included" JS starter template repo with pre-configured ESLint, Prettier, and recommended extensions, documented in a README.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Installing too many overlapping extensions that conflict (e.g. two different auto-formatters fighting).</li>
+<li>Not committing shared configs (<code>.eslintrc</code>, <code>.prettierrc</code>, <code>.vscode/settings.json</code>) — teammates get inconsistent behavior.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Keep the extension list lean — only what genuinely improves your JS workflow.</li>
+<li>Commit shared linter/formatter configs to the repo, not just personal machine settings.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Disable unused/heavy extensions per-workspace to keep VS Code responsive on large projects.</li>
+</ul>
+<h2>Summary</h2>
+<p>The right VS Code extensions (ESLint, Prettier, GitLens, and similar) turn the editor into a full JavaScript development environment, catching errors and enforcing consistent style automatically.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#extensions">cheat-sheet.md</a></p>
+<hr />
+<p><a href="npm.html">← NPM</a> | <a href="README.html">Section Home</a> | <a href="debugging.html">Debugging →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

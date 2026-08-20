@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Math · Strings, Numbers & Dates · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Strings, Numbers & Dates</div>
+    <ul class="nav-list">
+      <li><a href="strings.html" class="">Strings</a></li>
+<li><a href="template-literals.html" class="">Template Literals</a></li>
+<li><a href="numbers.html" class="">Numbers</a></li>
+<li><a href="math.html" class="active">Math</a></li>
+<li><a href="date.html" class="">Date</a></li>
+<li><a href="intl.html" class="">Intl</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Strings, Numbers & Dates</a> / <span>Math</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Math</h1>
+<blockquote>
+<p>Section: Strings, Numbers &amp; Dates · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The built-in <code>Math</code> object provides properties and methods for mathematical constants and operations (rounding, power, trigonometry, random numbers) that aren't available as operators.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995 as a built-in global object (not a constructor — you never write <code>new Math()</code>).</p>
+<h2>Why Math Matters</h2>
+<p>Common numeric tasks (rounding, min/max, random values, powers/roots) rely on <code>Math</code>'s static methods rather than operators or prototype methods.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">Math.round(4.5);
+Math.floor(4.9);
+Math.ceil(4.1);
+Math.random();
+Math.max(1, 5, 3);
+</code></pre>
+<h2>Types (common methods)</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Math.round()</code></td>
+<td>Round to nearest integer</td>
+</tr>
+<tr>
+<td><code>Math.floor()</code></td>
+<td>Round down</td>
+</tr>
+<tr>
+<td><code>Math.ceil()</code></td>
+<td>Round up</td>
+</tr>
+<tr>
+<td><code>Math.random()</code></td>
+<td>Random float between 0 (inclusive) and 1 (exclusive)</td>
+</tr>
+<tr>
+<td><code>Math.max()</code>/<code>Math.min()</code></td>
+<td>Largest/smallest of given values</td>
+</tr>
+<tr>
+<td><code>Math.pow()</code>/<code>Math.sqrt()</code></td>
+<td>Power/square root</td>
+</tr>
+<tr>
+<td><code>Math.abs()</code></td>
+<td>Absolute value</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">console.log(Math.round(4.5)); // 5
+console.log(Math.floor(4.9));  // 4
+console.log(Math.ceil(4.1));   // 5
+console.log(Math.max(3, 7, 2)); // 7
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — <code>Math</code> is a static utility object, no instance state involved.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Need a random number in a range [min, max]?
+        │
+Math.random() gives [0, 1)
+        │
+Scale: Math.floor(Math.random() * (max - min + 1)) + min
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>Math</code> is a single global object (not instantiable) whose methods are pure functions operating purely on their arguments — <code>Math.random()</code> specifically uses an internal pseudo-random number generator, not suitable for cryptographic purposes.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">console.log(Math.abs(-5));   // 5
+console.log(Math.sqrt(16));   // 4
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Generating a random integer within a range
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+console.log(randomInt(1, 6)); // simulates a dice roll (1-6)
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Clamping a value between a min and max
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+console.log(clamp(150, 0, 100)); // 100
+console.log(clamp(-10, 0, 100));  // 0
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Calculating percentage progress, rounded for display
+function progressPercent(current, total) {
+  return Math.round((current / total) * 100);
+}
+console.log(progressPercent(3, 7)); // 43
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Games and simulations rely heavily on Math.random() for
+// procedural generation, damage rolls, and shuffling logic.
+function shuffle(array) {
+  return array.sort(() =&gt; Math.random() - 0.5); // simple (imperfect) shuffle
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#math">interview.md</a>
+1. What's the difference between <code>Math.round()</code>, <code>Math.floor()</code>, and <code>Math.ceil()</code>?
+2. What range of values does <code>Math.random()</code> produce?
+3. How would you generate a random integer within a specific range?
+4. Is <code>Math.random()</code> suitable for cryptographic/security purposes? Why or why not?
+5. How would you clamp a value between a minimum and maximum using <code>Math</code>?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#math">mcq.md</a>
+1. <code>Math.random()</code> returns a value in the range: (a) [0, 1] inclusive (b) <strong>[0, 1) — 0 inclusive, 1 exclusive</strong> (c) [1, 10] (d) Any integer → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#math">practice.md</a>
+1. <strong>(Easy)</strong> Write a function that rounds a number to 2 decimal places using <code>Math</code>.
+2. <strong>(Medium)</strong> Write a <code>randomInt(min, max)</code> function producing an inclusive random integer range.
+3. <strong>(Hard)</strong> Write a <code>clamp(value, min, max)</code> function and use it to keep a game character's health between 0 and 100.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with examples, the difference between <code>Math.round()</code>, <code>Math.floor()</code>, and <code>Math.ceil()</code> for both positive and negative numbers.</li>
+<li>[ ] Explain why <code>Math.random()</code> should never be used for generating security tokens.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple "Dice Roller" simulator using <code>Math.random()</code> and <code>Math.floor()</code>, supporting configurable dice sides (6, 20, etc).</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming <code>Math.random()</code> can return exactly <code>1</code>.</li>
+<li>Off-by-one errors when scaling <code>Math.random()</code> into a custom integer range.</li>
+<li>Using <code>Math.random()</code> for security-sensitive random values (use the Web Crypto API's <code>crypto.getRandomValues()</code> instead).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>Math.floor(Math.random() * (max - min + 1)) + min</code> as the standard pattern for inclusive random integer ranges.</li>
+<li>Use <code>crypto.getRandomValues()</code> (not <code>Math.random()</code>) for anything security-related (tokens, passwords).</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li><code>Math</code> methods are highly optimized natively by JS engines — no need to hand-roll alternatives for basic rounding/min/max operations.</li>
+</ul>
+<h2>Summary</h2>
+<p>The <code>Math</code> object provides essential numeric utilities (rounding, random number generation, min/max, powers/roots) used constantly across calculations, games, and UI logic — understanding <code>Math.random()</code>'s range and limitations avoids common off-by-one and security mistakes.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#math">cheat-sheet.md</a></p>
+<hr />
+<p><a href="numbers.html">← Numbers</a> | <a href="README.html">Section Home</a> | <a href="date.html">Date →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

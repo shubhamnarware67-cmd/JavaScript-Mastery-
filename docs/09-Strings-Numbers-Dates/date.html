@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date · Strings, Numbers & Dates · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Strings, Numbers & Dates</div>
+    <ul class="nav-list">
+      <li><a href="strings.html" class="">Strings</a></li>
+<li><a href="template-literals.html" class="">Template Literals</a></li>
+<li><a href="numbers.html" class="">Numbers</a></li>
+<li><a href="math.html" class="">Math</a></li>
+<li><a href="date.html" class="active">Date</a></li>
+<li><a href="intl.html" class="">Intl</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Strings, Numbers & Dates</a> / <span>Date</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Date</h1>
+<blockquote>
+<p>Section: Strings, Numbers &amp; Dates · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The built-in <code>Date</code> object represents a single moment in time, storing it internally as milliseconds since the Unix epoch (January 1, 1970 UTC), with methods to read/manipulate year, month, day, and time components.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995, largely unchanged in its core API (widely criticized as awkward) — the newer, more ergonomic <strong>Temporal</strong> API has been in development for years as a potential eventual replacement.</p>
+<h2>Why Date Matters</h2>
+<p>Nearly every application deals with dates and times (timestamps, scheduling, formatting) — despite its awkward API, <code>Date</code> remains the standard tool until <code>Temporal</code> becomes widely available.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">const now = new Date();
+const specific = new Date(2026, 0, 15); // Jan 15, 2026 (month is 0-indexed!)
+const fromString = new Date(&quot;2026-01-15&quot;);
+</code></pre>
+<h2>Types (creation forms)</h2>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current date/time</td>
+<td><code>new Date()</code></td>
+</tr>
+<tr>
+<td>Specific components</td>
+<td><code>new Date(year, month, day, hours, ...)</code></td>
+</tr>
+<tr>
+<td>From a string</td>
+<td><code>new Date("2026-01-15")</code></td>
+</tr>
+<tr>
+<td>From a timestamp</td>
+<td><code>new Date(1700000000000)</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const date = new Date(2026, 6, 10); // July 10, 2026 (month 6 = July, 0-indexed!)
+console.log(date.getFullYear()); // 2026
+console.log(date.getMonth());     // 6
+console.log(date.getDate());       // 10
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Internally, a Date object stores a SINGLE number:
+milliseconds since Jan 1, 1970 UTC (the Unix epoch)
+        │
+All getter methods (getFullYear, getMonth, etc.) derive
+their result from that one internal timestamp value.
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Need to work with a date?
+        │
+Create a Date object (now, from components, or from a string/timestamp)
+        │
+Need to read parts? ──► getFullYear()/getMonth()/getDate()/getHours()...
+Need to compare? ──► Date objects can be compared via &lt; &gt; or by .getTime()
+Need to format for display? ──► toLocaleDateString() or a library (Intl, date-fns)
+</code></pre>
+<h2>Internal Working</h2>
+<p>A <code>Date</code> instance is fundamentally just a wrapper around a single numeric millisecond timestamp — arithmetic and comparisons between dates ultimately reduce to comparing/operating on that underlying number, accessible directly via <code>.getTime()</code>.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const today = new Date();
+console.log(today.getFullYear(), today.getMonth() + 1, today.getDate());
+// Add +1 to getMonth() since months are 0-indexed (0 = January)
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Comparing two dates
+const date1 = new Date(2026, 0, 1);
+const date2 = new Date(2026, 5, 1);
+console.log(date1 &lt; date2); // true
+console.log(date2.getTime() - date1.getTime()); // difference in milliseconds
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Calculating the difference in days between two dates
+function daysBetween(d1, d2) {
+  const msPerDay = 1000 * 60 * 60 * 24;
+  return Math.round(Math.abs(d2 - d1) / msPerDay);
+}
+console.log(daysBetween(new Date(2026, 0, 1), new Date(2026, 0, 15))); // 14
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Formatting a date for user-friendly display
+const date = new Date();
+console.log(date.toLocaleDateString(&quot;en-US&quot;, { year: &quot;numeric&quot;, month: &quot;long&quot;, day: &quot;numeric&quot; }));
+// &quot;July 10, 2026&quot;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Production apps commonly use date libraries (date-fns, Day.js) to avoid
+// Date's awkward API and timezone pitfalls for anything beyond simple cases.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#date">interview.md</a>
+1. What does a <code>Date</code> object store internally?
+2. Why is <code>getMonth()</code> 0-indexed, and why does this commonly trip people up?
+3. How would you calculate the number of days between two dates?
+4. How do you get the current Unix timestamp (milliseconds since epoch) in JavaScript?
+5. Why do many production codebases use a date library instead of raw <code>Date</code>?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#date">mcq.md</a>
+1. <code>new Date(2026, 0, 1)</code> represents: (a) January 1, 2026 (b) <strong>January 1, 2026</strong> (c) December 1, 2026 (d) An invalid date → <strong>Answer: (a)/(b) — month 0 = January.</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#date">practice.md</a>
+1. <strong>(Easy)</strong> Create a <code>Date</code> for a specific day and log its year, month (human-readable), and day.
+2. <strong>(Medium)</strong> Write a function computing the number of days between two given dates.
+3. <strong>(Hard)</strong> Write a function that formats a date as "X days ago" / "in X days" relative to now.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with an example, why <code>getMonth()</code> returning <code>0</code> for January is a common source of bugs.</li>
+<li>[ ] Compare two dates using both direct comparison operators and <code>.getTime()</code>.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Days Until Event" countdown calculator: given a target date, compute and display how many days remain until it (or how many have passed).</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting <code>getMonth()</code> is 0-indexed (January = 0, December = 11).</li>
+<li>Comparing <code>Date</code> objects with <code>===</code> (compares references, not values) instead of <code>.getTime()</code> or <code>&lt;</code>/<code>&gt;</code>.</li>
+<li>Ignoring timezone differences when parsing date-only strings, leading to off-by-one-day bugs.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Add 1 to <code>getMonth()</code> when displaying a human-readable month number.</li>
+<li>Use <code>.getTime()</code> (or direct <code>&lt;</code>/<code>&gt;</code> comparisons) rather than <code>===</code> when comparing dates for equality/ordering.</li>
+<li>Consider a well-tested date library (date-fns, Day.js) for anything beyond simple date arithmetic, especially involving timezones.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Cache <code>new Date()</code> calls when you need the "current time" consistently within a single operation, rather than calling it repeatedly (each call captures a potentially different instant).</li>
+</ul>
+<h2>Summary</h2>
+<p><code>Date</code> represents a moment in time as milliseconds since the Unix epoch — powerful but notoriously awkward (0-indexed months, no built-in formatting), which is why many real-world codebases layer a dedicated date library on top of it.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#date">cheat-sheet.md</a></p>
+<hr />
+<p><a href="math.html">← Math</a> | <a href="README.html">Section Home</a> | <a href="intl.html">Intl →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

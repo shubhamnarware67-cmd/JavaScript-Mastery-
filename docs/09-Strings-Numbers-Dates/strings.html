@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strings · Strings, Numbers & Dates · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Strings, Numbers & Dates</div>
+    <ul class="nav-list">
+      <li><a href="strings.html" class="active">Strings</a></li>
+<li><a href="template-literals.html" class="">Template Literals</a></li>
+<li><a href="numbers.html" class="">Numbers</a></li>
+<li><a href="math.html" class="">Math</a></li>
+<li><a href="date.html" class="">Date</a></li>
+<li><a href="intl.html" class="">Intl</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Strings, Numbers & Dates</a> / <span>Strings</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Strings</h1>
+<blockquote>
+<p>Section: Strings, Numbers &amp; Dates · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>A string is an immutable sequence of characters used to represent text — one of JavaScript's core primitive types.</p>
+<h2>History</h2>
+<p>Present since 1995; template literals (ES2015) and methods like <code>padStart</code>, <code>includes</code>, <code>replaceAll</code> were added incrementally through later ECMAScript versions.</p>
+<h2>Why Strings Matter</h2>
+<p>Text processing (validation, formatting, parsing, display) appears in virtually every application — strings and their methods are used constantly.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">const single = 'hello';
+const double = &quot;hello&quot;;
+const template = `hello, ${name}`;
+</code></pre>
+<h2>Types (common methods overview)</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.length</code></td>
+<td>Character count</td>
+</tr>
+<tr>
+<td><code>.toUpperCase()</code>/<code>.toLowerCase()</code></td>
+<td>Case conversion</td>
+</tr>
+<tr>
+<td><code>.slice()</code>/<code>.substring()</code></td>
+<td>Extract a portion</td>
+</tr>
+<tr>
+<td><code>.includes()</code>/<code>.indexOf()</code></td>
+<td>Search</td>
+</tr>
+<tr>
+<td><code>.split()</code></td>
+<td>Convert to an array</td>
+</tr>
+<tr>
+<td><code>.trim()</code></td>
+<td>Remove whitespace</td>
+</tr>
+<tr>
+<td><code>.replace()</code>/<code>.replaceAll()</code></td>
+<td>Substitute text</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const name = &quot;Shubham&quot;;
+console.log(name.length);           // 7
+console.log(name.toUpperCase());     // &quot;SHUBHAM&quot;
+console.log(name.includes(&quot;bham&quot;));   // true
+console.log(name.slice(0, 3));        // &quot;Shu&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Strings are PRIMITIVES — copied by value, immutable.
+let a = &quot;hi&quot;;
+let b = a;  // b is a full independent COPY of the value &quot;hi&quot;
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Need to check/transform text?
+        │
+Search? ──► includes()/indexOf()/startsWith()/endsWith()
+Extract? ──► slice()/substring()
+Transform case? ──► toUpperCase()/toLowerCase()
+Split into parts? ──► split()
+Combine values? ──► template literals or concat()/+
+</code></pre>
+<h2>Internal Working</h2>
+<p>Strings are immutable — every "modifying" method (<code>.toUpperCase()</code>, <code>.replace()</code>, etc.) returns a brand-new string rather than changing the original in place; the original string value remains completely unchanged in memory.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const greeting = &quot;Hello, World!&quot;;
+console.log(greeting.length); // 13
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Common validation checks
+const email = &quot;user@example.com&quot;;
+console.log(email.includes(&quot;@&quot;));       // true
+console.log(email.startsWith(&quot;user&quot;));   // true
+console.log(email.endsWith(&quot;.com&quot;));     // true
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Chaining string methods for cleanup/formatting
+const raw = &quot;  ShUbHaM NaRwArE  &quot;;
+const clean = raw.trim().toLowerCase().split(&quot; &quot;).map(w =&gt; w[0].toUpperCase() + w.slice(1)).join(&quot; &quot;);
+console.log(clean); // &quot;Shubham Narware&quot;
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Slugifying a title for a URL
+function slugify(title) {
+  return title.toLowerCase().trim().replace(/[^a-z0-9]+/g, &quot;-&quot;);
+}
+console.log(slugify(&quot;Hello World! 2026&quot;)); // &quot;hello-world-2026&quot;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Masking sensitive data for display (e.g. credit card numbers)
+function maskCard(number) {
+  return number.slice(0, -4).replace(/./g, &quot;*&quot;) + number.slice(-4);
+}
+console.log(maskCard(&quot;1234567812345678&quot;)); // &quot;************5678&quot;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#strings">interview.md</a>
+1. Are strings mutable or immutable in JavaScript?
+2. What's the difference between <code>.slice()</code> and <code>.substring()</code>?
+3. How would you check if a string contains a substring, and in 2 different ways?
+4. What does <code>.split("")</code> do to a string?
+5. Why does <code>str.toUpperCase()</code> not change the original variable?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#strings">mcq.md</a>
+1. Strings in JavaScript are: (a) Mutable (b) <strong>Immutable</strong> (c) Objects only (d) Arrays of characters → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#strings">practice.md</a>
+1. <strong>(Easy)</strong> Write a function that reverses a string.
+2. <strong>(Medium)</strong> Write a function that checks if a string is a palindrome.
+3. <strong>(Hard)</strong> Write a <code>slugify(title)</code> function that converts a title into a URL-friendly slug.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] List 5 string methods and give an example use for each.</li>
+<li>[ ] Explain, with a code example, why strings are immutable in JavaScript.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Text Formatter" utility with functions for title-casing, slugifying, and truncating (with ellipsis) a block of text.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming string methods mutate the original string.</li>
+<li>Confusing <code>.slice()</code> (supports negative indices) with <code>.substring()</code> (does not, treats negatives as 0).</li>
+<li>Forgetting <code>.split()</code> requires a separator argument to actually split (an empty string <code>""</code> splits into individual characters).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use template literals for building strings with embedded values instead of <code>+</code> concatenation.</li>
+<li>Prefer <code>.includes()</code> over <code>.indexOf() !== -1</code> for simple substring existence checks — more readable intent.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>For building large strings in a loop, prefer array <code>.join()</code> over repeated <code>+=</code> concatenation, which can be less efficient for many iterations.</li>
+</ul>
+<h2>Summary</h2>
+<p>Strings are immutable primitive sequences of characters with a rich set of built-in methods for searching, transforming, and extracting text — every "modifying" method returns a new string rather than mutating the original.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#strings">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="template-literals.html">Template Literals →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
