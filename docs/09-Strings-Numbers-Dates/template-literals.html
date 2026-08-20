@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template Literals · Strings, Numbers & Dates · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Strings, Numbers & Dates</div>
+    <ul class="nav-list">
+      <li><a href="strings.html" class="">Strings</a></li>
+<li><a href="template-literals.html" class="active">Template Literals</a></li>
+<li><a href="numbers.html" class="">Numbers</a></li>
+<li><a href="math.html" class="">Math</a></li>
+<li><a href="date.html" class="">Date</a></li>
+<li><a href="intl.html" class="">Intl</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Strings, Numbers & Dates</a> / <span>Template Literals</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Template Literals</h1>
+<blockquote>
+<p>Section: Strings, Numbers &amp; Dates · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Template literals (backtick-delimited strings) allow embedded expressions (<code>${...}</code>) and multi-line strings without escape characters, introduced as a cleaner alternative to string concatenation.</p>
+<h2>History</h2>
+<p>Introduced in <strong>ES2015</strong>, directly addressing the verbosity and error-proneness of <code>+</code>-based string concatenation.</p>
+<h2>Why Template Literals Matter</h2>
+<p>They make building dynamic strings dramatically more readable, and natively support multi-line text without special escape sequences.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">const name = &quot;Shubham&quot;;
+const message = `Hello, ${name}!`;
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Basic interpolation</td>
+<td><code>`Hi, ${name}`</code></td>
+</tr>
+<tr>
+<td>Expression evaluation</td>
+<td><code>`Total: ${price * qty}`</code></td>
+</tr>
+<tr>
+<td>Multi-line strings</td>
+<td><code>`Line 1\nLine 2`</code> written literally across lines</td>
+</tr>
+<tr>
+<td>Tagged templates</td>
+<td><code>tag`Hello ${name}`</code> (custom processing function)</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const name = &quot;Shubham&quot;;
+const age = 22;
+console.log(`${name} is ${age} years old.`); // &quot;Shubham is 22 years old.&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — template literals produce a regular string value once evaluated.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Parse template literal
+        │
+For each ${expression} found:
+        │
+Evaluate the expression
+        │
+Convert result to a string (via implicit toString/coercion)
+        │
+Splice all pieces together into the final string
+</code></pre>
+<h2>Internal Working</h2>
+<p>Everything inside <code>${...}</code> is evaluated as a full JavaScript expression, then converted to a string and inserted at that position — this means you can embed function calls, ternaries, or arithmetic directly, not just simple variables.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const item = &quot;Book&quot;;
+const price = 15;
+console.log(`The ${item} costs $${price}.`);
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Multi-line strings without \n escapes
+const message = `Dear Customer,
+
+Thank you for your order.
+Regards,
+Support Team`;
+console.log(message);
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Embedding expressions, including function calls and ternaries
+function formatPrice(p) { return `$${p.toFixed(2)}`; }
+const qty = 3, price = 9.999;
+console.log(`Total: ${formatPrice(price * qty)} (${qty &gt; 1 ? &quot;items&quot; : &quot;item&quot;})`);
+// &quot;Total: $30.00 (items)&quot;
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Building a dynamic SQL-like or HTML string (careful with real SQL - use parameterized queries!)
+const html = `&lt;div class=&quot;card&quot;&gt;&lt;h2&gt;${title}&lt;/h2&gt;&lt;p&gt;${description}&lt;/p&gt;&lt;/div&gt;`;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Tagged templates power libraries like styled-components (CSS-in-JS)
+// const Button = styled.button`
+//   background: ${props =&gt; props.primary ? &quot;blue&quot; : &quot;gray&quot;};
+// `;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#template-literals">interview.md</a>
+1. What problem do template literals solve compared to <code>+</code> concatenation?
+2. How do multi-line strings work with template literals?
+3. Can you call a function inside a <code>${}</code> expression? Give an example.
+4. What is a "tagged template," and what's it used for?
+5. Which ECMAScript version introduced template literals?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#template-literals">mcq.md</a>
+1. Template literals are delimited by: (a) Single quotes (b) Double quotes (c) <strong>Backticks</strong> (d) Curly braces → <strong>Answer: (c)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#template-literals">practice.md</a>
+1. <strong>(Easy)</strong> Rewrite a <code>+</code>-concatenated string as a template literal.
+2. <strong>(Medium)</strong> Build a multi-line email template string using a template literal.
+3. <strong>(Hard)</strong> Write a simple tagged template function that highlights interpolated values (e.g. wraps them in <code>**</code>).</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Convert 3 string-concatenation examples into template literals.</li>
+<li>[ ] Explain, with an example, how expressions (not just variables) can be embedded in <code>${}</code>.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Invoice Generator" that uses a multi-line template literal to format an itemized invoice with computed totals.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using regular quotes (<code>'</code>/<code>"</code>) and forgetting <code>${}</code> interpolation only works inside backticks.</li>
+<li>Forgetting that <code>${}</code> content is a full expression — overly complex logic embedded inline can hurt readability.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer template literals over <code>+</code> concatenation for any string involving embedded variables.</li>
+<li>Keep <code>${}</code> expressions simple; extract complex logic into a named variable or function beforehand.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>No meaningful performance difference from concatenation for typical use — the benefit is entirely readability and correctness (fewer escaping mistakes).</li>
+</ul>
+<h2>Summary</h2>
+<p>Template literals (backtick strings) allow clean variable/expression interpolation and native multi-line strings, replacing much of the awkwardness of traditional <code>+</code> string concatenation.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#template-literals">cheat-sheet.md</a></p>
+<hr />
+<p><a href="strings.html">← Strings</a> | <a href="README.html">Section Home</a> | <a href="numbers.html">Numbers →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
