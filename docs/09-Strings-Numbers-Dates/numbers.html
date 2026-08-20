@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numbers · Strings, Numbers & Dates · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Strings, Numbers & Dates</div>
+    <ul class="nav-list">
+      <li><a href="strings.html" class="">Strings</a></li>
+<li><a href="template-literals.html" class="">Template Literals</a></li>
+<li><a href="numbers.html" class="active">Numbers</a></li>
+<li><a href="math.html" class="">Math</a></li>
+<li><a href="date.html" class="">Date</a></li>
+<li><a href="intl.html" class="">Intl</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Strings, Numbers & Dates</a> / <span>Numbers</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Numbers</h1>
+<blockquote>
+<p>Section: Strings, Numbers &amp; Dates · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>JavaScript has a single <code>Number</code> type for all numeric values (both integers and floats), represented internally as IEEE-754 double-precision floating-point numbers.</p>
+<h2>History</h2>
+<p>Present since 1995 as the sole numeric primitive type until <strong>BigInt</strong> was added in <strong>ES2020</strong> for arbitrary-precision integers.</p>
+<h2>Why Numbers Matter</h2>
+<p>Nearly every calculation, index, or measurement in a program involves numbers — understanding their precision limits and conversion methods avoids many subtle bugs.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">let integer = 42;
+let float = 3.14;
+let scientific = 5e3; // 5000
+</code></pre>
+<h2>Types (related Number utilities)</h2>
+<table>
+<thead>
+<tr>
+<th>Method/Property</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Number.isInteger()</code></td>
+<td>Checks for whole numbers</td>
+</tr>
+<tr>
+<td><code>Number.isNaN()</code></td>
+<td>Safely checks for NaN</td>
+</tr>
+<tr>
+<td><code>Number.parseFloat()</code>/<code>parseInt()</code></td>
+<td>Parse strings into numbers</td>
+</tr>
+<tr>
+<td><code>.toFixed(n)</code></td>
+<td>Format to n decimal places</td>
+</tr>
+<tr>
+<td><code>Number.MAX_SAFE_INTEGER</code></td>
+<td>Largest safely representable integer</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">console.log(Number.isInteger(5));    // true
+console.log(Number.isInteger(5.5));   // false
+console.log((3.14159).toFixed(2));    // &quot;3.14&quot;
+console.log(Number(&quot;42&quot;));             // 42
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">All JS numbers use the SAME 64-bit floating point format —
+there's no separate &quot;integer&quot; type internally, unlike many other languages.
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Need to convert a string to a number?
+        │
+Expecting an integer? ──► Number.parseInt(str) or Number(str)
+Expecting a float? ──► Number.parseFloat(str) or Number(str)
+Need to check validity? ──► Number.isNaN(result)
+</code></pre>
+<h2>Internal Working</h2>
+<p>Because all numbers use IEEE-754 double-precision floats, values beyond <code>Number.MAX_SAFE_INTEGER</code> (2^53 - 1) can lose precision, and certain decimal fractions (like 0.1) cannot be represented exactly — leading to results like <code>0.1 + 0.2 !== 0.3</code>.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">console.log(10 / 3); // 3.3333333333333335
+console.log(Number.isInteger(10 / 2)); // true
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Parsing user input safely
+function parseAge(input) {
+  const age = Number(input);
+  return Number.isNaN(age) ? null : age;
+}
+console.log(parseAge(&quot;25&quot;)); // 25
+console.log(parseAge(&quot;abc&quot;)); // null
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Precision limits with very large integers
+console.log(Number.MAX_SAFE_INTEGER);       // 9007199254740991
+console.log(Number.MAX_SAFE_INTEGER + 1);    // 9007199254740992 (still &quot;correct&quot;)
+console.log(Number.MAX_SAFE_INTEGER + 2);    // 9007199254740992 (WRONG — precision lost!)
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Formatting a price for display
+function formatPrice(amount) {
+  return `$${amount.toFixed(2)}`;
+}
+console.log(formatPrice(19.9)); // &quot;$19.90&quot;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Financial applications often avoid floating-point math entirely for money,
+// storing amounts as integer cents (or using BigInt/decimal libraries) to
+// avoid precision errors like 0.1 + 0.2 !== 0.3.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#numbers">interview.md</a>
+1. What numeric representation does JavaScript use internally for all numbers?
+2. Why does <code>0.1 + 0.2 !== 0.3</code> in JavaScript?
+3. What is <code>Number.MAX_SAFE_INTEGER</code>, and what happens beyond it?
+4. What's the difference between <code>Number.parseInt()</code> and <code>Number.parseFloat()</code>?
+5. How would you safely check if a parsed value is a valid number?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#numbers">mcq.md</a>
+1. JavaScript numbers are stored using: (a) 32-bit integers (b) <strong>64-bit floating point (IEEE-754)</strong> (c) Arbitrary precision by default (d) Strings internally → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#numbers">practice.md</a>
+1. <strong>(Easy)</strong> Write a function that formats a number to 2 decimal places.
+2. <strong>(Medium)</strong> Write a function safely parsing a string to a number, returning <code>null</code> on failure.
+3. <strong>(Hard)</strong> Demonstrate precision loss beyond <code>Number.MAX_SAFE_INTEGER</code> and explain when <code>BigInt</code> should be used instead.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with an example, why <code>0.1 + 0.2 !== 0.3</code> in JavaScript.</li>
+<li>[ ] List 3 real scenarios where floating-point precision issues could cause real-world bugs (e.g. financial calculations).</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Price Calculator" that correctly formats totals to 2 decimal places and safely handles invalid numeric input from a form field.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Comparing floating-point results directly with <code>===</code> and being surprised by precision errors.</li>
+<li>Using <code>parseInt()</code> without a radix argument on ambiguous strings (though modern engines default to base 10 reliably now).</li>
+<li>Using <code>value === NaN</code> instead of <code>Number.isNaN(value)</code> to check for <code>NaN</code>.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>Number.isInteger()</code>/<code>Number.isNaN()</code> (the safer, type-checking <code>Number.*</code> variants) over the older global <code>isNaN()</code>/<code>parseInt()</code> where precision matters.</li>
+<li>For financial calculations, consider integer-cent representations or a dedicated decimal library instead of raw floating-point math.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Avoid unnecessary repeated string-to-number conversions in hot loops — convert once and reuse the numeric value.</li>
+</ul>
+<h2>Summary</h2>
+<p>JavaScript represents all numbers using 64-bit floating point, which is convenient but introduces real precision limits — understanding <code>Number.MAX_SAFE_INTEGER</code>, safe parsing, and NaN checks helps avoid subtle numeric bugs.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#numbers">cheat-sheet.md</a></p>
+<hr />
+<p><a href="template-literals.html">← Template Literals</a> | <a href="README.html">Section Home</a> | <a href="math.html">Math →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
