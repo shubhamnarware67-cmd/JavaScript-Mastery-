@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assignment · Operators · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Operators</div>
+    <ul class="nav-list">
+      <li><a href="operators.html" class="">Operators</a></li>
+<li><a href="arithmetic.html" class="">Arithmetic</a></li>
+<li><a href="comparison.html" class="">Comparison</a></li>
+<li><a href="logical.html" class="">Logical</a></li>
+<li><a href="bitwise.html" class="">Bitwise</a></li>
+<li><a href="assignment.html" class="active">Assignment</a></li>
+<li><a href="ternary.html" class="">Ternary</a></li>
+<li><a href="nullish.html" class="">Nullish</a></li>
+<li><a href="optional-chaining.html" class="">Optional Chaining</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Operators</a> / <span>Assignment</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Assignment</h1>
+<blockquote>
+<p>Section: Operators · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Assignment operators assign a value to a variable, optionally combining the assignment with an arithmetic, logical, or nullish operation (compound assignment).</p>
+<h2>History</h2>
+<p><code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code> existed since 1995; logical assignment shorthands <code>&amp;&amp;=</code>, <code>||=</code>, <code>??=</code> were added in <strong>ES2021</strong>.</p>
+<h2>Why Assignment Operators Matter</h2>
+<p>Compound assignment operators (<code>+=</code>, <code>||=</code>, etc.) make common update patterns shorter and clearer than writing them out in full.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">a = b
+a += b   // a = a + b
+a -= b   // a = a - b
+a *= b   // a = a * b
+a /= b   // a = a / b
+a %= b   // a = a % b
+a **= b  // a = a ** b
+a &amp;&amp;= b  // a = a &amp;&amp; b
+a ||= b  // a = a || b
+a ??= b  // a = a ?? b
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Basic</td>
+<td><code>=</code></td>
+</tr>
+<tr>
+<td>Arithmetic compound</td>
+<td><code>+= -= *= /= %= **=</code></td>
+</tr>
+<tr>
+<td>Logical compound (ES2021)</td>
+<td><code>&amp;&amp;= \|\|= ??=</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">let x = 5;
+x += 3; // 8
+x -= 2; // 6
+x *= 2; // 12
+x /= 4; // 3
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">let count = 0;
+count += 5;
+
+Stack
+┌───────────────┐
+│ count → 0 → 5    │  (same binding, value updated in place)
+└───────────────┘
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">a OP= b
+    │
+Equivalent to: a = a OP b
+    │
+Evaluate `a OP b` first, then assign the result back to `a`
+</code></pre>
+<h2>Internal Working</h2>
+<p>Compound assignment operators are pure syntax sugar — <code>a += b</code> is parsed and executed exactly as <code>a = a + b</code>, with no different runtime behavior beyond conciseness (and, for the logical variants, short-circuit-aware conditional assignment).</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let score = 10;
+score += 5;
+console.log(score); // 15
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Logical assignment shorthand (ES2021)
+let settings = { theme: null };
+settings.theme ??= &quot;dark&quot;; // only assigns if theme is null/undefined
+console.log(settings.theme); // &quot;dark&quot;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// &amp;&amp;= only assigns if the left side is currently truthy
+let user = { isActive: true, name: &quot;Shubham&quot; };
+user.name &amp;&amp;= user.name.toUpperCase();
+console.log(user.name); // &quot;SHUBHAM&quot;
+
+let inactiveUser = { isActive: false, name: &quot;Guest&quot; };
+inactiveUser.name &amp;&amp;= inactiveUser.name.toUpperCase();
+// name is falsy-checked via isActive being unrelated; example illustrates &amp;&amp;= behavior directly on name
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Accumulating a running total in a loop
+let total = 0;
+const prices = [10, 20, 30];
+for (const price of prices) {
+  total += price;
+}
+console.log(total); // 60
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Config objects commonly use ??= to apply defaults without overwriting explicit falsy values
+function initConfig(config = {}) {
+  config.retries ??= 3;
+  config.timeout ??= 5000;
+  return config;
+}
+console.log(initConfig({ retries: 0 })); // { retries: 0, timeout: 5000 } — retries: 0 preserved!
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#assignment">interview.md</a>
+1. What does <code>a += b</code> expand to internally?
+2. What's the difference between <code>||=</code> and <code>??=</code>?
+3. Why would <code>config.retries ??= 3</code> preserve <code>retries: 0</code> but <code>config.retries ||= 3</code> would not?
+4. When were logical assignment operators introduced?
+5. Are compound assignment operators faster than writing the expanded form? Why or why not?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#assignment">mcq.md</a>
+1. <code>x = 5; x **= 2;</code> results in <code>x</code> being: (a) 7 (b) 10 (c) <strong>25</strong> (d) 32 → <strong>Answer: (c)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#assignment">practice.md</a>
+1. <strong>(Easy)</strong> Use <code>+=</code>, <code>-=</code>, and <code>*=</code> to modify a variable across 3 steps and log each result.
+2. <strong>(Medium)</strong> Use <code>??=</code> to apply default values to a config object without overwriting valid falsy values.
+3. <strong>(Hard)</strong> Explain and demonstrate why <code>||=</code> would incorrectly override a legitimately falsy config value where <code>??=</code> would not.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Rewrite 3 <code>a = a OP b</code> statements using their compound assignment shorthand.</li>
+<li>[ ] Demonstrate the <code>retries: 0</code> preservation difference between <code>||=</code> and <code>??=</code>.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small <code>initConfig()</code> utility function that applies sensible defaults to a settings object using <code>??=</code>, correctly preserving intentional falsy values like <code>0</code> or <code>false</code>.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using <code>||=</code> for defaults when <code>0</code>/<code>false</code>/<code>""</code> might be legitimate configured values.</li>
+<li>Forgetting compound assignment still requires the variable to already exist and be assignable (not <code>const</code>).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer <code>??=</code> over <code>||=</code> specifically for default-value assignment patterns involving numbers or booleans.</li>
+<li>Use compound assignment for conciseness, but keep complex right-hand expressions readable.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Compound assignment offers no runtime performance benefit over the expanded form — its value is purely readability and conciseness.</li>
+</ul>
+<h2>Summary</h2>
+<p>Assignment operators update a variable's value, with compound forms (<code>+=</code>, <code>??=</code>, etc.) offering concise shorthand for "update based on current value." The ES2021 logical assignment operators (<code>&amp;&amp;=</code>, <code>||=</code>, <code>??=</code>) are especially useful for safe default-value patterns.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#assignment">cheat-sheet.md</a></p>
+<hr />
+<p><a href="bitwise.html">← Bitwise</a> | <a href="README.html">Section Home</a> | <a href="ternary.html">Ternary →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
