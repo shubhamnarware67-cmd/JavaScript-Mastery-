@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitwise · Operators · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Operators</div>
+    <ul class="nav-list">
+      <li><a href="operators.html" class="">Operators</a></li>
+<li><a href="arithmetic.html" class="">Arithmetic</a></li>
+<li><a href="comparison.html" class="">Comparison</a></li>
+<li><a href="logical.html" class="">Logical</a></li>
+<li><a href="bitwise.html" class="active">Bitwise</a></li>
+<li><a href="assignment.html" class="">Assignment</a></li>
+<li><a href="ternary.html" class="">Ternary</a></li>
+<li><a href="nullish.html" class="">Nullish</a></li>
+<li><a href="optional-chaining.html" class="">Optional Chaining</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Operators</a> / <span>Bitwise</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Bitwise</h1>
+<blockquote>
+<p>Section: Operators · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Bitwise operators treat numbers as 32-bit binary integers and perform operations bit-by-bit: AND (<code>&amp;</code>), OR (<code>|</code>), XOR (<code>^</code>), NOT (<code>~</code>), and shifts (<code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>&gt;&gt;&gt;</code>).</p>
+<h2>History</h2>
+<p>Present since JS's creation in 1995, inherited conceptually from C-like languages, though used far less frequently in everyday JS than in lower-level languages.</p>
+<h2>Why Bitwise Operators Matter</h2>
+<p>Rare in typical app code, but essential for flags/permissions systems, performance-sensitive numeric tricks, and understanding certain legacy or systems-adjacent code.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">a &amp; b
+a | b
+a ^ b
+~a
+a &lt;&lt; n
+a &gt;&gt; n
+a &gt;&gt;&gt; n
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Name</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;</code></td>
+<td>AND</td>
+<td>1 only if both bits are 1</td>
+</tr>
+<tr>
+<td><code>\|</code></td>
+<td>OR</td>
+<td>1 if either bit is 1</td>
+</tr>
+<tr>
+<td><code>^</code></td>
+<td>XOR</td>
+<td>1 if bits differ</td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>NOT</td>
+<td>Inverts all bits</td>
+</tr>
+<tr>
+<td><code>&lt;&lt;</code></td>
+<td>Left shift</td>
+<td>Shifts bits left, fills with 0</td>
+</tr>
+<tr>
+<td><code>&gt;&gt;</code></td>
+<td>Sign-propagating right shift</td>
+<td>Shifts right, preserves sign</td>
+</tr>
+<tr>
+<td><code>&gt;&gt;&gt;</code></td>
+<td>Zero-fill right shift</td>
+<td>Shifts right, fills with 0</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">console.log(5 &amp; 1);  // 1   (0101 &amp; 0001 = 0001)
+console.log(5 | 1);   // 5   (0101 | 0001 = 0101)
+console.log(5 ^ 1);   // 4   (0101 ^ 0001 = 0100)
+console.log(~5);      // -6  (bitwise NOT: -(x+1))
+console.log(1 &lt;&lt; 3);  // 8   (shifts 1 left by 3: 1000)
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">5  in binary: 00000000000000000000000000000101
+1  in binary: 00000000000000000000000000000001
+5 &amp; 1:        00000000000000000000000000000001  → 1
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Convert both operands to 32-bit integers
+        │
+Apply the bitwise operation to each bit pair
+        │
+Convert the result back to a regular JS Number
+</code></pre>
+<h2>Internal Working</h2>
+<p>JS numbers are stored as 64-bit floats, but bitwise operators internally convert operands to 32-bit signed integers first, perform the operation, then convert the result back to a standard Number — this conversion has real performance and range implications for very large numbers.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">console.log(4 &amp; 5); // 4 — comparing bits: 100 &amp; 101 = 100
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Using bitwise flags for permissions (a classic real use case)
+const READ = 1;    // 001
+const WRITE = 2;   // 010
+const EXECUTE = 4; // 100
+
+let permissions = READ | WRITE; // 011 → user can read and write
+console.log((permissions &amp; WRITE) !== 0); // true — has write permission
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Fast integer truncation trick using double bitwise NOT
+console.log(~~4.7); // 4 — truncates toward zero, faster than Math.floor for positive numbers
+// (Modern engines optimize Math.trunc similarly — prefer clarity in most code)
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Color manipulation: extracting RGB channels from a packed 24-bit integer
+const color = 0xff5733;
+const red   = (color &gt;&gt; 16) &amp; 0xff;
+const green = (color &gt;&gt; 8) &amp; 0xff;
+const blue  = color &amp; 0xff;
+console.log(red, green, blue); // 255 87 51
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Game engines and graphics code frequently use bitwise flags/shifts
+// for performance-critical state management (collision masks, render flags).
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#bitwise">interview.md</a>
+1. How do bitwise operators treat JavaScript numbers internally?
+2. What's the difference between <code>&gt;&gt;</code> and <code>&gt;&gt;&gt;</code>?
+3. How can bitwise flags represent multiple boolean permissions in one number?
+4. What does <code>~5</code> evaluate to, and why?
+5. Give a real-world use case where bitwise operators are genuinely useful in JS.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#bitwise">mcq.md</a>
+1. <code>5 &amp; 1</code> evaluates to: (a) 0 (b) <strong>1</strong> (c) 5 (d) 6 → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#bitwise">practice.md</a>
+1. <strong>(Easy)</strong> Compute <code>6 &amp; 3</code>, <code>6 | 3</code>, and <code>6 ^ 3</code> and verify manually using binary.
+2. <strong>(Medium)</strong> Implement a simple permissions system using bitwise flags (read/write/execute).
+3. <strong>(Hard)</strong> Extract individual RGB channels from a packed hex color integer using bit shifting and masking.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Convert 4 decimal numbers to binary manually, then verify a bitwise operation's result by hand.</li>
+<li>[ ] Explain, with an example, why bitwise flags are more memory-efficient than separate boolean properties.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple permissions checker: define READ/WRITE/EXECUTE bit flags, combine them for a "user," and write functions to check/add/remove individual permissions using bitwise operators.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using bitwise operators (<code>&amp;</code>, <code>|</code>) by mistake instead of logical operators (<code>&amp;&amp;</code>, <code>||</code>).</li>
+<li>Forgetting bitwise operations convert to 32-bit integers, causing unexpected results with very large numbers.</li>
+<li>Overusing bitwise tricks where clearer code (<code>Math.floor</code>, boolean flags) would be more maintainable.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Reserve bitwise operators for genuinely appropriate cases (flags, low-level numeric manipulation) — don't use them just to look clever.</li>
+<li>Comment bitwise flag logic clearly, since it's less immediately readable than plain booleans.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Bitwise flag combinations can replace multiple boolean object properties, saving memory in very large datasets (e.g. thousands of permission records).</li>
+</ul>
+<h2>Summary</h2>
+<p>Bitwise operators manipulate numbers at the binary level — rarely needed in typical JS app code, but valuable for flags/permissions systems, performance-sensitive numeric operations, and low-level tasks like color/byte manipulation.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#bitwise">cheat-sheet.md</a></p>
+<hr />
+<p><a href="logical.html">← Logical</a> | <a href="README.html">Section Home</a> | <a href="assignment.html">Assignment →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
