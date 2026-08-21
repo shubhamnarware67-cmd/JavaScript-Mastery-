@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Optional Chaining · Operators · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Operators</div>
+    <ul class="nav-list">
+      <li><a href="operators.html" class="">Operators</a></li>
+<li><a href="arithmetic.html" class="">Arithmetic</a></li>
+<li><a href="comparison.html" class="">Comparison</a></li>
+<li><a href="logical.html" class="">Logical</a></li>
+<li><a href="bitwise.html" class="">Bitwise</a></li>
+<li><a href="assignment.html" class="">Assignment</a></li>
+<li><a href="ternary.html" class="">Ternary</a></li>
+<li><a href="nullish.html" class="">Nullish</a></li>
+<li><a href="optional-chaining.html" class="active">Optional Chaining</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Operators</a> / <span>Optional Chaining</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Optional Chaining</h1>
+<blockquote>
+<p>Section: Operators · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The optional chaining operator <code>?.</code> safely accesses deeply nested object properties, returning <code>undefined</code> instead of throwing if any part of the chain is <code>null</code>/<code>undefined</code>.</p>
+<h2>History</h2>
+<p>Introduced in <strong>ES2020</strong>, alongside nullish coalescing (<code>??</code>), replacing verbose manual <code>&amp;&amp;</code> guard chains.</p>
+<h2>Why Optional Chaining Matters</h2>
+<p>Before <code>?.</code>, accessing a deeply nested property required verbose manual checks at every level to avoid a <code>TypeError</code>; <code>?.</code> makes this both shorter and less error-prone.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">obj?.prop
+obj?.[expr]
+obj?.method?.()
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>obj?.prop</code></td>
+<td>Safe property access</td>
+</tr>
+<tr>
+<td><code>obj?.[key]</code></td>
+<td>Safe dynamic/bracket property access</td>
+</tr>
+<tr>
+<td><code>obj?.method?.()</code></td>
+<td>Safe method call (only calls if method exists)</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const user = { profile: null };
+console.log(user.profile?.name); // undefined — no TypeError thrown
+console.log(user?.profile?.address?.city); // undefined — chain stops safely at `profile`
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — optional chaining evaluates to a value, no persistent memory structure.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">obj?.prop
+    │
+Is `obj` null or undefined?
+    │                    │
+   Yes                  No
+    │                    │
+Return undefined     Access `obj.prop` normally
+(stop immediately,     (continues to next `?.` in the chain if present)
+never throws)
+</code></pre>
+<h2>Internal Working</h2>
+<p>At each <code>?.</code> step, the engine checks whether the value to the left is <code>null</code>/<code>undefined</code>; if so, evaluation of the <strong>entire remaining chain</strong> short-circuits immediately to <code>undefined</code>, without attempting further property access or throwing.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const car = { brand: &quot;Toyota&quot; };
+console.log(car?.brand);   // &quot;Toyota&quot;
+console.log(car?.engine);   // undefined — no error, engine doesn't exist
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Pre-ES2020 verbose guard chain
+const city1 = user &amp;&amp; user.address &amp;&amp; user.address.city;
+
+// Modern equivalent with optional chaining
+const city2 = user?.address?.city;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Optional chaining with method calls — only calls if the method actually exists
+const api = {
+  fetchData() { return &quot;data loaded&quot;; }
+};
+console.log(api.fetchData?.()); // &quot;data loaded&quot;
+console.log(api.missingMethod?.()); // undefined — safely skipped, no TypeError
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Safely reading a possibly-missing nested API response field
+function getAuthorName(post) {
+  return post?.author?.name ?? &quot;Unknown Author&quot;;
+}
+console.log(getAuthorName({})); // &quot;Unknown Author&quot;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Combining optional chaining with array access for API response parsing
+const firstComment = response?.data?.comments?.[0]?.text ?? &quot;No comments yet&quot;;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#optional-chaining">interview.md</a>
+1. What problem does <code>?.</code> solve that plain dot notation doesn't?
+2. How does <code>?.</code> behave differently from manually chaining <code>&amp;&amp;</code> checks?
+3. Can <code>?.</code> be used for method calls? Give an example.
+4. What does the entire chain evaluate to if any link is <code>null</code>/<code>undefined</code>?
+5. Why is <code>?.</code> often paired with <code>??</code> in real code?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#optional-chaining">mcq.md</a>
+1. <code>const a = {}; console.log(a.b?.c);</code> logs: (a) throws TypeError (b) <strong>undefined</strong> (c) null (d) 0 → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#optional-chaining">practice.md</a>
+1. <strong>(Easy)</strong> Use <code>?.</code> to safely access a possibly-missing nested property, avoiding a <code>TypeError</code>.
+2. <strong>(Medium)</strong> Rewrite a verbose <code>a &amp;&amp; a.b &amp;&amp; a.b.c</code> guard chain using <code>?.</code>.
+3. <strong>(Hard)</strong> Combine <code>?.</code> with <code>??</code> and array bracket access to safely read a deeply nested API field with a fallback default.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Rewrite 3 manual <code>&amp;&amp;</code> guard chains using <code>?.</code>.</li>
+<li>[ ] Explain, with an example, how <code>?.method?.()</code> avoids errors when a method might not exist.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small API-response parser that uses <code>?.</code> and <code>??</code> together to safely extract several nested fields (author name, comment count, first tag) with sensible fallback defaults.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using <code>?.</code> on the LEFT side of an assignment (<code>obj?.prop = value</code> is invalid — optional chaining is read-only in that position).</li>
+<li>Forgetting <code>?.()</code> (with parentheses) is needed specifically for safely calling a possibly-missing method, not just <code>?.</code> alone.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Pair <code>?.</code> with <code>??</code> to both safely access nested data AND provide a meaningful fallback in one expression.</li>
+<li>Don't overuse <code>?.</code> everywhere defensively — it can silently mask genuine bugs (typos, wrong data shape) if applied too liberally.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li><code>?.</code> short-circuits immediately upon hitting <code>null</code>/<code>undefined</code>, avoiding unnecessary further property lookups — a minor efficiency benefit alongside its main safety purpose.</li>
+</ul>
+<h2>Summary</h2>
+<p>Optional chaining (<code>?.</code>) safely navigates potentially-missing nested properties or method calls, short-circuiting to <code>undefined</code> instead of throwing — commonly paired with <code>??</code> for full safe-access-with-default patterns.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#optional-chaining">cheat-sheet.md</a></p>
+<hr />
+<p><a href="nullish.html">← Nullish</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
