@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reduce · Arrays · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Arrays</div>
+    <ul class="nav-list">
+      <li><a href="arrays.html" class="">Arrays</a></li>
+<li><a href="map.html" class="">Map</a></li>
+<li><a href="filter.html" class="">Filter</a></li>
+<li><a href="reduce.html" class="active">Reduce</a></li>
+<li><a href="sort.html" class="">Sort</a></li>
+<li><a href="splice.html" class="">Splice</a></li>
+<li><a href="slice.html" class="">Slice</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Arrays</a> / <span>Reduce</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Reduce</h1>
+<blockquote>
+<p>Section: Arrays · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>Array.prototype.reduce()</code> collapses an array down into a <strong>single value</strong> (a sum, an object, another array, etc.) by repeatedly applying a callback that combines an accumulator with each element.</p>
+<h2>History</h2>
+<p>Added in <strong>ES5 (2009)</strong>, alongside <code>map()</code> and <code>filter()</code>, as the most general-purpose of the three (map/filter can technically be implemented in terms of reduce).</p>
+<h2>Why Reduce Matters</h2>
+<p>It's the most powerful and flexible array method — anything <code>map</code>/<code>filter</code>/<code>forEach</code> can do, <code>reduce</code> can also do, plus tasks like totals, grouping, and flattening that need to accumulate state across iterations.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">const result = array.reduce((accumulator, element, index, array) =&gt; {
+  return updatedAccumulator;
+}, initialValue);
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — a single method, but used for many different accumulation patterns (sum, grouping, flattening, counting).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">const nums = [1, 2, 3, 4];
+const total = nums.reduce((sum, n) =&gt; sum + n, 0);
+console.log(total); // 10
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">reduce((acc, n) =&gt; acc + n, 0) over [1,2,3,4]
+
+acc=0, n=1 → acc=1
+acc=1, n=2 → acc=3
+acc=3, n=3 → acc=6
+acc=6, n=4 → acc=10   ← final returned value
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">reduce(callback, initialValue)
+        │
+acc = initialValue (or first element if omitted)
+        │
+For each remaining element:
+        │
+acc = callback(acc, element, index, array)
+        │
+After the last element, return the final acc
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>reduce()</code> carries a single running "accumulator" value through the entire array, updating it once per element via the callback's return value — omitting <code>initialValue</code> uses the array's first element as the starting accumulator and begins iterating from the second element instead.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const prices = [10, 20, 30];
+const total = prices.reduce((sum, price) =&gt; sum + price, 0);
+console.log(total); // 60
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Using reduce to count occurrences
+const fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;apple&quot;, &quot;orange&quot;, &quot;banana&quot;, &quot;apple&quot;];
+const counts = fruits.reduce((acc, fruit) =&gt; {
+  acc[fruit] = (acc[fruit] || 0) + 1;
+  return acc;
+}, {});
+console.log(counts); // { apple: 3, banana: 2, orange: 1 }
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Using reduce to group objects by a property (an object-building accumulator)
+const people = [
+  { name: &quot;Shubham&quot;, dept: &quot;Engineering&quot; },
+  { name: &quot;Amit&quot;, dept: &quot;Sales&quot; },
+  { name: &quot;Riya&quot;, dept: &quot;Engineering&quot; }
+];
+const byDept = people.reduce((acc, person) =&gt; {
+  (acc[person.dept] ??= []).push(person.name);
+  return acc;
+}, {});
+console.log(byDept); // { Engineering: [&quot;Shubham&quot;,&quot;Riya&quot;], Sales: [&quot;Amit&quot;] }
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Calculating a shopping cart total, including quantity
+const cart = [
+  { name: &quot;Book&quot;, price: 15, qty: 2 },
+  { name: &quot;Pen&quot;, price: 2, qty: 5 }
+];
+const total = cart.reduce((sum, item) =&gt; sum + item.price * item.qty, 0);
+console.log(total); // 40
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Redux reducers are conceptually (and sometimes literally) built on the
+// same accumulator pattern as Array.prototype.reduce() — combining actions
+// over time into a single accumulated application state.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#reduce">interview.md</a>
+1. What does <code>reduce()</code> return, in general terms?
+2. What happens if you omit the <code>initialValue</code> argument?
+3. How would you implement <code>map()</code> using only <code>reduce()</code>?
+4. Give an example of using <code>reduce()</code> to group array items by a property.
+5. Why is <code>reduce()</code> considered the most general-purpose of the array iteration methods?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#reduce">mcq.md</a>
+1. <code>[1,2,3].reduce((acc,n) =&gt; acc+n, 10)</code> returns: (a) 6 (b) <strong>16</strong> (c) 10 (d) undefined → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#reduce">practice.md</a>
+1. <strong>(Easy)</strong> Use <code>reduce()</code> to sum an array of numbers.
+2. <strong>(Medium)</strong> Use <code>reduce()</code> to count how many times each value appears in an array.
+3. <strong>(Hard)</strong> Use <code>reduce()</code> to group an array of objects by a property, producing an object of arrays.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Reimplement <code>Array.prototype.map()</code> using only <code>.reduce()</code>.</li>
+<li>[ ] Explain, with an example, what happens differently when <code>initialValue</code> is omitted from <code>reduce()</code>.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Sales Report" generator: given an array of sale records (product, amount, region), use <code>reduce()</code> to compute total sales per region.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting to <code>return</code> the accumulator inside the callback, breaking the accumulation.</li>
+<li>Omitting <code>initialValue</code> on an empty array, which throws a <code>TypeError</code>.</li>
+<li>Overcomplicating simple sum/count tasks that <code>reduce()</code> handles cleanly, with manual loops instead.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Always provide an explicit <code>initialValue</code> unless you're certain the array is non-empty and using the first element as the seed is intentional.</li>
+<li>Keep the accumulator's shape consistent and the callback logic simple — split very complex reduce logic into a named helper function for readability.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li><code>reduce()</code> processes the array in a single pass, which can be more efficient than chaining several separate <code>.map().filter()</code> passes when performance on very large arrays matters.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>.reduce()</code> is the most flexible array method, collapsing an array into any single accumulated value (sums, counts, groupings, even entirely new arrays or objects) — understanding it well often reveals cleaner solutions to problems that seem to need manual loops.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#reduce">cheat-sheet.md</a></p>
+<hr />
+<p><a href="filter.html">← Filter</a> | <a href="README.html">Section Home</a> | <a href="sort.html">Sort →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
