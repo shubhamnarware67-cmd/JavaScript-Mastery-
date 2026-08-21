@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Json · JSON & Regex · JavaScript Mastery</title>
+<meta name="description" content="Json — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">JSON & Regex</div>
+    <ul class="nav-list">
+      <li><a href="json.html" class="active">Json</a></li>
+<li><a href="regex.html" class="">Regex</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">JSON & Regex</a> / <span>Json</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>JSON</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>JSON (JavaScript Object Notation) is a lightweight, text-based data format for representing structured data, built into JavaScript via <code>JSON.stringify()</code> and <code>JSON.parse()</code>.</p>
+
+      <h2>Why JSON Matters</h2>
+      <p>It's the universal language for exchanging data between a client and server — nearly every REST API today uses JSON because it's simple, human-readable, and maps directly onto JS objects/arrays.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">const json = JSON.stringify({ name: "Shubham", age: 25 });
+const obj = JSON.parse(json);</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">const data = { name: "Alex", password: "secret123", age: 30 };
+const safeJson = JSON.stringify(data, (key, value) =>
+  key === "password" ? undefined : value
+);
+
+const res = await fetch("/api/users");
+const users = await res.json();</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+JS Object (in memory)          JSON String (text)
+{ id: 1, name: "Book" }  ──stringify──►  '{"id":1,"name":"Book"}'
+{ id: 1, name: "Book" }  ◄──parse────    '{"id":1,"name":"Book"}'
+      </div>
+
+      <h2>Internal Working</h2>
+      <p><code>JSON.stringify()</code> skips <code>undefined</code>, functions, and Symbols when encountered as object properties; <code>JSON.parse()</code> optionally accepts a "reviver" function.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Assuming <code>JSON.parse(JSON.stringify(obj))</code> is a perfect deep clone.</li>
+        <li>Forgetting <code>JSON.stringify()</code> throws on circular references.</li>
+        <li>Not handling <code>JSON.parse()</code> errors on malformed strings.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>JSON is the standard lightweight text format for structured data exchange, simple and universal, but limited to a small set of data types.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
