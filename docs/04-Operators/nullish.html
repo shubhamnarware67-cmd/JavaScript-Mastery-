@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nullish · Operators · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Operators</div>
+    <ul class="nav-list">
+      <li><a href="operators.html" class="">Operators</a></li>
+<li><a href="arithmetic.html" class="">Arithmetic</a></li>
+<li><a href="comparison.html" class="">Comparison</a></li>
+<li><a href="logical.html" class="">Logical</a></li>
+<li><a href="bitwise.html" class="">Bitwise</a></li>
+<li><a href="assignment.html" class="">Assignment</a></li>
+<li><a href="ternary.html" class="">Ternary</a></li>
+<li><a href="nullish.html" class="active">Nullish</a></li>
+<li><a href="optional-chaining.html" class="">Optional Chaining</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Operators</a> / <span>Nullish</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Nullish</h1>
+<blockquote>
+<p>Section: Operators · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The nullish coalescing operator <code>??</code> returns its right-hand operand only when the left-hand operand is <code>null</code> or <code>undefined</code> — unlike <code>||</code>, it does not treat other falsy values (<code>0</code>, <code>""</code>, <code>false</code>, <code>NaN</code>) as "missing."</p>
+<h2>History</h2>
+<p>Introduced in <strong>ES2020</strong>, directly addressing a long-standing pain point where <code>||</code> incorrectly overrode legitimate falsy values.</p>
+<h2>Why Nullish Coalescing Matters</h2>
+<p>It provides precise "is this actually absent?" semantics, distinct from "is this falsy?" — critical for correct default-value handling with numbers and booleans.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">a ?? b
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — single operator (its companion assignment form <code>??=</code> is covered in Assignment).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">console.log(0 ?? &quot;default&quot;);     // 0        — 0 is NOT null/undefined
+console.log(0 || &quot;default&quot;);      // &quot;default&quot; — 0 IS falsy, || overrides it (the bug ?? fixes)
+
+console.log(null ?? &quot;default&quot;);   // &quot;default&quot;
+console.log(undefined ?? &quot;default&quot;); // &quot;default&quot;
+console.log(&quot;&quot; ?? &quot;default&quot;);      // &quot;&quot;       — &quot;&quot; is NOT null/undefined
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — nullish coalescing evaluates to a value, no persistent memory structure.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">a ?? b
+    │
+Is `a` strictly null or undefined?
+    │                    │
+   Yes                  No
+    │                    │
+Return `b`           Return `a` (even if a is 0, &quot;&quot;, or false)
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>??</code> checks specifically for <code>null</code>/<code>undefined</code> using an internal comparison equivalent to <code>a === null || a === undefined</code> — it does NOT run the general "truthy/falsy" check that <code>||</code> uses.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let userAge = 0;
+console.log(userAge ?? 18); // 0 — correctly preserves the real age of 0
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">function getVolume(userSetting) {
+  return userSetting ?? 50; // only falls back to 50 if userSetting is null/undefined
+}
+console.log(getVolume(0));   // 0 (muted, a valid setting!)
+console.log(getVolume());     // 50 (no setting provided)
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Chaining ?? with optional chaining for safe nested defaults
+const city = user?.address?.city ?? &quot;Unknown City&quot;;
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// API response handling where 0 or false are valid, meaningful values
+function renderStock(product) {
+  const stock = product.stockCount ?? &quot;Unavailable&quot;;
+  return `Stock: ${stock}`;
+}
+console.log(renderStock({ stockCount: 0 })); // &quot;Stock: 0&quot; — correctly shows zero stock
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Config initialization avoiding the classic ||-with-falsy-defaults bug
+function initSettings(userSettings = {}) {
+  return {
+    volume: userSettings.volume ?? 50,
+    notifications: userSettings.notifications ?? true,
+  };
+}
+console.log(initSettings({ volume: 0, notifications: false }));
+// { volume: 0, notifications: false } — both correctly preserved
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#nullish">interview.md</a>
+1. What's the core difference between <code>??</code> and <code>||</code>?
+2. Why does <code>0 ?? "default"</code> return <code>0</code> but <code>0 || "default"</code> returns <code>"default"</code>?
+3. Which ECMAScript version introduced <code>??</code>?
+4. Give a real scenario where using <code>||</code> instead of <code>??</code> would introduce a bug.
+5. Can <code>??</code> be combined directly with <code>&amp;&amp;</code>/<code>||</code> without parentheses? (No — mixing requires explicit parentheses, it's a SyntaxError otherwise.)</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#nullish">mcq.md</a>
+1. <code>false ?? "default"</code> evaluates to: (a) "default" (b) <strong>false</strong> (c) true (d) undefined → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#nullish">practice.md</a>
+1. <strong>(Easy)</strong> Compare <code>0 ?? 10</code> vs <code>0 || 10</code> and explain the difference.
+2. <strong>(Medium)</strong> Write a <code>getSetting(value, fallback)</code> function using <code>??</code> that correctly preserves <code>false</code>/<code>0</code> values.
+3. <strong>(Hard)</strong> Refactor a config-initialization function that incorrectly used <code>||</code> for defaults, fixing the associated bug with <code>??</code>.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] List 3 real-world values (<code>0</code>, <code>false</code>, <code>""</code>) where <code>||</code> defaulting would cause bugs, and show <code>??</code> fixing each.</li>
+<li>[ ] Explain why mixing <code>??</code> directly with <code>&amp;&amp;</code>/<code>||</code> without parentheses is a syntax error.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small settings/config initializer that correctly uses <code>??</code>/<code>??=</code> throughout to preserve legitimate falsy user values (volume <code>0</code>, <code>notifications: false</code>, etc.).</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using <code>||</code> for defaults when the value could legitimately be <code>0</code>, <code>""</code>, or <code>false</code>.</li>
+<li>Assuming <code>??</code> behaves identically to <code>||</code> for all falsy values (it doesn't — only <code>null</code>/<code>undefined</code> trigger the fallback).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Default to <code>??</code> for fallback/default-value logic unless you specifically want <em>any</em> falsy value to trigger the fallback.</li>
+<li>Use parentheses when combining <code>??</code> with <code>&amp;&amp;</code>/<code>||</code> in the same expression, as required by the language.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>No performance difference from <code>||</code> — the benefit is entirely about correctness for numeric/boolean default values.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>??</code> fixes a long-standing default-value bug in JavaScript by falling back only on <code>null</code>/<code>undefined</code>, correctly preserving legitimate falsy values like <code>0</code>, <code>""</code>, and <code>false</code> that <code>||</code> would incorrectly override.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#nullish">cheat-sheet.md</a></p>
+<hr />
+<p><a href="ternary.html">← Ternary</a> | <a href="README.html">Section Home</a> | <a href="optional-chaining.html">Optional Chaining →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
