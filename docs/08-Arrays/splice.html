@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Splice · Arrays · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Arrays</div>
+    <ul class="nav-list">
+      <li><a href="arrays.html" class="">Arrays</a></li>
+<li><a href="map.html" class="">Map</a></li>
+<li><a href="filter.html" class="">Filter</a></li>
+<li><a href="reduce.html" class="">Reduce</a></li>
+<li><a href="sort.html" class="">Sort</a></li>
+<li><a href="splice.html" class="active">Splice</a></li>
+<li><a href="slice.html" class="">Slice</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Arrays</a> / <span>Splice</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Splice</h1>
+<blockquote>
+<p>Section: Arrays · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>Array.prototype.splice()</code> <strong>mutates</strong> an array by removing, replacing, and/or inserting elements at a specified position, returning an array of any removed elements.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995, one of the original array-manipulation methods.</p>
+<h2>Why Splice Matters</h2>
+<p>It's the primary tool for modifying an array's <em>contents</em> in place (not just adding/removing from the ends like <code>push</code>/<code>pop</code>), useful for editing lists at arbitrary positions.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">array.splice(startIndex, deleteCount, item1, item2, ...);
+</code></pre>
+<h2>Types (usage patterns)</h2>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Call</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Remove elements</td>
+<td><code>arr.splice(2, 1)</code> — remove 1 element at index 2</td>
+</tr>
+<tr>
+<td>Insert elements</td>
+<td><code>arr.splice(2, 0, "new")</code> — insert without removing</td>
+</tr>
+<tr>
+<td>Replace elements</td>
+<td><code>arr.splice(2, 1, "replacement")</code> — remove 1, insert 1</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;];
+const removed = arr.splice(1, 2); // remove 2 elements starting at index 1
+console.log(arr);     // [&quot;a&quot;, &quot;d&quot;]
+console.log(removed); // [&quot;b&quot;, &quot;c&quot;]
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Before: [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]
+splice(1, 2) removes indices 1-2 (&quot;b&quot;,&quot;c&quot;)
+After:  [&quot;a&quot;, &quot;d&quot;]        ← original array MUTATED in place
+Returned: [&quot;b&quot;, &quot;c&quot;]      ← the removed elements
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">splice(start, deleteCount, ...itemsToInsert)
+        │
+Remove `deleteCount` elements starting at `start`
+        │
+Insert any provided `itemsToInsert` at that same position
+        │
+Original array is MUTATED
+        │
+Return an array of the REMOVED elements (empty array if none removed)
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>splice()</code> shifts all elements after the affected region to their new positions internally (closing the gap left by removals, or making room for insertions) — this makes it an O(n) operation relative to the array's size, since positions after the splice point must be shifted.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;];
+fruits.splice(1, 1); // remove &quot;banana&quot;
+console.log(fruits); // [&quot;apple&quot;, &quot;cherry&quot;]
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Inserting without removing (deleteCount = 0)
+const nums = [1, 2, 5];
+nums.splice(2, 0, 3, 4); // insert 3 and 4 at index 2
+console.log(nums); // [1, 2, 3, 4, 5]
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Replacing an element in place
+const todos = [&quot;Buy milk&quot;, &quot;Walk dog&quot;, &quot;Clean house&quot;];
+todos.splice(1, 1, &quot;Walk dog and cat&quot;); // replace index 1
+console.log(todos); // [&quot;Buy milk&quot;, &quot;Walk dog and cat&quot;, &quot;Clean house&quot;]
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Removing a specific item from a todo list by its id
+function removeTodo(todos, id) {
+  const index = todos.findIndex(t =&gt; t.id === id);
+  if (index !== -1) todos.splice(index, 1);
+  return todos;
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Undo functionality often relies on splice to reinsert a previously
+// removed item back at its original index during an &quot;undo delete&quot; action.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#splice">interview.md</a>
+1. Does <code>splice()</code> mutate the original array?
+2. What does <code>splice()</code> return?
+3. How would you use <code>splice()</code> to insert elements WITHOUT removing any?
+4. What's the difference between <code>splice()</code> and <code>slice()</code> (beyond the name)?
+5. What's the time complexity implication of using <code>splice()</code> on a very large array?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#splice">mcq.md</a>
+1. <code>["a","b","c"].splice(1,1)</code> returns: (a) <code>["a","c"]</code> (b) <strong><code>["b"]</code></strong> (c) <code>undefined</code> (d) <code>1</code> → <strong>Answer: (b), and mutates the original to <code>["a","c"]</code>.</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#splice">practice.md</a>
+1. <strong>(Easy)</strong> Use <code>splice()</code> to remove the 3rd element of an array.
+2. <strong>(Medium)</strong> Use <code>splice()</code> to insert 2 new elements into the middle of an array.
+3. <strong>(Hard)</strong> Write a <code>removeById(array, id)</code> function using <code>findIndex()</code> + <code>splice()</code> to remove an object by its id property.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Demonstrate all 3 use cases of <code>splice()</code>: removing, inserting, and replacing.</li>
+<li>[ ] Explain, with a code example, why <code>splice()</code> mutates while <code>slice()</code> (a related but different method) does not.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple "Todo List Editor" with functions to insert a new todo at a specific position, remove a todo by index, and replace a todo's text — all using <code>splice()</code>.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Confusing <code>splice()</code> (mutates, removes/inserts) with <code>slice()</code> (non-mutating, extracts a sub-array) due to their similar names.</li>
+<li>Forgetting <code>splice()</code> returns the REMOVED elements, not the modified array.</li>
+<li>Using <code>splice()</code> in a loop without adjusting indices, causing skipped elements as the array shrinks.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Double-check whether you actually want mutation (<code>splice</code>) or a new array (<code>slice</code>, <code>filter</code>) before choosing between them.</li>
+<li>When removing multiple items by condition, prefer <code>filter()</code> over repeated <code>splice()</code> calls in a loop for clarity and correctness.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>For very large arrays with frequent middle-insertions/removals, consider whether a different data structure (like a linked list, if truly performance-critical) might suit the access pattern better than repeated O(n) splices.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>.splice()</code> mutates an array in place to remove, insert, or replace elements at any position, returning the removed elements — powerful but easy to confuse with the similarly-named, non-mutating <code>.slice()</code>.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#splice">cheat-sheet.md</a></p>
+<hr />
+<p><a href="sort.html">← Sort</a> | <a href="README.html">Section Home</a> | <a href="slice.html">Slice →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
