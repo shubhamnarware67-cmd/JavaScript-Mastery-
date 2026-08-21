@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slice · Arrays · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Arrays</div>
+    <ul class="nav-list">
+      <li><a href="arrays.html" class="">Arrays</a></li>
+<li><a href="map.html" class="">Map</a></li>
+<li><a href="filter.html" class="">Filter</a></li>
+<li><a href="reduce.html" class="">Reduce</a></li>
+<li><a href="sort.html" class="">Sort</a></li>
+<li><a href="splice.html" class="">Splice</a></li>
+<li><a href="slice.html" class="active">Slice</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Arrays</a> / <span>Slice</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Slice</h1>
+<blockquote>
+<p>Section: Arrays · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>Array.prototype.slice()</code> returns a <strong>new array</strong> containing a shallow copy of a portion of the original array, selected by start and end indices — without mutating the original.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995; the equivalent <code>String.prototype.slice()</code> shares the same conceptual behavior for strings.</p>
+<h2>Why Slice Matters</h2>
+<p>It's the standard, safe way to extract a sub-array or make a shallow copy without touching the original — critical in immutable/state-driven code (React, Redux).</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">array.slice(startIndex, endIndex); // endIndex is EXCLUSIVE
+array.slice();                       // full shallow copy
+array.slice(-2);                      // last 2 elements
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Call</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>slice()</code></td>
+<td>Full shallow copy</td>
+</tr>
+<tr>
+<td><code>slice(2)</code></td>
+<td>From index 2 to the end</td>
+</tr>
+<tr>
+<td><code>slice(1, 3)</code></td>
+<td>Indices 1 and 2 (end exclusive)</td>
+</tr>
+<tr>
+<td><code>slice(-2)</code></td>
+<td>Last 2 elements</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const nums = [10, 20, 30, 40, 50];
+console.log(nums.slice(1, 3)); // [20, 30]
+console.log(nums.slice(-2));    // [40, 50]
+console.log(nums);               // [10, 20, 30, 40, 50] — unchanged
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Original:  [10, 20, 30, 40, 50]
+slice(1,3) extracts a NEW array, original untouched
+New array: [20, 30]
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">slice(start, end)
+        │
+Determine start/end indices (supporting negative = &quot;from the end&quot;)
+        │
+Copy elements from start up to (but NOT including) end
+        │
+Return a brand-new array — original array is NEVER modified
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>slice()</code> performs a <strong>shallow copy</strong> — for arrays of primitives this is a fully independent copy, but for arrays of objects, the new array holds references to the SAME underlying objects as the original (mutating an object inside the sliced array would still affect the original array's object).</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const letters = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;];
+console.log(letters.slice(1, 4)); // [&quot;b&quot;, &quot;c&quot;, &quot;d&quot;]
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Making a full shallow copy (common immutability pattern)
+const original = [1, 2, 3];
+const copy = original.slice();
+copy.push(4);
+console.log(original, copy); // [1,2,3]  [1,2,3,4] — original untouched
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Shallow copy caveat with nested objects
+const original = [{ count: 1 }];
+const copy = original.slice();
+copy[0].count = 99;
+console.log(original[0].count); // 99 — the NESTED OBJECT is still shared!
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Pagination — extracting a &quot;page&quot; of results from a larger dataset
+function paginate(items, page, pageSize) {
+  const start = (page - 1) * pageSize;
+  return items.slice(start, start + pageSize);
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// React/Redux state updates commonly use slice() to create new arrays
+// instead of mutating state directly
+function removeItem(state, index) {
+  return [...state.slice(0, index), ...state.slice(index + 1)];
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#slice">interview.md</a>
+1. Does <code>slice()</code> mutate the original array?
+2. What does a negative index mean in <code>slice()</code>?
+3. Is <code>slice()</code>'s copy shallow or deep? What's the practical implication?
+4. What's the key difference between <code>slice()</code> and <code>splice()</code>?
+5. How would you use <code>slice()</code> to implement simple pagination?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#slice">mcq.md</a>
+1. <code>[10,20,30,40].slice(1,3)</code> returns: (a) <code>[10,20,30]</code> (b) <strong><code>[20,30]</code></strong> (c) <code>[20,30,40]</code> (d) <code>[10,40]</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#slice">practice.md</a>
+1. <strong>(Easy)</strong> Use <code>slice()</code> to get the last 3 elements of an array.
+2. <strong>(Medium)</strong> Write a <code>paginate(items, page, pageSize)</code> function using <code>slice()</code>.
+3. <strong>(Hard)</strong> Demonstrate the shallow-copy pitfall with <code>slice()</code> on an array of objects, then show a deep-copy fix.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with a code example, why <code>slice()</code> is preferred over <code>splice()</code> for creating a sub-array without side effects.</li>
+<li>[ ] Implement an "remove item immutably" function using <code>slice()</code> twice plus spread syntax.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Paginated List" utility: given an array and a page size, provide a function returning any requested page's items using <code>slice()</code>.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Confusing <code>slice()</code> (non-mutating, returns new array) with <code>splice()</code> (mutating, removes/inserts in place).</li>
+<li>Assuming <code>slice()</code> creates a full deep copy (it's shallow — nested objects are still shared).</li>
+<li>Miscounting the <code>end</code> index, forgetting it's exclusive.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>slice()</code> whenever you need a sub-array or shallow copy without side effects — the default safe choice over <code>splice()</code>.</li>
+<li>Combine with spread syntax (<code>[...arr.slice(0, i), newItem, ...arr.slice(i)]</code>) for immutable insert/update patterns.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li><code>slice()</code> is efficient for typical use cases; for extremely large arrays and frequent slicing, benchmark before assuming it's a bottleneck — it's rarely the actual performance issue in practice.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>.slice()</code> extracts a shallow-copied sub-array (or a full copy) without mutating the original — the safe, immutable counterpart to <code>splice()</code>'s in-place mutation, and a staple of state-management patterns in modern JS frameworks.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#slice">cheat-sheet.md</a></p>
+<hr />
+<p><a href="splice.html">← Splice</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
