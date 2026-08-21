@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logical · Operators · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Operators</div>
+    <ul class="nav-list">
+      <li><a href="operators.html" class="">Operators</a></li>
+<li><a href="arithmetic.html" class="">Arithmetic</a></li>
+<li><a href="comparison.html" class="">Comparison</a></li>
+<li><a href="logical.html" class="active">Logical</a></li>
+<li><a href="bitwise.html" class="">Bitwise</a></li>
+<li><a href="assignment.html" class="">Assignment</a></li>
+<li><a href="ternary.html" class="">Ternary</a></li>
+<li><a href="nullish.html" class="">Nullish</a></li>
+<li><a href="optional-chaining.html" class="">Optional Chaining</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Operators</a> / <span>Logical</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Logical</h1>
+<blockquote>
+<p>Section: Operators · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Logical operators combine or invert boolean expressions: AND (<code>&amp;&amp;</code>), OR (<code>||</code>), and NOT (<code>!</code>) — with <code>&amp;&amp;</code>/<code>||</code> also returning actual operand values via short-circuiting, not just <code>true</code>/<code>false</code>.</p>
+<h2>History</h2>
+<p>Present since 1995; logical assignment shorthands (<code>&amp;&amp;=</code>, <code>||=</code>, <code>??=</code>) were added in <strong>ES2021</strong>.</p>
+<h2>Why Logical Operators Matter</h2>
+<p>They're used constantly for conditionals, default values, and guarding against <code>null</code>/<code>undefined</code> access.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">a &amp;&amp; b
+a || b
+!a
+a &amp;&amp;= b
+a ||= b
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>AND</td>
+<td>First falsy operand, or the last operand if all truthy</td>
+</tr>
+<tr>
+<td><code>\|\|</code></td>
+<td>OR</td>
+<td>First truthy operand, or the last operand if all falsy</td>
+</tr>
+<tr>
+<td><code>!</code></td>
+<td>NOT</td>
+<td>Boolean negation</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">console.log(true &amp;&amp; false); // false
+console.log(true || false); // true
+console.log(!true);          // false
+
+console.log(0 &amp;&amp; &quot;hello&quot;);   // 0 (short-circuits, returns first falsy)
+console.log(&quot;&quot; || &quot;default&quot;); // &quot;default&quot; (short-circuits, returns first truthy)
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — logical operators evaluate expressions, no persistent memory structure.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">a &amp;&amp; b
+    │
+Is `a` falsy?
+    │                  │
+   Yes                No
+    │                  │
+Return `a`         Evaluate and return `b`
+(never evaluates b)
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>&amp;&amp;</code> and <code>||</code> use <strong>short-circuit evaluation</strong>: <code>&amp;&amp;</code> stops and returns immediately if the left operand is falsy (never evaluating the right); <code>||</code> stops and returns immediately if the left operand is truthy.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let isLoggedIn = true;
+let hasAccess = true;
+console.log(isLoggedIn &amp;&amp; hasAccess); // true
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Default value pattern (pre-ES2020, still common)
+function greet(name) {
+  name = name || &quot;Guest&quot;;
+  return `Hello, ${name}`;
+}
+greet(&quot;&quot;);     // &quot;Hello, Guest&quot; — &quot;&quot; is falsy, so default kicks in (can be a gotcha!)
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Short-circuiting to guard against undefined access (pre-optional-chaining pattern)
+const city = user &amp;&amp; user.address &amp;&amp; user.address.city;
+
+// Logical assignment (ES2021) shorthand
+let config = {};
+config.debug ??= false; // only assigns if config.debug is null/undefined
+console.log(config.debug); // false
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Conditionally rendering a component only if data has loaded
+const showContent = isLoaded &amp;&amp; !hasError &amp;&amp; data.length &gt; 0;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Feature flag pattern combining logical AND/OR
+const shouldShowFeature = (featureFlags.newUI || user.isBetaTester) &amp;&amp; !user.hasOptedOut;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#logical">interview.md</a>
+1. What does <code>&amp;&amp;</code> return if the left operand is falsy?
+2. What does <code>||</code> return if the left operand is truthy?
+3. Why is <code>name || "Guest"</code> risky if <code>name</code> could legitimately be <code>""</code> or <code>0</code>?
+4. What do <code>&amp;&amp;=</code>, <code>||=</code>, and <code>??=</code> do?
+5. How does short-circuit evaluation affect function calls used as operands?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#logical">mcq.md</a>
+1. <code>0 &amp;&amp; "hello"</code> evaluates to: (a) "hello" (b) <strong>0</strong> (c) true (d) false → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#logical">practice.md</a>
+1. <strong>(Easy)</strong> Predict the results of 4 <code>&amp;&amp;</code>/<code>||</code> expressions with mixed truthy/falsy values.
+2. <strong>(Medium)</strong> Rewrite a <code>user &amp;&amp; user.address &amp;&amp; user.address.city</code> chain using optional chaining instead.
+3. <strong>(Hard)</strong> Explain a case where <code>||</code> for defaults causes a bug that <code>??</code> would fix, with a concrete example.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Write 3 examples where <code>&amp;&amp;</code>/<code>||</code> short-circuiting avoids unnecessary function calls.</li>
+<li>[ ] Explain the difference between <code>||=</code> and <code>??=</code> with a code example.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small feature-flag checker function combining <code>&amp;&amp;</code>, <code>||</code>, and <code>??=</code> to decide whether to show a UI banner based on multiple conditions.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using <code>||</code> for defaults when <code>0</code>, <code>""</code>, or <code>false</code> are valid intended values (silently overridden).</li>
+<li>Assuming <code>&amp;&amp;</code>/<code>||</code> always return <code>true</code>/<code>false</code> instead of the actual operand values.</li>
+<li>Forgetting short-circuiting means the right-hand side might never execute (relevant if it has side effects).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>??</code>/<code>??=</code> instead of <code>||</code>/<code>||=</code> specifically when <code>0</code>, <code>""</code>, or <code>false</code> should be considered valid values.</li>
+<li>Leverage short-circuiting intentionally for guard clauses, but keep expressions readable.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Put cheaper/more-likely-to-fail conditions first in <code>&amp;&amp;</code> chains, and cheaper/more-likely-to-succeed conditions first in <code>||</code> chains, to maximize short-circuit savings.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>&amp;&amp;</code>, <code>||</code>, and <code>!</code> combine and invert boolean logic, with <code>&amp;&amp;</code>/<code>||</code> short-circuiting and returning actual operand values rather than pure booleans — a subtlety that both enables useful patterns and causes classic bugs when <code>0</code>/<code>""</code>/<code>false</code> are valid data.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#logical">cheat-sheet.md</a></p>
+<hr />
+<p><a href="comparison.html">← Comparison</a> | <a href="README.html">Section Home</a> | <a href="bitwise.html">Bitwise →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
