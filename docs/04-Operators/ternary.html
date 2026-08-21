@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ternary · Operators · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Operators</div>
+    <ul class="nav-list">
+      <li><a href="operators.html" class="">Operators</a></li>
+<li><a href="arithmetic.html" class="">Arithmetic</a></li>
+<li><a href="comparison.html" class="">Comparison</a></li>
+<li><a href="logical.html" class="">Logical</a></li>
+<li><a href="bitwise.html" class="">Bitwise</a></li>
+<li><a href="assignment.html" class="">Assignment</a></li>
+<li><a href="ternary.html" class="active">Ternary</a></li>
+<li><a href="nullish.html" class="">Nullish</a></li>
+<li><a href="optional-chaining.html" class="">Optional Chaining</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Operators</a> / <span>Ternary</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Ternary</h1>
+<blockquote>
+<p>Section: Operators · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The ternary (conditional) operator <code>condition ? valueIfTrue : valueIfFalse</code> is JavaScript's only operator that takes three operands — a compact alternative to a simple <code>if/else</code>.</p>
+<h2>History</h2>
+<p>Present since JS's creation in 1995, inherited from C-like language syntax.</p>
+<h2>Why Ternary Matters</h2>
+<p>It lets you write a conditional <em>expression</em> (something that produces a value) rather than a conditional <em>statement</em>, useful directly inside assignments, template literals, or JSX.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">condition ? valueIfTrue : valueIfFalse
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — single operator form (though it can be chained/nested).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">let age = 20;
+let type = age &gt;= 18 ? &quot;Adult&quot; : &quot;Minor&quot;;
+console.log(type); // &quot;Adult&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — the ternary evaluates to a value, no persistent memory structure.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">condition ? A : B
+        │
+Evaluate condition
+        │
+   ┌────┴────┐
+ Truthy     Falsy
+   │           │
+Return A    Return B
+</code></pre>
+<h2>Internal Working</h2>
+<p>Only one branch (<code>A</code> or <code>B</code>) is ever evaluated — like <code>if/else</code>, the ternary short-circuits: the untaken branch's expression is never executed, which matters if it has side effects.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let isRaining = true;
+console.log(isRaining ? &quot;Take an umbrella&quot; : &quot;Enjoy the sun&quot;);
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Using ternary directly inside a template literal
+const count = 3;
+console.log(`You have ${count} item${count !== 1 ? &quot;s&quot; : &quot;&quot;}`); // &quot;You have 3 items&quot;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Nested ternary — powerful but easy to overuse; keep to 1 level for readability
+function getGrade(score) {
+  return score &gt;= 90 ? &quot;A&quot; : score &gt;= 75 ? &quot;B&quot; : score &gt;= 60 ? &quot;C&quot; : &quot;F&quot;;
+}
+console.log(getGrade(82)); // &quot;B&quot;
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Common in React/JSX for conditional rendering
+// return &lt;div&gt;{isLoggedIn ? &lt;Dashboard /&gt; : &lt;LoginPage /&gt;}&lt;/div&gt;;
+const message = isLoggedIn ? &quot;Welcome back!&quot; : &quot;Please log in.&quot;;
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Ternaries are frequently used for concise inline class name logic
+const buttonClass = isActive ? &quot;btn btn-active&quot; : &quot;btn btn-inactive&quot;;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#ternary">interview.md</a>
+1. How does the ternary operator differ from an <code>if/else</code> statement?
+2. Why is the ternary called a "conditional expression" rather than a "conditional statement"?
+3. When does excessive ternary nesting hurt readability, and what's a better alternative?
+4. Does the ternary operator evaluate both branches or just one?
+5. Give an example of using a ternary inside a template literal.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#ternary">mcq.md</a>
+1. In <code>a ? b : c</code>, if <code>a</code> is falsy, the result is: (a) <code>a</code> (b) <code>b</code> (c) <strong><code>c</code></strong> (d) <code>undefined</code> → <strong>Answer: (c)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#ternary">practice.md</a>
+1. <strong>(Easy)</strong> Write a ternary that returns "Even" or "Odd" based on a number.
+2. <strong>(Medium)</strong> Write a nested ternary that assigns a letter grade based on a numeric score (A/B/C/F).
+3. <strong>(Hard)</strong> Refactor a 3-level nested ternary into clearer <code>if/else if/else</code> logic, preserving identical behavior.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Write 3 ternary expressions replacing simple <code>if/else</code> statements.</li>
+<li>[ ] Explain, with an example, why deeply nested ternaries can hurt code readability.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Grade Calculator" using a nested ternary (or refactored <code>if/else</code> for comparison) that maps a numeric score to a letter grade.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Overusing deeply nested ternaries, making logic hard to follow.</li>
+<li>Using ternaries for side effects (e.g. <code>condition ? doA() : doB()</code>) instead of <code>if/else</code>, when no value is actually being produced/used.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Keep ternaries to a single condition where possible; use <code>if/else</code> or a lookup table for complex branching.</li>
+<li>Use ternaries specifically when you need the <em>result</em> as a value (assignment, JSX, template literals).</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>No meaningful performance difference from <code>if/else</code> — the ternary's value is purely expressiveness/conciseness in expression contexts.</li>
+</ul>
+<h2>Summary</h2>
+<p>The ternary operator provides a compact conditional <em>expression</em>, ideal for simple value-producing conditions — but should be kept shallow, reserving <code>if/else</code> for more complex branching logic.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#ternary">cheat-sheet.md</a></p>
+<hr />
+<p><a href="assignment.html">← Assignment</a> | <a href="README.html">Section Home</a> | <a href="nullish.html">Nullish →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
