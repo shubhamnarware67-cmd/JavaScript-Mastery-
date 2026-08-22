@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operators · Operators · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Operators</div>
+    <ul class="nav-list">
+      <li><a href="operators.html" class="active">Operators</a></li>
+<li><a href="arithmetic.html" class="">Arithmetic</a></li>
+<li><a href="comparison.html" class="">Comparison</a></li>
+<li><a href="logical.html" class="">Logical</a></li>
+<li><a href="bitwise.html" class="">Bitwise</a></li>
+<li><a href="assignment.html" class="">Assignment</a></li>
+<li><a href="ternary.html" class="">Ternary</a></li>
+<li><a href="nullish.html" class="">Nullish</a></li>
+<li><a href="optional-chaining.html" class="">Optional Chaining</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Operators</a> / <span>Operators</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Operators</h1>
+<blockquote>
+<p>Section: Operators · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>An operator is a symbol that performs an operation on one or more values (operands) — producing a new value, such as a sum, a boolean comparison, or an assignment.</p>
+<h2>History</h2>
+<p>Core operators (<code>+ - * / = == &lt; &gt;</code>) existed since 1995. <code>**</code> (exponent) arrived in ES2016, <code>??</code>/<code>?.</code> in ES2020, and logical assignment (<code>&amp;&amp;= ||= ??=</code>) in ES2021.</p>
+<h2>Why Operators Matter</h2>
+<p>Operators are the basic building blocks of every expression — understanding their categories and precedence prevents subtle logic bugs.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">a + b     // arithmetic
+a === b   // comparison
+a &amp;&amp; b    // logical
+a = b     // assignment
+</code></pre>
+<h2>Types (categories)</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arithmetic</td>
+<td><code>+ - * / % **</code></td>
+</tr>
+<tr>
+<td>Assignment</td>
+<td><code>= += -= *= /=</code></td>
+</tr>
+<tr>
+<td>Comparison</td>
+<td><code>== === != !== &gt; &lt; &gt;= &lt;=</code></td>
+</tr>
+<tr>
+<td>Logical</td>
+<td><code>&amp;&amp; \|\| !</code></td>
+</tr>
+<tr>
+<td>Bitwise</td>
+<td><code>&amp; \| ^ ~ &lt;&lt; &gt;&gt;</code></td>
+</tr>
+<tr>
+<td>Ternary</td>
+<td><code>condition ? a : b</code></td>
+</tr>
+<tr>
+<td>Nullish/Optional</td>
+<td><code>?? ?.</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">console.log(5 + 3);       // 8 (arithmetic)
+console.log(5 === &quot;5&quot;);    // false (strict comparison)
+console.log(true &amp;&amp; false); // false (logical)
+console.log(5 &gt; 3 ? &quot;yes&quot; : &quot;no&quot;); // &quot;yes&quot; (ternary)
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — operators act on values already in memory, they don't have their own memory model.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Expression with an operator
+        │
+Evaluate left operand ──► Evaluate right operand ──► Apply operator ──► Result
+</code></pre>
+<h2>Internal Working</h2>
+<p>The JS engine parses expressions into an Abstract Syntax Tree (AST), where each operator becomes a node; evaluation walks this tree, applying operator precedence and associativity rules to compute the final value.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let total = 10 + 5; // 15
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">let isEligible = age &gt;= 18 &amp;&amp; hasID === true;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Combining multiple operator categories in one expression
+let discount = (isMember &amp;&amp; totalSpent &gt; 1000) ? 0.2 : (totalSpent &gt; 500 ? 0.1 : 0);
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Form validation combining comparison + logical operators
+const isValid = username.length &gt;= 3 &amp;&amp; password.length &gt;= 8 &amp;&amp; email.includes(&quot;@&quot;);
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Feature-flag checks commonly combine nullish coalescing + logical operators
+const showBanner = (config.bannerEnabled ?? true) &amp;&amp; !user.hasDismissedBanner;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#operators">interview.md</a>
+1. What are the main categories of JavaScript operators?
+2. What determines the order operators are applied in a complex expression?
+3. What's the difference between operators and expressions?
+4. Give an example combining 3 different operator categories.
+5. Why does operator precedence matter for avoiding bugs?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#operators">mcq.md</a>
+1. Which category does <code>??</code> belong to? (a) Arithmetic (b) <strong>Nullish/Optional</strong> (c) Bitwise (d) Assignment → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#operators">practice.md</a>
+1. <strong>(Easy)</strong> Write one example expression for each of the 7 operator categories.
+2. <strong>(Medium)</strong> Predict the output of a chained expression mixing arithmetic and comparison operators without parentheses.
+3. <strong>(Hard)</strong> Rewrite a deeply nested ternary expression as clearer <code>if/else</code> logic, preserving identical behavior.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Create a reference table of all operator categories with one example each.</li>
+<li>[ ] Explain, with an example, why parentheses can prevent precedence-related bugs.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple calculator script that supports <code>+ - * / % **</code> and demonstrates correct operator precedence handling.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming all operators evaluate strictly left-to-right without considering precedence.</li>
+<li>Overusing chained ternaries, making code hard to read.</li>
+<li>Confusing assignment (<code>=</code>) with comparison (<code>==</code>/<code>===</code>) inside conditions.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use parentheses to make precedence explicit, even when not strictly required.</li>
+<li>Prefer <code>===</code>/<code>!==</code> over <code>==</code>/<code>!=</code> to avoid type-coercion bugs.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Short-circuit logical operators (<code>&amp;&amp;</code>, <code>||</code>) to skip unnecessary expensive computations.</li>
+</ul>
+<h2>Summary</h2>
+<p>Operators are categorized into arithmetic, comparison, logical, bitwise, assignment, ternary, and nullish/optional groups — understanding precedence and each category's behavior is foundational to writing correct expressions.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#operators">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="arithmetic.html">Arithmetic →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

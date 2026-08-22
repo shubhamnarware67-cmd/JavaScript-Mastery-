@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparison · Operators · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Operators</div>
+    <ul class="nav-list">
+      <li><a href="operators.html" class="">Operators</a></li>
+<li><a href="arithmetic.html" class="">Arithmetic</a></li>
+<li><a href="comparison.html" class="active">Comparison</a></li>
+<li><a href="logical.html" class="">Logical</a></li>
+<li><a href="bitwise.html" class="">Bitwise</a></li>
+<li><a href="assignment.html" class="">Assignment</a></li>
+<li><a href="ternary.html" class="">Ternary</a></li>
+<li><a href="nullish.html" class="">Nullish</a></li>
+<li><a href="optional-chaining.html" class="">Optional Chaining</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Operators</a> / <span>Comparison</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Comparison</h1>
+<blockquote>
+<p>Section: Operators · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Comparison operators compare two values and return a boolean — including loose equality (<code>==</code>, with type coercion) and strict equality (<code>===</code>, no coercion).</p>
+<h2>History</h2>
+<p><code>== != &gt; &lt; &gt;= &lt;=</code> existed since 1995; <code>===</code>/<code>!==</code> were added early on specifically to give developers a coercion-free comparison option.</p>
+<h2>Why Comparison Matters</h2>
+<p>Choosing <code>==</code> vs <code>===</code> is one of the most consequential everyday decisions in JS — loose equality's coercion rules cause many classic bugs.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">a == b
+a === b
+a != b
+a !== b
+a &gt; b
+a &lt; b
+a &gt;= b
+a &lt;= b
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+<th>Coerces types?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>==</code></td>
+<td>Loose equality</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><code>===</code></td>
+<td>Strict equality</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>Loose inequality</td>
+<td>✅ Yes</td>
+</tr>
+<tr>
+<td><code>!==</code></td>
+<td>Strict inequality</td>
+<td>❌ No</td>
+</tr>
+<tr>
+<td><code>&gt; &lt; &gt;= &lt;=</code></td>
+<td>Relational</td>
+<td>Coerces to number/string comparison as needed</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">console.log(5 == &quot;5&quot;);   // true  — coerces string to number
+console.log(5 === &quot;5&quot;);  // false — different types
+console.log(null == undefined);  // true
+console.log(null === undefined); // false
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — comparisons produce a boolean, no persistent memory structure involved.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Comparing two values
+        │
+Using === or !== ?
+        │                    │
+       Yes                  No (using == or !=)
+        │                    │
+No type conversion       JS applies coercion rules
+(compare type AND value)  (numbers ↔ strings, booleans ↔ numbers, etc.)
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>===</code> first checks if the operand types match; if not, it immediately returns <code>false</code>. <code>==</code> instead runs the <strong>Abstract Equality Comparison Algorithm</strong>, converting operands (e.g. string→number, boolean→number) before comparing — this is the source of its "weird" results.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">console.log(10 &gt; 5);   // true
+console.log(10 === 10); // true
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">console.log([] == false);   // true  — [] → &quot;&quot; → 0, false → 0
+console.log([] === false);  // false — different types
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Classic &quot;gotchas&quot; often asked in interviews
+console.log(NaN === NaN);       // false! NaN is never equal to itself
+console.log(Object.is(NaN, NaN)); // true — Object.is handles this edge case correctly
+console.log(0 == &quot;0&quot;);           // true
+console.log(0 == &quot;&quot;);            // true
+console.log(&quot;&quot; == &quot;0&quot;);          // false
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Correctly checking for &quot;no value provided&quot; using strict comparison
+function greet(name) {
+  if (name === undefined || name === null) {
+    name = &quot;Guest&quot;;
+  }
+  return `Hello, ${name}`;
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Linters (ESLint's &quot;eqeqeq&quot; rule) enforce === / !== everywhere in production codebases,
+// specifically to eliminate loose-equality coercion bugs.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#comparison">interview.md</a>
+1. What's the core difference between <code>==</code> and <code>===</code>?
+2. Why does <code>null == undefined</code> return <code>true</code> but <code>null === undefined</code> return <code>false</code>?
+3. Why is <code>NaN === NaN</code> false, and how do you correctly check for <code>NaN</code>?
+4. What does ESLint's <code>eqeqeq</code> rule enforce, and why?
+5. Give 3 "surprising" <code>==</code> results and explain each.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#comparison">mcq.md</a>
+1. <code>"5" == 5</code> evaluates to: (a) false (b) <strong>true</strong> (c) undefined (d) throws an error → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#comparison">practice.md</a>
+1. <strong>(Easy)</strong> Write 3 <code>===</code> comparisons and predict their results before running them.
+2. <strong>(Medium)</strong> Write a function <code>isNaNSafe(value)</code> that correctly detects <code>NaN</code> (unlike a naive <code>value === NaN</code>).
+3. <strong>(Hard)</strong> Write out truth tables for <code>==</code> between <code>0</code>, <code>"0"</code>, <code>""</code>, <code>false</code>, <code>null</code>, <code>undefined</code>, explaining each result.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] List 5 loose-equality (<code>==</code>) results that surprised you and explain the coercion behind each.</li>
+<li>[ ] Explain why professional codebases almost universally ban <code>==</code> via linting.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Equality Explainer" script: given two values, it logs both <code>==</code> and <code>===</code> results along with a plain-English explanation of any coercion that occurred.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using <code>==</code> out of habit, unintentionally triggering type coercion bugs.</li>
+<li>Comparing with <code>value === NaN</code>, which is always <code>false</code> — use <code>Number.isNaN(value)</code> instead.</li>
+<li>Assuming <code>null == undefined</code> behavior extends to other loose comparisons.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Always prefer <code>===</code>/<code>!==</code> over <code>==</code>/<code>!=</code>.</li>
+<li>Use <code>Number.isNaN()</code> or <code>Object.is()</code> for NaN-safe comparisons.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Strict equality (<code>===</code>) is marginally faster than loose equality since it skips the coercion algorithm entirely — a minor benefit on top of its correctness advantage.</li>
+</ul>
+<h2>Summary</h2>
+<p>Comparison operators check equality/relational order; <code>===</code>/<code>!==</code> avoid the surprising type-coercion behavior of <code>==</code>/<code>!=</code> and should be the default choice in virtually all JavaScript code.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#comparison">cheat-sheet.md</a></p>
+<hr />
+<p><a href="arithmetic.html">← Arithmetic</a> | <a href="README.html">Section Home</a> | <a href="logical.html">Logical →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

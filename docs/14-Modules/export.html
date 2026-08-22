@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Export · Modules · JavaScript Mastery</title>
+<meta name="description" content="Export — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Modules</div>
+    <ul class="nav-list">
+      <li><a href="modules.html" class="">Modules</a></li>
+<li><a href="import.html" class="">Import</a></li>
+<li><a href="export.html" class="active">Export</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Modules</a> / <span>Export</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Export</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>The <code>export</code> statement marks variables, functions, or classes in a module as available for other modules to <code>import</code>, defining the module's public interface.</p>
+
+      <h2>Why Export Matters</h2>
+      <p>It lets a module explicitly choose what's public and what stays private, so internal implementation details don't leak into the global scope.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">export const value = 42;
+export function myFunc() {}
+export class MyClass {}
+export default function () {}
+export { value, myFunc as renamedFunc };</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">// math.js
+export const PI = 3.14159;
+export function square(n) { return n * n; }
+export default function cube(n) { return n * n * n; }
+
+// index.js — re-exporting
+export { add, subtract } from "./math.js";
+export { default as Logger } from "./logger.js";</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+math.js module scope:
+  named exports: { PI, square }  ──► import { PI, square } from "./math.js"
+  default export: cube            ──► import cube from "./math.js"
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Exports create <strong>live bindings</strong>, not copies — the exported reference always points to the current value, so reassignments in the exporting module are visible to every importer.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Trying to have more than one <code>export default</code> in a single module (not allowed).</li>
+        <li>Forgetting the exact name must match for named exports (unless aliased with <code>as</code>).</li>
+        <li>Assuming exported values are copied at import time rather than being live references.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p><code>export</code> defines a module's public interface — named exports for multiple values, and a single optional default export — with all exported bindings staying live references to the original values.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

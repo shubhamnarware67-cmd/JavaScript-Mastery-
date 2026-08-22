@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modules · Modules · JavaScript Mastery</title>
+<meta name="description" content="Modules — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Modules</div>
+    <ul class="nav-list">
+      <li><a href="modules.html" class="active">Modules</a></li>
+<li><a href="import.html" class="">Import</a></li>
+<li><a href="export.html" class="">Export</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Modules</a> / <span>Modules</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Modules</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Modules are self-contained files of JavaScript code that explicitly export and import functionality, allowing large codebases to be split into organized, reusable, independently maintainable pieces.</p>
+
+      <h2>Why Modules Matter</h2>
+      <p>Before modules, JavaScript files shared one global scope, causing naming collisions — modules give each file its own scope, with explicit control over what is shared and what stays private.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">// math.js
+export function add(a, b) { return a + b; }
+
+// main.js
+import { add } from "./math.js";</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">// utils.js
+export const PI = 3.14159;
+export function square(n) { return n * n; }
+
+// app.js
+import { PI, square } from "./utils.js";
+console.log(square(PI));
+
+// Dynamic import
+async function loadFeature() {
+  const module = await import("./heavyFeature.js");
+  module.init();
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Each module = its own scope
+math.js { add, subtract } ──exported──► main.js imports only what it names
+                    (rest stays private to math.js)
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Unlike scripts, ES Modules run in <strong>strict mode</strong> by default, execute only <strong>once</strong> no matter how many times imported (cached), and imports are <strong>live bindings</strong>.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Mixing CommonJS (<code>require</code>) and ES Modules (<code>import</code>) syntax without proper configuration.</li>
+        <li>Assuming a module re-runs its top-level code every time it's imported (it's cached).</li>
+        <li>Forgetting <code>type="module"</code> on <code>&lt;script&gt;</code> tags in the browser.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Modules let JavaScript code be split into self-contained files with explicit imports/exports, running only once regardless of import count, enabling build-tool optimizations like tree-shaking.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
