@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Map · Arrays · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Arrays</div>
+    <ul class="nav-list">
+      <li><a href="arrays.html" class="">Arrays</a></li>
+<li><a href="map.html" class="active">Map</a></li>
+<li><a href="filter.html" class="">Filter</a></li>
+<li><a href="reduce.html" class="">Reduce</a></li>
+<li><a href="sort.html" class="">Sort</a></li>
+<li><a href="splice.html" class="">Splice</a></li>
+<li><a href="slice.html" class="">Slice</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Arrays</a> / <span>Map</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Map</h1>
+<blockquote>
+<p>Section: Arrays · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>Array.prototype.map()</code> creates a <strong>new array</strong> by calling a provided function on every element of the original array, transforming each value without mutating the original.</p>
+<h2>History</h2>
+<p>Added in <strong>ES5 (2009)</strong> as part of the first wave of standardized functional array methods.</p>
+<h2>Why Map Matters</h2>
+<p>It's the standard, declarative way to transform every item in a list — clearer and safer (no mutation) than manually looping and pushing to a new array.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">const newArray = array.map((element, index, array) =&gt; {
+  return transformedValue;
+});
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — a single method, though commonly chained with <code>.filter()</code>/<code>.reduce()</code>.</p>
+<h2>Examples</h2>
+<pre><code class="language-js">const nums = [1, 2, 3, 4];
+const doubled = nums.map(n =&gt; n * 2);
+console.log(doubled); // [2, 4, 6, 8]
+console.log(nums);    // [1, 2, 3, 4] — original unchanged
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Original:    [1, 2, 3, 4]
+                │ map(n =&gt; n*2)
+                ▼
+New array:   [2, 4, 6, 8]   ← brand new array in memory, original untouched
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">map(callback)
+        │
+For each element in the array (in order):
+        │
+Call callback(element, index, array)
+        │
+Push the RETURNED value into a new array
+        │
+Return the fully new array once all elements are processed
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>map()</code> always returns a new array with <strong>the exact same length</strong> as the original — even if the callback returns <code>undefined</code> for some elements, those slots will contain <code>undefined</code> (unlike <code>filter</code>, <code>map</code> never skips or removes elements).</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const prices = [10, 20, 30];
+const withTax = prices.map(price =&gt; price * 1.08);
+console.log(withTax); // [10.8, 21.6, 32.4]
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Mapping objects into a new shape
+const users = [{ name: &quot;Shubham&quot;, age: 22 }, { name: &quot;Amit&quot;, age: 30 }];
+const names = users.map(user =&gt; user.name);
+console.log(names); // [&quot;Shubham&quot;, &quot;Amit&quot;]
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Using the index parameter
+const items = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
+const numbered = items.map((item, index) =&gt; `${index + 1}. ${item}`);
+console.log(numbered); // [&quot;1. a&quot;, &quot;2. b&quot;, &quot;3. c&quot;]
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Transforming API data into a UI-friendly shape
+const apiUsers = [{ id: 1, full_name: &quot;Shubham Narware&quot; }];
+const displayUsers = apiUsers.map(u =&gt; ({ id: u.id, name: u.full_name }));
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// React commonly uses .map() to render lists of components
+// const listItems = items.map(item =&gt; &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;);
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#map">interview.md</a>
+1. What does <code>map()</code> return, and does it mutate the original array?
+2. What happens if the callback doesn't explicitly return a value?
+3. How does <code>map()</code> differ from <code>forEach()</code>?
+4. What are the 3 parameters available to the map callback?
+5. When would <code>map()</code> be the wrong tool, and <code>filter()</code> or <code>reduce()</code> more appropriate instead?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#map">mcq.md</a>
+1. <code>[1,2,3].map(n =&gt; n * 2)</code> returns: (a) <code>[1,2,3]</code> (b) <strong><code>[2,4,6]</code></strong> (c) <code>6</code> (d) <code>undefined</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#map">practice.md</a>
+1. <strong>(Easy)</strong> Use <code>map()</code> to convert an array of Celsius temperatures to Fahrenheit.
+2. <strong>(Medium)</strong> Use <code>map()</code> to extract a single property from an array of objects.
+3. <strong>(Hard)</strong> Chain <code>.filter()</code> and <code>.map()</code> to transform and filter a dataset in one readable pipeline.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with an example, why <code>map()</code> always returns an array of the same length as the input.</li>
+<li>[ ] Compare <code>map()</code> and <code>forEach()</code> side-by-side, explaining when each is appropriate.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Currency Converter" that takes an array of USD prices and uses <code>.map()</code> to convert them to another currency using a given exchange rate.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using <code>map()</code> purely for side effects (like <code>forEach()</code> should be used) and discarding the returned array.</li>
+<li>Forgetting to <code>return</code> inside the callback, resulting in an array of <code>undefined</code>s.</li>
+<li>Mutating the original array/elements inside the callback instead of returning new values.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>map()</code> specifically when you need a new, transformed array — use <code>forEach()</code> for pure side effects.</li>
+<li>Keep the callback function pure (no side effects, same input always produces same output).</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Avoid chaining excessive <code>.map().map().map()</code> calls on very large arrays — combining logic into fewer passes can reduce overhead.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>.map()</code> transforms every element of an array into a new array of the same length, without mutating the original — a core building block of JavaScript's functional array-processing style.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#map">cheat-sheet.md</a></p>
+<hr />
+<p><a href="arrays.html">← Arrays</a> | <a href="README.html">Section Home</a> | <a href="filter.html">Filter →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

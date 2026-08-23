@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regex · JSON & Regex · JavaScript Mastery</title>
+<meta name="description" content="Regex — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">JSON & Regex</div>
+    <ul class="nav-list">
+      <li><a href="json.html" class="">Json</a></li>
+<li><a href="regex.html" class="active">Regex</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">JSON & Regex</a> / <span>Regex</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Regex</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Regular expressions (regex) are patterns used to match, search, and manipulate text — represented by the <code>RegExp</code> object or <code>/pattern/flags</code> literal syntax.</p>
+
+      <h2>Why Regex Matters</h2>
+      <p>It provides a compact, powerful way to validate input, search/replace text patterns, and extract structured data from strings.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">const pattern = /hello/i;
+const pattern2 = new RegExp("hello", "i");
+pattern.test("Hello World"); // true</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">const emailPattern = /^[\w.-]+@[\w.-]+\.\w+$/;
+console.log(emailPattern.test("user@example.com")); // true
+
+const datePattern = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+const match = "2026-07-23".match(datePattern);
+console.log(match.groups.year); // "2026"</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+/pattern/flags
+    │
+Compiled into an internal matching engine (NFA-based)
+    │
+.test(str) ──► boolean
+.exec(str) / str.match(pattern) ──► match details
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>JavaScript regex engines are typically backtracking-based (NFA) — certain patterns can suffer from <strong>catastrophic backtracking</strong>, a real security concern known as ReDoS.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Using <code>.exec()</code> in a loop with the <code>g</code> flag but forgetting it maintains internal state.</li>
+        <li>Writing overly complex regex without comments, making it hard to maintain.</li>
+        <li>Not escaping special characters when building a pattern dynamically from user input.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Regex provides a compact, powerful pattern-matching language for validating, searching, and extracting text — useful, but requiring care around readability and performance.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrays · Arrays · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Arrays</div>
+    <ul class="nav-list">
+      <li><a href="arrays.html" class="active">Arrays</a></li>
+<li><a href="map.html" class="">Map</a></li>
+<li><a href="filter.html" class="">Filter</a></li>
+<li><a href="reduce.html" class="">Reduce</a></li>
+<li><a href="sort.html" class="">Sort</a></li>
+<li><a href="splice.html" class="">Splice</a></li>
+<li><a href="slice.html" class="">Slice</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Arrays</a> / <span>Arrays</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Arrays</h1>
+<blockquote>
+<p>Section: Arrays · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>An array is an ordered, zero-indexed collection that can hold values of any type, with a dynamically adjustable length.</p>
+<h2>History</h2>
+<p>Arrays have existed since JavaScript's creation in 1995; many modern methods (<code>find</code>, <code>includes</code>, <code>flat</code>, <code>flatMap</code>, <code>at</code>) were added incrementally from ES2015 through ES2023.</p>
+<h2>Why Arrays Matter</h2>
+<p>Lists of data (users, products, results) are everywhere in real applications — arrays and their methods are among the most-used tools in everyday JavaScript.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">const fruits = [&quot;apple&quot;, &quot;mango&quot;, &quot;banana&quot;];
+fruits[0];       // &quot;apple&quot;
+fruits.length;    // 3
+</code></pre>
+<h2>Types (creation methods)</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Array literal</td>
+<td><code>[1, 2, 3]</code></td>
+</tr>
+<tr>
+<td><code>new Array()</code></td>
+<td><code>new Array(1,2,3)</code></td>
+</tr>
+<tr>
+<td><code>Array.of()</code></td>
+<td><code>Array.of(7)</code> → <code>[7]</code> (unlike <code>new Array(7)</code>, which makes an empty length-7 array)</td>
+</tr>
+<tr>
+<td><code>Array.from()</code></td>
+<td><code>Array.from("abc")</code> → <code>["a","b","c"]</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const nums = [1, 2, 3];
+nums.push(4);      // add to end → [1,2,3,4]
+nums.pop();          // remove from end → [1,2,3]
+nums.unshift(0);     // add to start → [0,1,2,3]
+nums.shift();        // remove from start → [1,2,3]
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">index:   0        1        2
+       ┌───────┬───────┬────────┐
+value: │ apple │ mango │ banana │
+       └───────┴───────┴────────┘
+Arrays are objects (reference type) — assigning shares the same underlying array
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Need an ordered list of similar items?
+        │
+       Yes ──► Use an array
+        │
+Need transformation/filtering/aggregation?
+        │
+       Yes ──► Use map()/filter()/reduce() (see dedicated files)
+</code></pre>
+<h2>Internal Working</h2>
+<p>Arrays in JS are actually specialized objects with numeric-string keys ("0", "1", "2"...) and a special auto-updating <code>length</code> property; engines like V8 optimize arrays internally when they're "dense" (no holes) and hold consistent types.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const colors = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];
+console.log(colors[1]); // &quot;green&quot;
+console.log(colors.length); // 3
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Array destructuring
+const [first, second, ...rest] = [10, 20, 30, 40];
+console.log(first, second, rest); // 10 20 [30, 40]
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Array.from with a mapping function, and flat/flatMap for nested arrays
+const doubled = Array.from({ length: 5 }, (_, i) =&gt; i * 2);
+console.log(doubled); // [0, 2, 4, 6, 8]
+
+const nested = [1, [2, 3], [4, [5]]];
+console.log(nested.flat(2)); // [1, 2, 3, 4, 5]
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Representing a shopping cart's items
+const cart = [
+  { name: &quot;Book&quot;, price: 15 },
+  { name: &quot;Pen&quot;, price: 2 }
+];
+const total = cart.reduce((sum, item) =&gt; sum + item.price, 0);
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// API responses are commonly arrays of objects, processed with array methods
+fetch(&quot;/api/users&quot;)
+  .then(res =&gt; res.json())
+  .then(users =&gt; users.filter(u =&gt; u.active).map(u =&gt; u.name));
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#arrays">interview.md</a>
+1. What's the difference between <code>Array.of(7)</code> and <code>new Array(7)</code>?
+2. How does array destructuring with rest (<code>...rest</code>) work?
+3. What does <code>flat(depth)</code> do, and what's the default depth if omitted?
+4. Are arrays primitives or reference types in JavaScript?
+5. How would you convert an array-like object (e.g. <code>arguments</code>) into a real array?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#arrays">mcq.md</a>
+1. <code>new Array(3)</code> creates: (a) <code>[3]</code> (b) <strong>An empty array with length 3</strong> (c) An error (d) <code>[0,0,0]</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#arrays">practice.md</a>
+1. <strong>(Easy)</strong> Create an array of 5 numbers and log its length and first/last elements.
+2. <strong>(Medium)</strong> Use destructuring to extract the first 2 items and the rest into a separate array.
+3. <strong>(Hard)</strong> Write a function that flattens an arbitrarily nested array without using <code>.flat()</code>.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with examples, the difference between <code>Array.of()</code>, <code>Array.from()</code>, and array literals.</li>
+<li>[ ] Demonstrate that arrays are reference types by showing shared mutation between two variables.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple "Shopping Cart" using an array of item objects, with functions to add items, remove items, and calculate the total price.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Confusing <code>new Array(7)</code> (empty array, length 7) with <code>Array.of(7)</code> (array containing the single value 7).</li>
+<li>Forgetting arrays are reference types, leading to unexpected shared-mutation bugs.</li>
+<li>Using <code>for...in</code> on arrays instead of <code>for...of</code> or indexed <code>for</code>.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer array literals (<code>[]</code>) over <code>new Array()</code> for clarity.</li>
+<li>Use <code>Array.isArray()</code> to reliably check if a value is an array (since <code>typeof</code> returns <code>"object"</code> for both).</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Keep arrays "dense" (no holes) and type-consistent where possible, to help JS engines optimize internal array representations.</li>
+</ul>
+<h2>Summary</h2>
+<p>Arrays are JavaScript's core ordered-list data structure — reference types with a rich, well-established set of built-in methods (covered individually in map, filter, reduce, sort, splice, and slice) for adding, removing, transforming, and querying data.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#arrays">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="map.html">Map →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

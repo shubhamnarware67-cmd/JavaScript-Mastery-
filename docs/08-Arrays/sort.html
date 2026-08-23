@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sort · Arrays · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Arrays</div>
+    <ul class="nav-list">
+      <li><a href="arrays.html" class="">Arrays</a></li>
+<li><a href="map.html" class="">Map</a></li>
+<li><a href="filter.html" class="">Filter</a></li>
+<li><a href="reduce.html" class="">Reduce</a></li>
+<li><a href="sort.html" class="active">Sort</a></li>
+<li><a href="splice.html" class="">Splice</a></li>
+<li><a href="slice.html" class="">Slice</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Arrays</a> / <span>Sort</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Sort</h1>
+<blockquote>
+<p>Section: Arrays · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>Array.prototype.sort()</code> orders an array's elements <strong>in place</strong> (mutating the original array), using a default lexicographic (string) comparison unless a custom compare function is provided.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995; historically an unstable sort in some engines, but modern engines (per ES2019) guarantee a <strong>stable</strong> sort.</p>
+<h2>Why Sort Matters</h2>
+<p>Ordering data (alphabetically, numerically, by date) is an extremely common requirement — but <code>sort()</code>'s default string-based behavior is a classic source of bugs with numbers.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">array.sort();                       // default: lexicographic (string) sort
+array.sort((a, b) =&gt; a - b);         // ascending numeric sort
+array.sort((a, b) =&gt; b - a);         // descending numeric sort
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Compare function result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Negative</td>
+<td><code>a</code> comes before <code>b</code></td>
+</tr>
+<tr>
+<td>Positive</td>
+<td><code>a</code> comes after <code>b</code></td>
+</tr>
+<tr>
+<td>Zero</td>
+<td>Order unchanged (stable)</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const nums = [40, 1, 5, 200];
+console.log(nums.sort());                 // [1, 200, 40, 5] — WRONG! sorted as strings
+console.log(nums.sort((a, b) =&gt; a - b));    // [1, 5, 40, 200] — correct numeric sort
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">sort() MUTATES the original array — no new array is created;
+the same array reference is reordered and also returned.
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Call array.sort(compareFn?)
+        │
+compareFn provided?
+        │                    │
+       Yes                  No
+        │                    │
+Use it to order elements   Convert elements to STRINGS,
+                            sort lexicographically (often wrong for numbers)
+        │
+Array is reordered IN PLACE, and also returned
+</code></pre>
+<h2>Internal Working</h2>
+<p>Without a compare function, <code>sort()</code> converts every element to a string and compares them character-by-character (Unicode code point order) — this is precisely why <code>[40, 5, 200].sort()</code> gives the "wrong" numeric order: <code>"200"</code> sorts before <code>"40"</code> lexicographically.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const fruits = [&quot;banana&quot;, &quot;apple&quot;, &quot;cherry&quot;];
+console.log(fruits.sort()); // [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;] — string sort works fine here
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Sorting objects by a property
+const people = [{ name: &quot;Amit&quot;, age: 30 }, { name: &quot;Riya&quot;, age: 22 }];
+people.sort((a, b) =&gt; a.age - b.age);
+console.log(people); // Riya (22) first, then Amit (30)
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Sorting without mutating the original (using toSorted, ES2023, or spread + sort)
+const original = [3, 1, 2];
+const sortedCopy = [...original].sort((a, b) =&gt; a - b);
+console.log(original, sortedCopy); // [3,1,2]  [1,2,3] — original untouched
+
+const modernCopy = original.toSorted((a, b) =&gt; a - b); // ES2023, non-mutating
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Sorting a product list by price, ascending
+const products = [{ name: &quot;Pen&quot;, price: 5 }, { name: &quot;Book&quot;, price: 15 }];
+products.sort((a, b) =&gt; a.price - b.price);
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Sorting log entries chronologically by timestamp before display
+logs.sort((a, b) =&gt; new Date(a.timestamp) - new Date(b.timestamp));
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#sort">interview.md</a>
+1. What does <code>sort()</code> do without a compare function, and why is that risky for numbers?
+2. Does <code>sort()</code> mutate the original array?
+3. What should a compare function return to indicate <code>a</code> comes before <code>b</code>?
+4. What does "stable sort" mean, and does JavaScript guarantee it?
+5. How would you sort an array without mutating the original?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#sort">mcq.md</a>
+1. <code>[40, 5, 200].sort()</code> (no compare fn) returns: (a) <code>[5, 40, 200]</code> (b) <strong><code>[200, 40, 5]</code></strong> (c) An error (d) <code>[5, 200, 40]</code> → <strong>Answer: (b), due to lexicographic string comparison.</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#sort">practice.md</a>
+1. <strong>(Easy)</strong> Sort an array of numbers in ascending order correctly.
+2. <strong>(Medium)</strong> Sort an array of objects by a date property, oldest first.
+3. <strong>(Hard)</strong> Sort an array of strings case-insensitively without mutating the original array.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Demonstrate the default <code>sort()</code> bug with numbers, then fix it with a compare function.</li>
+<li>[ ] Sort an array of objects by 2 criteria (e.g. department, then name) using a combined compare function.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Leaderboard" that sorts an array of player score objects descending by score, with ties broken alphabetically by name.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Calling <code>.sort()</code> on numbers without a compare function, getting incorrect lexicographic order.</li>
+<li>Assuming <code>sort()</code> returns a new array (it mutates and returns the SAME array).</li>
+<li>Writing a compare function that doesn't handle equal values (returning 0) correctly for stable ordering with secondary sort keys.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Always provide an explicit compare function when sorting numbers.</li>
+<li>Use <code>[...array].sort()</code> or the newer <code>.toSorted()</code> (ES2023) when you need a sorted copy without mutating the original.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>For very large datasets sorted repeatedly by the same key, consider pre-computing sort keys once rather than recalculating them inside the compare function on every comparison.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>.sort()</code> reorders an array in place, defaulting to string-based comparison unless a custom compare function is supplied — always pass one explicitly when sorting numbers to avoid the classic lexicographic-ordering bug.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#sort">cheat-sheet.md</a></p>
+<hr />
+<p><a href="reduce.html">← Reduce</a> | <a href="README.html">Section Home</a> | <a href="splice.html">Splice →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

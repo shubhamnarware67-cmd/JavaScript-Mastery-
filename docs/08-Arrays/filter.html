@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filter · Arrays · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Arrays</div>
+    <ul class="nav-list">
+      <li><a href="arrays.html" class="">Arrays</a></li>
+<li><a href="map.html" class="">Map</a></li>
+<li><a href="filter.html" class="active">Filter</a></li>
+<li><a href="reduce.html" class="">Reduce</a></li>
+<li><a href="sort.html" class="">Sort</a></li>
+<li><a href="splice.html" class="">Splice</a></li>
+<li><a href="slice.html" class="">Slice</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Arrays</a> / <span>Filter</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Filter</h1>
+<blockquote>
+<p>Section: Arrays · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>Array.prototype.filter()</code> creates a <strong>new array</strong> containing only the elements for which the provided callback returns a truthy value — effectively selecting a subset.</p>
+<h2>History</h2>
+<p>Added in <strong>ES5 (2009)</strong>, alongside <code>map()</code>, <code>forEach()</code>, and <code>reduce()</code>.</p>
+<h2>Why Filter Matters</h2>
+<p>It's the standard declarative way to select matching items from a list, replacing manual loop-and-push patterns.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">const newArray = array.filter((element, index, array) =&gt; {
+  return condition; // truthy to KEEP the element
+});
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — a single method, commonly chained with <code>.map()</code>/<code>.reduce()</code>.</p>
+<h2>Examples</h2>
+<pre><code class="language-js">const nums = [1, 2, 3, 4, 5, 6];
+const evens = nums.filter(n =&gt; n % 2 === 0);
+console.log(evens); // [2, 4, 6]
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Original:  [1, 2, 3, 4, 5, 6]
+              │ filter(n =&gt; n%2===0)
+              ▼
+New array: [2, 4, 6]   ← possibly SHORTER, only matching elements kept
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">filter(callback)
+        │
+For each element:
+        │
+Call callback(element, index, array)
+        │
+Result truthy? ──Yes──► include element in new array
+        │No
+      Skip element
+        │
+Return new array once all elements are processed
+</code></pre>
+<h2>Internal Working</h2>
+<p>Unlike <code>map()</code>, <code>filter()</code>'s resulting array length is <strong>not guaranteed</strong> to match the original — it only contains elements where the callback returned truthy, so the new array can be shorter (or, if all pass, the same length).</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const ages = [15, 22, 17, 30];
+const adults = ages.filter(age =&gt; age &gt;= 18);
+console.log(adults); // [22, 30]
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Filtering objects by a property condition
+const products = [
+  { name: &quot;Book&quot;, inStock: true },
+  { name: &quot;Pen&quot;, inStock: false }
+];
+const available = products.filter(p =&gt; p.inStock);
+console.log(available); // [{ name: &quot;Book&quot;, inStock: true }]
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Combining filter with other array methods in a pipeline
+const orders = [
+  { amount: 100, status: &quot;completed&quot; },
+  { amount: 50, status: &quot;pending&quot; },
+  { amount: 200, status: &quot;completed&quot; }
+];
+const totalCompleted = orders
+  .filter(o =&gt; o.status === &quot;completed&quot;)
+  .reduce((sum, o) =&gt; sum + o.amount, 0);
+console.log(totalCompleted); // 300
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Search/filter functionality in a UI
+function searchUsers(users, query) {
+  return users.filter(u =&gt; u.name.toLowerCase().includes(query.toLowerCase()));
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Filtering active/eligible records before further processing in a backend service
+const eligibleUsers = allUsers.filter(u =&gt; u.isActive &amp;&amp; u.age &gt;= 18);
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#filter">interview.md</a>
+1. What does <code>filter()</code> return, and how does its length relate to the original array?
+2. What determines whether an element is "kept" by <code>filter()</code>?
+3. How does <code>filter()</code> differ from <code>find()</code>?
+4. Can you chain <code>.filter()</code> with <code>.map()</code>? Give an example.
+5. Does <code>filter()</code> mutate the original array?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#filter">mcq.md</a>
+1. <code>[1,2,3,4].filter(n =&gt; n &gt; 2)</code> returns: (a) <code>[1,2]</code> (b) <strong><code>[3,4]</code></strong> (c) <code>2</code> (d) <code>[1,2,3,4]</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#filter">practice.md</a>
+1. <strong>(Easy)</strong> Filter an array of numbers to keep only values greater than 10.
+2. <strong>(Medium)</strong> Filter an array of user objects to keep only those with <code>isActive: true</code>.
+3. <strong>(Hard)</strong> Chain <code>.filter()</code>, <code>.map()</code>, and <code>.reduce()</code> to compute the total value of only in-stock products with price above a threshold.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with an example, the difference between <code>filter()</code> (returns matching elements) and <code>find()</code> (returns the first match only).</li>
+<li>[ ] Write a search feature using <code>filter()</code> and <code>.includes()</code> for case-insensitive matching.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Product Search" feature: given an array of products, filter by name substring and by a minimum price, combining both conditions.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Confusing <code>filter()</code> (returns an array of all matches) with <code>find()</code> (returns just the first match, or <code>undefined</code>).</li>
+<li>Forgetting the callback must explicitly return a boolean-like value (truthy/falsy), not perform a side effect.</li>
+<li>Assuming <code>filter()</code> mutates the original array (it doesn't — it returns a new one).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>filter()</code> specifically to select a subset; use <code>find()</code> when you only need the first match.</li>
+<li>Chain <code>filter()</code> before <code>map()</code>/<code>reduce()</code> to reduce the dataset early in a processing pipeline.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>For very large arrays where you only need the first match, use <code>find()</code> instead of <code>filter()[0]</code> — <code>find()</code> stops early, <code>filter()</code> always processes every element.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>.filter()</code> selects a subset of an array's elements based on a callback's truthy/falsy result, returning a new (possibly shorter) array without mutating the original — a core tool for narrowing down datasets declaratively.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#filter">cheat-sheet.md</a></p>
+<hr />
+<p><a href="map.html">← Map</a> | <a href="README.html">Section Home</a> | <a href="reduce.html">Reduce →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
