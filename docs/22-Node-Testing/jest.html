@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jest · Node.js & Testing · JavaScript Mastery</title>
+<meta name="description" content="Jest — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Node.js & Testing</div>
+    <ul class="nav-list">
+      <li><a href="nodejs.html" class="">Nodejs</a></li>
+<li><a href="express.html" class="">Express</a></li>
+<li><a href="testing.html" class="">Testing</a></li>
+<li><a href="jest.html" class="active">Jest</a></li>
+<li><a href="chrome-devtools.html" class="">Chrome Devtools</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Node.js & Testing</a> / <span>Jest</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Jest</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Jest is a popular, batteries-included JavaScript testing framework — providing a test runner, assertion library, and mocking utilities in one package.</p>
+
+      <h2>Why Jest Matters</h2>
+      <p>It bundles everything needed for testing into a single tool with sensible defaults, reducing setup friction.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">test("description", () => {
+  expect(actualValue).toBe(expectedValue);
+});
+
+describe("a group of related tests", () => {
+  test("first test", () => { /* ... */ });
+});</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">test("fetchUser resolves with user data", () => {
+  return expect(fetchUser(1)).resolves.toEqual({ id: 1, name: "Alex" });
+});</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Jest Test File
+  describe("Calculator") {
+    test("adds numbers") { expect(...).toBe(...) }
+  }
+        │
+Jest runner discovers, executes, reports pass/fail
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Jest runs test files in <strong>isolated environments</strong> for speed, and its mocking (<code>jest.fn()</code>) replaces real implementations with trackable stand-ins.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Using <code>.toBe()</code> to compare objects/arrays instead of <code>.toEqual()</code>.</li>
+        <li>Forgetting to <code>await</code>/<code>return</code> a Promise-based assertion.</li>
+        <li>Not resetting mocks between tests.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Jest is an all-in-one JavaScript testing framework, widely used for its simplicity and comprehensive feature set.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
