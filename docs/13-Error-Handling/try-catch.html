@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Try Catch · Error Handling · JavaScript Mastery</title>
+<meta name="description" content="Try Catch — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Error Handling</div>
+    <ul class="nav-list">
+      <li><a href="try-catch.html" class="active">Try Catch</a></li>
+<li><a href="throw.html" class="">Throw</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Error Handling</a> / <span>Try Catch</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Try Catch</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p><code>try...catch</code> is a JavaScript control structure that lets you attempt code that might throw an error, and gracefully handle that error instead of letting it crash the program.</p>
+
+      <h2>Why Try Catch Matters</h2>
+      <p>Without it, a single runtime error would stop script execution entirely — <code>try...catch</code> lets you isolate risky code and keep the rest of the program running.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">try {
+  // risky code
+} catch (error) {
+  // handle error
+} finally {
+  // always runs, error or not
+}</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">// Beginner
+try {
+  const result = 10 / undefinedVar; // ReferenceError
+} catch (error) {
+  console.log("Caught:", error.message);
+}
+
+// Advanced: async/await
+async function fetchData(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (error) {
+    console.error("Fetch failed:", error.message);
+    throw error;
+  }
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Enter try block
+      │
+Error thrown? ──No──► try block completes ──► finally runs
+      │ Yes
+      ▼
+Jump to catch block
+      │
+catch runs ──► finally runs ──► continue after try/catch
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>When an error is thrown inside a <code>try</code> block, the JS engine immediately stops executing that block and searches up the call stack for a matching <code>catch</code>.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Expecting <code>try...catch</code> to catch errors thrown inside <code>setTimeout</code> callbacks.</li>
+        <li>Swallowing errors silently in <code>catch</code> without logging or handling them.</li>
+        <li>Forgetting that <code>finally</code> runs even if <code>try</code> or <code>catch</code> contains a <code>return</code>.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p><code>try...catch</code> (optionally with <code>finally</code>) lets JavaScript gracefully handle runtime errors instead of crashing, with <code>finally</code> guaranteed to run for cleanup regardless of outcome.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
