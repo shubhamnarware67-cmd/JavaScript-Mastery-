@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Throw · Error Handling · JavaScript Mastery</title>
+<meta name="description" content="Throw — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Error Handling</div>
+    <ul class="nav-list">
+      <li><a href="try-catch.html" class="">Try Catch</a></li>
+<li><a href="throw.html" class="active">Throw</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Error Handling</a> / <span>Throw</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Throw</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>The <code>throw</code> statement lets you manually raise a custom or built-in error, halting normal execution and passing the thrown value up the call stack until a <code>catch</code> handles it.</p>
+
+      <h2>Why Throw Matters</h2>
+      <p>It lets you enforce assumptions and validate inputs explicitly — instead of letting invalid data silently cause bugs later, you can <code>throw</code> immediately at the point something goes wrong.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">throw new Error("Something went wrong");
+throw "a string";      // valid but discouraged
+throw { code: 404 };   // valid but discouraged</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">// Beginner
+function checkAge(age) {
+  if (age < 0) throw new Error("Age cannot be negative");
+  return age;
+}
+
+// Advanced: custom error class
+class ValidationError extends Error {
+  constructor(message, field) {
+    super(message);
+    this.name = "ValidationError";
+    this.field = field;
+  }
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+throw new Error("msg")
+        │
+Error object created: { message, stack, name }
+        │
+Execution stops, call stack unwinds
+        │
+Looks for nearest enclosing try/catch
+      </div>
+
+      <h2>Internal Working</h2>
+      <p><code>throw</code> immediately stops the current execution context and begins unwinding the call stack frame by frame, checking each enclosing scope for a <code>try...catch</code>.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Throwing plain strings or objects instead of <code>Error</code> instances, losing the stack trace.</li>
+        <li>Throwing generic <code>Error</code> for every case instead of custom error types.</li>
+        <li>Forgetting that a <code>throw</code> inside a Promise executor becomes a rejected Promise, not an immediately-catchable throw.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p><code>throw</code> lets you manually raise an error — ideally an <code>Error</code> instance or custom subclass — immediately halting execution until a matching <code>catch</code> handles it.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
