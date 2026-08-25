@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nodejs · Node.js & Testing · JavaScript Mastery</title>
+<meta name="description" content="Nodejs — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Node.js & Testing</div>
+    <ul class="nav-list">
+      <li><a href="nodejs.html" class="active">Nodejs</a></li>
+<li><a href="express.html" class="">Express</a></li>
+<li><a href="testing.html" class="">Testing</a></li>
+<li><a href="jest.html" class="">Jest</a></li>
+<li><a href="chrome-devtools.html" class="">Chrome Devtools</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Node.js & Testing</a> / <span>Nodejs</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Node.js</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Node.js is a JavaScript runtime built on Chrome's V8 engine that lets JavaScript run outside the browser — on servers, CLI tools, and desktop apps.</p>
+
+      <h2>Why Node.js Matters</h2>
+      <p>It let developers use one language across frontend and backend, and its non-blocking I/O model is efficient for I/O-heavy workloads.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">const http = require("http");
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Hello from Node.js!");
+});
+server.listen(3000);</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">const fs = require("fs/promises");
+async function readConfig() {
+  const data = await fs.readFile("config.json", "utf8");
+  return JSON.parse(data);
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Node.js Runtime = V8 Engine + libuv (event loop, async I/O) + Node APIs
+        │
+Single-threaded JS execution, I/O offloaded and non-blocking
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Node.js pairs V8 with <strong>libuv</strong>, a C library providing the event loop and thread pool for async operations.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Running CPU-intensive synchronous code that blocks Node's single thread.</li>
+        <li>Mixing callback-based and Promise-based APIs inconsistently.</li>
+        <li>Forgetting <code>require()</code> and <code>import</code> need different configuration.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Node.js lets JavaScript run outside the browser with an efficient, non-blocking I/O model, well-suited for I/O-heavy applications.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
