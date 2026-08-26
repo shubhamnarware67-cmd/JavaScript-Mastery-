@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Bubbling · Events · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Events</div>
+    <ul class="nav-list">
+      <li><a href="events.html" class="">Events</a></li>
+<li><a href="event-bubbling.html" class="active">Event Bubbling</a></li>
+<li><a href="event-capturing.html" class="">Event Capturing</a></li>
+<li><a href="event-delegation.html" class="">Event Delegation</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Events</a> / <span>Event Bubbling</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Event Bubbling</h1>
+<blockquote>
+<p>Section: Events · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Event bubbling is the default phase of event propagation where an event, after firing on its target element, "bubbles up" through each ancestor element in turn, up to <code>document</code>.</p>
+<h2>History</h2>
+<p>Part of the DOM event model standardized in the early 2000s (DOM Level 2 Events), alongside the capturing phase.</p>
+<h2>Why Event Bubbling Matters</h2>
+<p>It's what makes event delegation possible (see event-delegation.md), and explains why a click "on a child" is also visible to listeners on its parents unless stopped.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">parent.addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;parent&quot;));
+child.addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;child&quot;));
+// Clicking child logs: &quot;child&quot; then &quot;parent&quot; (bubbles upward)
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — bubbling is one of the two propagation phases (the other being capturing).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">document.querySelector(&quot;#outer&quot;).addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;Outer clicked&quot;));
+document.querySelector(&quot;#inner&quot;).addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;Inner clicked&quot;));
+// Clicking #inner logs: &quot;Inner clicked&quot; then &quot;Outer clicked&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">        window
+          │  ▲ bubbling goes UP (target → window)
+       document
+          │  ▲
+        &lt;body&gt;
+          │  ▲
+       &lt;div id=&quot;outer&quot;&gt;
+          │  ▲
+     &lt;button id=&quot;inner&quot;&gt; ◄── event originates here (the actual target)
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Event fires on the actual target element (e.g. the clicked button)
+        │
+Runs listeners registered on the target itself
+        │
+Bubbles up to its parent — runs any listeners there too
+        │
+Continues bubbling up through EVERY ancestor, all the way to `document`/`window`
+        │
+Unless `event.stopPropagation()` was called somewhere along the way
+</code></pre>
+<h2>Internal Working</h2>
+<p>By default, <code>addEventListener</code>'s third argument (<code>capture</code>) is <code>false</code>, meaning the listener runs during the <strong>bubbling</strong> phase — after the event has already reached its actual target and started moving back up through ancestors.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">document.body.addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;Body sees the click&quot;));
+document.querySelector(&quot;button&quot;).addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;Button clicked&quot;));
+// Clicking the button logs &quot;Button clicked&quot; then &quot;Body sees the click&quot;
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Stopping bubbling with stopPropagation()
+document.querySelector(&quot;#outer&quot;).addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;Outer&quot;));
+document.querySelector(&quot;#inner&quot;).addEventListener(&quot;click&quot;, (e) =&gt; {
+  e.stopPropagation();
+  console.log(&quot;Inner (bubbling stopped here)&quot;);
+});
+// Clicking #inner logs ONLY &quot;Inner (bubbling stopped here)&quot;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Bubbling enables detecting clicks anywhere within a region via one listener
+document.querySelector(&quot;#toolbar&quot;).addEventListener(&quot;click&quot;, (e) =&gt; {
+  console.log(&quot;Something inside the toolbar was clicked:&quot;, e.target);
+});
+// Works for ANY current or future child button inside #toolbar
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Closing a modal by clicking anywhere on its dark overlay background,
+// while clicks INSIDE the modal content don't close it (using stopPropagation)
+overlay.addEventListener(&quot;click&quot;, () =&gt; closeModal());
+modalContent.addEventListener(&quot;click&quot;, (e) =&gt; e.stopPropagation());
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Analytics/tracking scripts often attach ONE listener at a high-level
+// container and rely on bubbling (plus checking event.target) to catch
+// clicks anywhere within that section, rather than instrumenting every element.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#event-bubbling">interview.md</a>
+1. What is event bubbling, in your own words?
+2. In what order do listeners on nested elements fire during bubbling?
+3. What does <code>event.stopPropagation()</code> do?
+4. Why is bubbling the default phase for <code>addEventListener</code>?
+5. Give a real UI pattern that relies specifically on bubbling behavior.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#event-bubbling">mcq.md</a>
+1. During bubbling, an event moves: (a) From window down to target (b) <strong>From target up to window</strong> (c) Sideways only (d) Nowhere → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#event-bubbling">practice.md</a>
+1. <strong>(Easy)</strong> Attach click listeners to a parent and child, observing the bubbling order in the console.
+2. <strong>(Medium)</strong> Use <code>stopPropagation()</code> to prevent a child's click from also triggering the parent's listener.
+3. <strong>(Hard)</strong> Build a modal component where clicking the overlay closes it, but clicking modal content does not (using bubbling + <code>stopPropagation</code>).</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Diagram the bubbling path for a 4-level nested element structure.</li>
+<li>[ ] Explain, with a code example, a real bug that could occur if <code>stopPropagation()</code> is used carelessly.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a "Dismissible Overlay Modal": clicking the dark background overlay closes the modal, while clicking inside the modal's content box does not, using bubbling and <code>stopPropagation()</code>.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting that a click on a child ALSO triggers listeners on all its ancestors (via bubbling), causing unintended double-handling.</li>
+<li>Overusing <code>stopPropagation()</code> defensively, which can silently break other legitimate listeners relying on bubbling elsewhere in the app.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Rely on bubbling deliberately for patterns like event delegation, rather than fighting against it constantly with <code>stopPropagation()</code>.</li>
+<li>Use <code>stopPropagation()</code> sparingly and only when there's a clear, specific reason to prevent further propagation.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Bubbling-based event delegation (one listener on a container) is more memory-efficient than attaching identical listeners to many individual child elements.</li>
+</ul>
+<h2>Summary</h2>
+<p>Event bubbling propagates an event from its actual target upward through every ancestor element — the default behavior for <code>addEventListener</code>, and the mechanism that makes event delegation possible.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#event-bubbling">cheat-sheet.md</a></p>
+<hr />
+<p><a href="events.html">← Events</a> | <a href="README.html">Section Home</a> | <a href="event-capturing.html">Event Capturing →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

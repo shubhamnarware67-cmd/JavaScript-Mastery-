@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Capturing · Events · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Events</div>
+    <ul class="nav-list">
+      <li><a href="events.html" class="">Events</a></li>
+<li><a href="event-bubbling.html" class="">Event Bubbling</a></li>
+<li><a href="event-capturing.html" class="active">Event Capturing</a></li>
+<li><a href="event-delegation.html" class="">Event Delegation</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Events</a> / <span>Event Capturing</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Event Capturing</h1>
+<blockquote>
+<p>Section: Events · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Event capturing (the "capture phase") is the first phase of event propagation, where an event travels <strong>downward</strong> from <code>window</code>/<code>document</code> toward the actual target element, before the bubbling phase begins.</p>
+<h2>History</h2>
+<p>Standardized alongside bubbling in DOM Level 2 Events (early 2000s) — capturing was actually part of Netscape's original event model, while bubbling came from Internet Explorer's; the W3C standard unified both into a single three-phase model.</p>
+<h2>Why Event Capturing Matters</h2>
+<p>It lets you intercept an event on an ancestor <strong>before</strong> it ever reaches the actual target or bubbles back up — useful for certain guard/logging patterns, though used far less often than bubbling in everyday code.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">element.addEventListener(&quot;click&quot;, handler, true); // true = capture phase
+element.addEventListener(&quot;click&quot;, handler, { capture: true }); // equivalent, modern syntax
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — capturing is one of the two propagation phases (the other being bubbling, which is the default).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">document.querySelector(&quot;#outer&quot;).addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;Outer (capture)&quot;), true);
+document.querySelector(&quot;#inner&quot;).addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;Inner (bubble, default)&quot;));
+// Clicking #inner logs: &quot;Outer (capture)&quot; FIRST, then &quot;Inner (bubble, default)&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">        window
+          │  ▼ capturing goes DOWN (window → target)
+       document
+          │  ▼
+        &lt;body&gt;
+          │  ▼
+       &lt;div id=&quot;outer&quot;&gt;
+          │  ▼
+     &lt;button id=&quot;inner&quot;&gt; ◄── target reached, then bubbling begins going back UP
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Event occurs (e.g. click)
+        │
+CAPTURE PHASE: starts at window, moves DOWN through ancestors toward the target
+   (only listeners registered with capture:true run here)
+        │
+Reaches the actual target element — target phase listeners run
+        │
+BUBBLE PHASE: moves back UP from target through ancestors to window
+   (default-phase listeners run here)
+</code></pre>
+<h2>Internal Working</h2>
+<p>Every event propagates through all 3 phases (capture → target → bubble) regardless of whether any listeners are actually registered for the capture phase — <code>addEventListener</code>'s third argument simply decides WHICH phase a particular listener responds to, not whether capturing happens at all.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">document.body.addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;Body capture&quot;), true);
+document.querySelector(&quot;button&quot;).addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;Button (bubble)&quot;));
+// Clicking the button logs &quot;Body capture&quot; first, then &quot;Button (bubble)&quot;
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Using capture to intercept and potentially stop an event before it reaches its target
+document.querySelector(&quot;#form&quot;).addEventListener(&quot;submit&quot;, (e) =&gt; {
+  if (!isReady) {
+    e.stopPropagation(); // stops it here, in the capture phase, before reaching the target's own listener
+    console.log(&quot;Submission blocked early via capture phase&quot;);
+  }
+}, true);
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Demonstrating the full 3-phase order explicitly
+outer.addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;1: outer capture&quot;), true);
+inner.addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;2: inner capture&quot;), true);
+inner.addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;3: inner bubble (target)&quot;));
+outer.addEventListener(&quot;click&quot;, () =&gt; console.log(&quot;4: outer bubble&quot;));
+// Clicking inner logs, in order: 1, 2, 3, 4
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Global &quot;escape key closes any open modal&quot; handlers are sometimes
+// registered in the capture phase on `document` to reliably intercept
+// the key event early, before it reaches deeply nested focused elements.
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Some analytics/monitoring libraries attach capture-phase listeners
+// at the document level to guarantee they observe EVERY event,
+// even ones that later call stopPropagation() during the bubble phase.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#event-capturing">interview.md</a>
+1. What is the capture phase, and in what order does it run relative to bubbling?
+2. How do you register a listener for the capture phase specifically?
+3. Why might a capture-phase listener be useful even though bubbling is the default?
+4. Do ALL events go through the capture phase, even if no capture listeners exist?
+5. What is the correct order of all 3 propagation phases?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#event-capturing">mcq.md</a>
+1. To register a capture-phase listener, you pass: (a) <code>false</code> as the 3rd argument (b) <strong><code>true</code> as the 3rd argument</strong> (c) Nothing extra (d) A special event name → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#event-capturing">practice.md</a>
+1. <strong>(Easy)</strong> Register a capture-phase listener on a parent and a normal (bubble-phase) listener on a child, observing the order.
+2. <strong>(Medium)</strong> Demonstrate all 3 phases (capture, target, bubble) firing in the correct order with 4 listeners.
+3. <strong>(Hard)</strong> Use a capture-phase listener to intercept and conditionally stop an event before it reaches a deeply nested target.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Diagram the full 3-phase propagation path (capture → target → bubble) for a nested element structure.</li>
+<li>[ ] Explain, with a code example, a scenario where capture-phase interception is genuinely useful.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small demo page with 3 nested <code>&lt;div&gt;</code>s, each logging both a capture-phase and bubble-phase message on click, to visually confirm the full propagation order.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting the third argument entirely (defaults to bubble-phase, <code>false</code>), then being confused about listener execution order.</li>
+<li>Assuming capturing is rare/special and never happens unless explicitly used — in reality, ALL events pass through the capture phase regardless.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Reserve capture-phase listeners for genuinely specific needs (early interception, guaranteed observation); default to bubble-phase (the normal <code>addEventListener</code> behavior) otherwise.</li>
+<li>Document clearly when a capture-phase listener is used, since it's less common and can surprise other developers reading the code.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>No general performance benefit to capturing over bubbling — the choice is purely about WHEN in the propagation sequence you need to intercept the event.</li>
+</ul>
+<h2>Summary</h2>
+<p>Event capturing is the first phase of event propagation, moving from <code>window</code> down to the target before bubbling begins — registered via <code>addEventListener</code>'s capture option, and useful for early interception, though far less commonly used than the default bubbling phase.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#event-capturing">cheat-sheet.md</a></p>
+<hr />
+<p><a href="event-bubbling.html">← Event Bubbling</a> | <a href="README.html">Section Home</a> | <a href="event-delegation.html">Event Delegation →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

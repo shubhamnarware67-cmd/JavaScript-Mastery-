@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events · Events · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Events</div>
+    <ul class="nav-list">
+      <li><a href="events.html" class="active">Events</a></li>
+<li><a href="event-bubbling.html" class="">Event Bubbling</a></li>
+<li><a href="event-capturing.html" class="">Event Capturing</a></li>
+<li><a href="event-delegation.html" class="">Event Delegation</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Events</a> / <span>Events</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Events</h1>
+<blockquote>
+<p>Section: Events · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>An event is an action the browser detects — a click, key press, form submission, page load, etc. — that JavaScript can "listen" for and respond to via event handlers.</p>
+<h2>History</h2>
+<p>The event system has existed since early browsers; <code>addEventListener</code> (allowing multiple handlers per event, and capture/bubble control) was standardized in the early 2000s, replacing older inline/<code>onclick</code>-property-only approaches.</p>
+<h2>Why Events Matter</h2>
+<p>Nearly all interactivity on a web page — button clicks, form submissions, keyboard shortcuts — is built on the event system.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">element.addEventListener(&quot;click&quot;, function (event) {
+  // handle the event
+});
+</code></pre>
+<h2>Types (common event categories)</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mouse</td>
+<td><code>click</code>, <code>dblclick</code>, <code>mouseenter</code>, <code>mousemove</code></td>
+</tr>
+<tr>
+<td>Keyboard</td>
+<td><code>keydown</code>, <code>keyup</code>, <code>keypress</code></td>
+</tr>
+<tr>
+<td>Form</td>
+<td><code>submit</code>, <code>change</code>, <code>input</code>, <code>focus</code>, <code>blur</code></td>
+</tr>
+<tr>
+<td>Window/Document</td>
+<td><code>load</code>, <code>resize</code>, <code>scroll</code>, <code>DOMContentLoaded</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const button = document.querySelector(&quot;button&quot;);
+button.addEventListener(&quot;click&quot;, () =&gt; {
+  console.log(&quot;Button clicked!&quot;);
+});
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — events are runtime occurrences, not persistent memory structures (though listener callbacks are functions kept in memory until removed).</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">User interacts with the page (click, type, etc.)
+        │
+Browser detects the corresponding event
+        │
+Any registered listeners for that event on the target element?
+        │
+       Yes ──► Call each listener function with an Event object
+        │
+        No ──► Nothing happens
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>addEventListener</code> registers a callback the browser will invoke whenever the specified event occurs on that element; multiple listeners can be attached to the same event on the same element, and all will run (in registration order) when it fires.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">document.querySelector(&quot;#btn&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+  alert(&quot;You clicked the button!&quot;);
+});
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Reading form input changes live
+const input = document.querySelector(&quot;#name&quot;);
+input.addEventListener(&quot;input&quot;, (e) =&gt; {
+  console.log(&quot;Current value:&quot;, e.target.value);
+});
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Removing a listener requires a NAMED function reference
+function handleClick() {
+  console.log(&quot;Clicked&quot;);
+}
+button.addEventListener(&quot;click&quot;, handleClick);
+button.removeEventListener(&quot;click&quot;, handleClick); // only works with the SAME function reference
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Preventing default form submission to handle it via JS instead
+document.querySelector(&quot;form&quot;).addEventListener(&quot;submit&quot;, (e) =&gt; {
+  e.preventDefault();
+  console.log(&quot;Form submitted via JS, page did not reload&quot;);
+});
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Analytics tracking commonly attaches listeners to key UI interactions
+document.querySelectorAll(&quot;.track-click&quot;).forEach(el =&gt; {
+  el.addEventListener(&quot;click&quot;, () =&gt; sendAnalyticsEvent(el.dataset.eventName));
+});
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#events">interview.md</a>
+1. What is the difference between <code>addEventListener</code> and setting an <code>onclick</code> property directly?
+2. Can multiple listeners be attached to the same event on the same element? What happens?
+3. Why does removing a listener require the exact same function reference?
+4. What does <code>event.preventDefault()</code> do, and give a real use case?
+5. What information does the <code>Event</code> object passed to a handler contain?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#events">mcq.md</a>
+1. Which method attaches multiple listeners cleanly to one event? (a) <code>onclick =</code> (b) <strong><code>addEventListener</code></strong> (c) <code>setAttribute</code> (d) <code>dispatchEvent</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#events">practice.md</a>
+1. <strong>(Easy)</strong> Attach a click listener to a button that logs a message.
+2. <strong>(Medium)</strong> Attach and later remove a listener using a named function reference.
+3. <strong>(Hard)</strong> Prevent a form's default submission and instead validate and log its field values via JS.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] List 5 different event types across mouse, keyboard, and form categories.</li>
+<li>[ ] Explain, with an example, why <code>onclick = fn1; onclick = fn2;</code> overwrites rather than adds a second listener, unlike <code>addEventListener</code>.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Live Character Counter": an input field where typing updates a counter showing remaining characters out of a max limit, using the <code>input</code> event.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using inline <code>onclick="..."</code> HTML attributes instead of <code>addEventListener</code> in modern code.</li>
+<li>Forgetting <code>removeEventListener</code> requires the exact same function reference used in <code>addEventListener</code> (anonymous functions can't be removed this way).</li>
+<li>Forgetting <code>event.preventDefault()</code> when JS should fully control form submission behavior.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer <code>addEventListener</code>/<code>removeEventListener</code> over inline HTML event attributes or overwriting <code>.onclick</code>.</li>
+<li>Keep named function references for listeners you'll need to remove later.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>For many similar elements (e.g. list items), consider event delegation (see event-delegation.md) instead of attaching a separate listener to each one.</li>
+</ul>
+<h2>Summary</h2>
+<p>Events let JavaScript respond to user and browser actions via <code>addEventListener</code>, forming the foundation of nearly all interactive web behavior — understanding listener registration, removal, and the <code>Event</code> object is essential groundwork before tackling bubbling, capturing, and delegation.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#events">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="event-bubbling.html">Event Bubbling →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

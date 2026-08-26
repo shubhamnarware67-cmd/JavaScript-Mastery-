@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Delegation · Events · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Events</div>
+    <ul class="nav-list">
+      <li><a href="events.html" class="">Events</a></li>
+<li><a href="event-bubbling.html" class="">Event Bubbling</a></li>
+<li><a href="event-capturing.html" class="">Event Capturing</a></li>
+<li><a href="event-delegation.html" class="active">Event Delegation</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Events</a> / <span>Event Delegation</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Event Delegation</h1>
+<blockquote>
+<p>Section: Events · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Event delegation is a pattern where, instead of attaching a listener to every individual child element, you attach ONE listener to a shared parent and use event bubbling plus <code>event.target</code> to determine which child was actually interacted with.</p>
+<h2>History</h2>
+<p>An informal pattern that emerged as developers understood bubbling well (early-to-mid 2000s) — not a distinct API itself, just a deliberate application of the standard event propagation model.</p>
+<h2>Why Event Delegation Matters</h2>
+<p>It's dramatically more efficient for long or dynamically-changing lists (fewer listeners to create/manage), and automatically works for elements added to the DOM later, without needing to re-attach listeners.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">parent.addEventListener(&quot;click&quot;, (e) =&gt; {
+  if (e.target.matches(&quot;.child-selector&quot;)) {
+    // handle the click, knowing exactly which child was clicked
+  }
+});
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — a single pattern, though implementations vary (checking <code>e.target.matches()</code>, <code>e.target.closest()</code>, or <code>e.target.dataset</code>).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">document.querySelector(&quot;ul&quot;).addEventListener(&quot;click&quot;, (e) =&gt; {
+  if (e.target.tagName === &quot;LI&quot;) {
+    console.log(&quot;You clicked:&quot;, e.target.textContent);
+  }
+});
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Without delegation:  &lt;li&gt; &lt;li&gt; &lt;li&gt; &lt;li&gt;   ← EACH has its own listener (N listeners)
+                       │    │    │    │
+With delegation:     &lt;ul&gt;──────────────    ← ONE listener catches all clicks via bubbling
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Click occurs on ANY &lt;li&gt; inside the &lt;ul&gt;
+        │
+Event bubbles up to the &lt;ul&gt; (which has the ONE listener)
+        │
+Listener checks: was e.target actually an &lt;li&gt; (or matching selector)?
+        │
+       Yes ──► handle it, using e.target for the specific clicked item's data
+        │
+        No (clicked padding/whitespace inside ul, etc.) ──► ignore
+</code></pre>
+<h2>Internal Working</h2>
+<p>Delegation works entirely because of event bubbling — a click on any descendant naturally bubbles up to the ancestor with the listener, where <code>event.target</code> (the actual originating element) can be inspected to determine exactly what was interacted with, regardless of how deeply nested it is.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">document.querySelector(&quot;#todo-list&quot;).addEventListener(&quot;click&quot;, (e) =&gt; {
+  if (e.target.classList.contains(&quot;delete-btn&quot;)) {
+    e.target.closest(&quot;li&quot;).remove();
+  }
+});
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Delegation automatically works for elements added LATER — no re-binding needed
+const list = document.querySelector(&quot;#items&quot;);
+list.addEventListener(&quot;click&quot;, (e) =&gt; {
+  if (e.target.matches(&quot;.item&quot;)) console.log(&quot;Clicked:&quot;, e.target.textContent);
+});
+// Adding a new .item later still works with the SAME listener:
+const newItem = document.createElement(&quot;li&quot;);
+newItem.className = &quot;item&quot;;
+newItem.textContent = &quot;New Item&quot;;
+list.appendChild(newItem);
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Using event.target.closest() to handle clicks on NESTED elements inside each list item
+document.querySelector(&quot;#todo-list&quot;).addEventListener(&quot;click&quot;, (e) =&gt; {
+  const deleteBtn = e.target.closest(&quot;.delete-btn&quot;); // handles clicks on an icon INSIDE the button too
+  if (deleteBtn) {
+    deleteBtn.closest(&quot;li&quot;).remove();
+  }
+});
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// A dynamically-rendered comments section with reply/like/delete buttons
+// per comment, all handled by ONE delegated listener on the container
+commentsContainer.addEventListener(&quot;click&quot;, (e) =&gt; {
+  const action = e.target.dataset.action;
+  const commentId = e.target.closest(&quot;[data-comment-id]&quot;)?.dataset.commentId;
+  if (action === &quot;like&quot;) likeComment(commentId);
+  if (action === &quot;delete&quot;) deleteComment(commentId);
+});
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Large-scale UI frameworks and vanilla-JS component libraries commonly
+// use exactly this delegation pattern internally to avoid attaching
+// thousands of individual listeners in large, dynamic lists (e.g. data tables).
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#event-delegation">interview.md</a>
+1. What is event delegation, and what browser behavior does it rely on?
+2. Why is delegation more efficient than attaching a listener to every child?
+3. Why does delegation automatically work for elements added to the DOM later?
+4. How would you determine exactly which child element was clicked inside a delegated handler?
+5. What's the difference between using <code>e.target.matches()</code> vs <code>e.target.closest()</code> in a delegated handler?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#event-delegation">mcq.md</a>
+1. Event delegation fundamentally relies on: (a) Capturing only (b) <strong>Event bubbling</strong> (c) Web Workers (d) Promises → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#event-delegation">practice.md</a>
+1. <strong>(Easy)</strong> Attach one delegated click listener to a list, logging the clicked item's text.
+2. <strong>(Medium)</strong> Use delegation to handle a "delete" button inside each list item, removing that item.
+3. <strong>(Hard)</strong> Build a delegated handler using <code>closest()</code> that correctly handles clicks on nested icons inside action buttons.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with a code example, why delegation avoids the need to re-attach listeners to dynamically added elements.</li>
+<li>[ ] Compare (conceptually) the memory usage of 1000 individual listeners vs 1 delegated listener for a list of 1000 items.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Dynamic Todo List": items can be added and removed (via a delegated delete button), all handled by exactly ONE click listener on the list container.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Attaching individual listeners to every list item instead of using delegation, especially for large or dynamic lists.</li>
+<li>Checking <code>e.target.tagName</code> when the actual click landed on a nested child (like an icon inside a button) — using <code>.closest()</code> instead avoids this.</li>
+<li>Forgetting delegation requires checking <code>e.target</code> inside the handler — without that check, ANY click within the container triggers the logic.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use event delegation by default for lists, tables, or any repeated/dynamic set of similar elements.</li>
+<li>Prefer <code>e.target.closest(selector)</code> over <code>e.target.matches(selector)</code> when the clickable content might have nested child elements (icons, spans).</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Delegation significantly reduces memory usage and setup time for very large lists — a single listener versus potentially thousands.</li>
+</ul>
+<h2>Summary</h2>
+<p>Event delegation attaches one listener to a shared ancestor, relying on bubbling and <code>event.target</code> to identify which specific descendant was interacted with — more efficient than per-item listeners and automatically compatible with dynamically added elements.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#event-delegation">cheat-sheet.md</a></p>
+<hr />
+<p><a href="event-capturing.html">← Event Capturing</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
