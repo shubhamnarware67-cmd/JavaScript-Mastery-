@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Functions · Functions · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Functions</div>
+    <ul class="nav-list">
+      <li><a href="functions.html" class="active">Functions</a></li>
+<li><a href="arrow-function.html" class="">Arrow Function</a></li>
+<li><a href="callback.html" class="">Callback</a></li>
+<li><a href="closure.html" class="">Closure</a></li>
+<li><a href="currying.html" class="">Currying</a></li>
+<li><a href="memoization.html" class="">Memoization</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Functions</a> / <span>Functions</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Functions</h1>
+<blockquote>
+<p>Section: Functions · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>A function is a reusable block of code that performs a task, optionally accepting inputs (parameters) and optionally returning an output.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995; arrow functions (ES2015), default parameters (ES2015), and rest parameters (ES2015) later expanded how functions could be written.</p>
+<h2>Why Functions Matter</h2>
+<p>Functions let you avoid repeating code, organize logic into named, testable units, and pass behavior around as values (a cornerstone of JS's functional capabilities).</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">function name(param1, param2) {
+  return param1 + param2;
+}
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Function Declaration</td>
+<td><code>function greet() {}</code></td>
+</tr>
+<tr>
+<td>Function Expression</td>
+<td><code>const greet = function() {}</code></td>
+</tr>
+<tr>
+<td>Arrow Function</td>
+<td><code>const greet = () =&gt; {}</code></td>
+</tr>
+<tr>
+<td>Anonymous function</td>
+<td>passed inline as a callback</td>
+</tr>
+<tr>
+<td>IIFE</td>
+<td><code>(function(){})()</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">function add(a, b) {
+  return a + b;
+}
+console.log(add(2, 3)); // 5
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">   ┌──────────┐
+input ──►│ FUNCTION │──► return value
+   └──────────┘
+Each call creates its own execution context with its own local variables.
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Function called
+    │
+New execution context created (parameters bound, local scope set up)
+    │
+Code runs top to bottom
+    │
+`return` reached (or implicit undefined at the end)?
+    │
+Execution context popped off the call stack, value returned to caller
+</code></pre>
+<h2>Internal Working</h2>
+<p>Every function call creates a new execution context on the call stack, with its own scope for parameters and local variables — this context is destroyed when the function returns, unless a closure keeps some of its variables alive (see closure.md).</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">function greet(name) {
+  return `Hello, ${name}!`;
+}
+console.log(greet(&quot;Shubham&quot;));
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Functions as first-class values — passed as arguments
+function processArray(arr, operation) {
+  return arr.map(operation);
+}
+console.log(processArray([1,2,3], n =&gt; n * 2)); // [2,4,6]
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Function returning a function (a &quot;factory&quot;)
+function multiplier(factor) {
+  return function (num) {
+    return num * factor;
+  };
+}
+const double = multiplier(2);
+console.log(double(5)); // 10
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Reusable validation function used across a form
+function isValidEmail(email) {
+  return /\S+@\S+\.\S+/.test(email);
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Express.js route handlers are functions passed as callbacks
+app.get(&quot;/users&quot;, function(req, res) {
+  res.json(getAllUsers());
+});
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#functions">interview.md</a>
+1. What's the difference between a function declaration and a function expression?
+2. What does "functions are first-class citizens" mean in JavaScript?
+3. What happens if a function has no explicit <code>return</code> statement?
+4. What is an IIFE, and why would you use one?
+5. How does each function call get its own separate local scope?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#functions">mcq.md</a>
+1. A function with no <code>return</code> statement returns: (a) null (b) <strong>undefined</strong> (c) 0 (d) an error → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#functions">practice.md</a>
+1. <strong>(Easy)</strong> Write a function that returns the square of a number.
+2. <strong>(Medium)</strong> Write a function that accepts another function as an argument and calls it on each array element.
+3. <strong>(Hard)</strong> Write a function factory that generates specialized functions (e.g. <code>multiplier(factor)</code> returning a function).</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Write the same function 3 ways: declaration, expression, and arrow function.</li>
+<li>[ ] Explain, with an example, why function declarations are hoisted but expressions are not.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Math Utilities" module: functions for <code>add</code>, <code>subtract</code>, <code>multiply</code>, <code>divide</code>, each independently tested with a few example calls.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting <code>return</code>, then being surprised the function returns <code>undefined</code>.</li>
+<li>Confusing function declarations (hoisted) with function expressions (not hoisted the same way).</li>
+<li>Not realizing each function call gets an entirely fresh local scope.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Give functions clear, verb-based names describing what they do (<code>calculateTotal</code>, not <code>doStuff</code>).</li>
+<li>Keep functions small and focused on a single responsibility.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Avoid unnecessary function re-creation inside hot loops/render cycles (e.g. in React) — define stable function references outside when possible.</li>
+</ul>
+<h2>Summary</h2>
+<p>Functions are JavaScript's core reusable unit of behavior — first-class values that can be declared multiple ways, passed around, and returned from other functions, forming the basis for callbacks, closures, and functional patterns covered later in this section.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#functions">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="arrow-function.html">Arrow Function →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
