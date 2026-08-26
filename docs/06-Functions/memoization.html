@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memoization · Functions · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Functions</div>
+    <ul class="nav-list">
+      <li><a href="functions.html" class="">Functions</a></li>
+<li><a href="arrow-function.html" class="">Arrow Function</a></li>
+<li><a href="callback.html" class="">Callback</a></li>
+<li><a href="closure.html" class="">Closure</a></li>
+<li><a href="currying.html" class="">Currying</a></li>
+<li><a href="memoization.html" class="active">Memoization</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Functions</a> / <span>Memoization</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Memoization</h1>
+<blockquote>
+<p>Section: Functions · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Memoization is an optimization technique that caches a function's previous results, returning the cached value instantly for repeated calls with the same arguments instead of recomputing.</p>
+<h2>History</h2>
+<p>A classic computer-science optimization technique (the term dates to the 1960s), commonly implemented in JavaScript using closures — became especially prominent with React's <code>useMemo</code>/<code>React.memo</code> (introduced with Hooks in 2019).</p>
+<h2>Why Memoization Matters</h2>
+<p>For expensive, pure (side-effect-free) computations called repeatedly with the same inputs, memoization can turn an O(n) recomputation into an O(1) cache lookup.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">function memoize(fn) {
+  const cache = new Map();
+  return function (...args) {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) return cache.get(key);
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
+}
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual closure-based cache</td>
+<td>Full control, simplest to understand</td>
+</tr>
+<tr>
+<td><code>Map</code>-based cache</td>
+<td>Good general-purpose key-value cache</td>
+</tr>
+<tr>
+<td>Library-based (Lodash <code>_.memoize</code>)</td>
+<td>Battle-tested, configurable cache key resolution</td>
+</tr>
+<tr>
+<td>React's <code>useMemo</code>/<code>React.memo</code></td>
+<td>Memoizes computed values/component renders</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">function slowSquare(n) {
+  for (let i = 0; i &lt; 1e8; i++) {} // simulate expensive work
+  return n * n;
+}
+const memoizedSquare = memoize(slowSquare);
+console.log(memoizedSquare(5)); // slow the first time
+console.log(memoizedSquare(5)); // instant — served from cache
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">memoize(fn) creates a persistent `cache` Map via closure
+        │
+Each call: compute a cache key from arguments
+        │
+Key exists? ──Yes──► return cached value instantly
+        │No
+Compute result, store it in cache, then return it
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Call memoized function with arguments
+        │
+Generate cache key from arguments
+        │
+Key already in cache? ──Yes──► Return cached result (fast path)
+        │No
+Run the original expensive function
+        │
+Store result in cache under this key
+        │
+Return the newly computed result
+</code></pre>
+<h2>Internal Working</h2>
+<p>Memoization relies on a closure to keep a cache object alive across calls — the cache is checked first on every invocation; only a true cache-miss triggers the original (potentially expensive) computation.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">function memoize(fn) {
+  const cache = {};
+  return function (n) {
+    if (n in cache) return cache[n];
+    const result = fn(n);
+    cache[n] = result;
+    return result;
+  };
+}
+const square = memoize(n =&gt; n * n);
+console.log(square(4)); // 16 (computed)
+console.log(square(4)); // 16 (cached)
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Memoizing a recursive Fibonacci function — dramatic speedup
+function memoize(fn) {
+  const cache = new Map();
+  return function (n) {
+    if (cache.has(n)) return cache.get(n);
+    const result = fn(n);
+    cache.set(n, result);
+    return result;
+  };
+}
+const fib = memoize(function (n) {
+  if (n &lt;= 1) return n;
+  return fib(n - 1) + fib(n - 2);
+});
+console.log(fib(40)); // fast, thanks to memoized recursive calls
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Memoizing based on multiple arguments using a serialized key
+function memoize(fn) {
+  const cache = new Map();
+  return function (...args) {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) return cache.get(key);
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
+}
+const add = memoize((a, b) =&gt; a + b);
+console.log(add(2, 3)); // 5 (computed)
+console.log(add(2, 3)); // 5 (cached)
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// React's useMemo avoids recomputing an expensive derived value
+// unless its dependencies actually change
+// const sortedList = useMemo(() =&gt; expensiveSort(list), [list]);
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Lodash's _.memoize is widely used in production for caching
+// expensive pure computations (e.g. formatting, parsing) across calls.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#memoization">interview.md</a>
+1. What is memoization, and what kind of functions benefit most from it?
+2. How does memoization typically use closures internally?
+3. Why is memoization only safe for "pure" functions?
+4. What's the tradeoff (cost) of memoization, even when it helps?
+5. Give a real example (React or otherwise) where memoization is commonly used.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#memoization">mcq.md</a>
+1. Memoization primarily improves performance by: (a) Making functions run in parallel (b) <strong>Caching results to avoid recomputation</strong> (c) Reducing code size (d) Removing the need for arguments → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#memoization">practice.md</a>
+1. <strong>(Easy)</strong> Write a <code>memoize()</code> utility that caches results for a single-argument function.
+2. <strong>(Medium)</strong> Use memoization to dramatically speed up a naive recursive Fibonacci implementation.
+3. <strong>(Hard)</strong> Extend <code>memoize()</code> to support multi-argument functions using a serialized cache key.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Benchmark a slow function with and without memoization (e.g. using <code>console.time</code>), and document the difference.</li>
+<li>[ ] Explain, with an example, why memoization is unsafe for impure functions (e.g. ones depending on external mutable state).</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a memoized "Expensive Calculation" demo: a slow computation function, a <code>memoize()</code> wrapper, and a small script proving the second call for the same input is dramatically faster.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Memoizing impure functions (relying on external state, randomness, or side effects), leading to stale/incorrect cached results.</li>
+<li>Using an unbounded cache for functions called with many unique argument combinations, risking memory bloat.</li>
+<li>Serializing complex/non-serializable arguments (like functions) incorrectly when generating cache keys.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Only memoize pure functions (same input always produces the same output, no side effects).</li>
+<li>Consider cache size limits (e.g. LRU eviction) for functions called with many distinct argument combinations over a long-running process.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Memoization trades memory for speed — profile first to confirm a function is actually a bottleneck before adding caching complexity.</li>
+</ul>
+<h2>Summary</h2>
+<p>Memoization caches a pure function's previous results (typically via a closure-held cache), avoiding redundant recomputation for repeated calls with the same arguments — a powerful optimization for expensive, deterministic functions like recursive algorithms or derived UI computations.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#memoization">cheat-sheet.md</a></p>
+<hr />
+<p><a href="currying.html">← Currying</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
