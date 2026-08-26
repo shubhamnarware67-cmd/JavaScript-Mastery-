@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Closure · Functions · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Functions</div>
+    <ul class="nav-list">
+      <li><a href="functions.html" class="">Functions</a></li>
+<li><a href="arrow-function.html" class="">Arrow Function</a></li>
+<li><a href="callback.html" class="">Callback</a></li>
+<li><a href="closure.html" class="active">Closure</a></li>
+<li><a href="currying.html" class="">Currying</a></li>
+<li><a href="memoization.html" class="">Memoization</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Functions</a> / <span>Closure</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Closure</h1>
+<blockquote>
+<p>Section: Functions · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>A closure is a function that "remembers" the variables from its outer (enclosing) scope even after that outer function has finished executing.</p>
+<h2>History</h2>
+<p>Closures have existed since JavaScript's creation in 1995 as a natural consequence of lexical scoping — there's no special syntax to "enable" them, they simply occur.</p>
+<h2>Why Closures Matter</h2>
+<p>Closures enable private state (data hiding), function factories, and are the mechanism behind many patterns including memoization, currying, and the module pattern.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">function outer() {
+  let variable = &quot;I persist&quot;;
+  return function inner() {
+    console.log(variable); // inner &quot;closes over&quot; variable
+  };
+}
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable as distinct "types" — but common closure patterns include: private counters, function factories, memoization, and the module pattern.</p>
+<h2>Examples</h2>
+<pre><code class="language-js">function counter() {
+  let count = 0;
+  return function () {
+    count++;
+    return count;
+  };
+}
+const increment = counter();
+console.log(increment()); // 1
+console.log(increment()); // 2
+console.log(increment()); // 3 — count persists between calls!
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">counter() executes and returns inner function
+        │
+count = 0 is kept ALIVE in memory (not garbage collected)
+because the returned inner function still references it
+        │
+Each call to increment() reads/updates that SAME persisted `count`
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Outer function runs, creates local variable
+        │
+Outer function returns an inner function referencing that variable
+        │
+Outer function's execution context normally would be destroyed...
+        │
+...EXCEPT the variable stays alive because the inner function's closure references it
+        │
+Every future call to the inner function accesses the SAME persisted variable
+</code></pre>
+<h2>Internal Working</h2>
+<p>When a function is defined, it keeps a reference to its lexical environment (the scope chain at the point of definition) — even after the outer function returns and its execution context would normally be discarded, any variables still referenced by an inner function remain in memory as part of that closure.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">function greet(name) {
+  return function () {
+    console.log(`Hello, ${name}`);
+  };
+}
+const greetShubham = greet(&quot;Shubham&quot;);
+greetShubham(); // &quot;Hello, Shubham&quot; — remembers `name` even after greet() finished
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Private state via closures — true encapsulation
+function bankAccount(initialBalance) {
+  let balance = initialBalance;
+  return {
+    deposit: amt =&gt; (balance += amt),
+    withdraw: amt =&gt; (balance -= amt),
+    getBalance: () =&gt; balance
+  };
+}
+const account = bankAccount(1000);
+account.deposit(500);
+console.log(account.getBalance()); // 1500
+// `balance` is NOT accessible directly from outside — true privacy!
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Classic loop + closure gotcha, and its fix
+for (var i = 1; i &lt;= 3; i++) {
+  setTimeout(() =&gt; console.log(i), 100); // logs 4, 4, 4 — shared `var` closure
+}
+for (let j = 1; j &lt;= 3; j++) {
+  setTimeout(() =&gt; console.log(j), 100); // logs 1, 2, 3 — each `let` gets its own closure
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Module pattern using an IIFE + closure for private helper state
+const Calculator = (function () {
+  let history = [];
+  return {
+    add(a, b) {
+      const result = a + b;
+      history.push(result);
+      return result;
+    },
+    getHistory: () =&gt; [...history]
+  };
+})();
+console.log(Calculator.add(2, 3)); // 5
+console.log(Calculator.getHistory()); // [5]
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// React's useState hook relies conceptually on closures to
+// preserve state between re-renders of a functional component.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#closure">interview.md</a>
+1. What is a closure, in your own words?
+2. Why does the classic <code>var</code>-in-a-loop <code>setTimeout</code> example log the same final value for every callback?
+3. How do closures enable "private" variables in JavaScript?
+4. Give a real use case for closures beyond a simple counter example.
+5. Do closures cause memory leaks? Under what circumstances?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#closure">mcq.md</a>
+1. A closure allows a function to: (a) Run faster (b) <strong>Access variables from its outer scope after that scope has returned</strong> (c) Avoid using parameters (d) Become synchronous → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#closure">practice.md</a>
+1. <strong>(Easy)</strong> Write a <code>counter()</code> closure-based function that increments and returns a count each call.
+2. <strong>(Medium)</strong> Build a <code>bankAccount</code> object using closures to keep <code>balance</code> private, exposing only <code>deposit</code>/<code>withdraw</code>/<code>getBalance</code>.
+3. <strong>(Hard)</strong> Implement a simple memoization utility using a closure to cache previous function call results.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with a diagram, why the returned inner function in a closure example doesn't lose access to the outer variable.</li>
+<li>[ ] Rewrite a <code>var</code>-based loop+<code>setTimeout</code> bug using <code>let</code>, confirming the closure now captures the correct value.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a "Private Todo List" module using the module pattern (IIFE + closure) exposing only <code>addTodo</code>, <code>removeTodo</code>, and <code>getTodos</code>, with the underlying array kept fully private.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming closures always cause memory leaks — they only retain what's still referenced, and are garbage collected normally once nothing references them anymore.</li>
+<li>Using <code>var</code> in loops expecting each iteration's callback to capture a different value.</li>
+<li>Not realizing closures are created for EVERY function, not just ones that obviously "need" one.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use closures deliberately for private state/encapsulation (module pattern, factory functions).</li>
+<li>Prefer <code>let</code>/<code>const</code> in loops that create closures, to get correct per-iteration variable capture.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Be mindful that closures retaining large objects/arrays can delay garbage collection of that data — release references (set to <code>null</code>) if a long-lived closure no longer needs them.</li>
+</ul>
+<h2>Summary</h2>
+<p>Closures let inner functions retain access to their outer function's variables even after that outer function has returned — a natural consequence of lexical scoping that enables private state, function factories, and patterns like memoization and the module pattern.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#closure">cheat-sheet.md</a></p>
+<hr />
+<p><a href="callback.html">← Callback</a> | <a href="README.html">Section Home</a> | <a href="currying.html">Currying →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
