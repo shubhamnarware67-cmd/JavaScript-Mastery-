@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currying · Functions · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Functions</div>
+    <ul class="nav-list">
+      <li><a href="functions.html" class="">Functions</a></li>
+<li><a href="arrow-function.html" class="">Arrow Function</a></li>
+<li><a href="callback.html" class="">Callback</a></li>
+<li><a href="closure.html" class="">Closure</a></li>
+<li><a href="currying.html" class="active">Currying</a></li>
+<li><a href="memoization.html" class="">Memoization</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Functions</a> / <span>Currying</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Currying</h1>
+<blockquote>
+<p>Section: Functions · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>Currying transforms a function that takes multiple arguments into a sequence of functions that each take a single argument, returning a new function until all arguments are supplied.</p>
+<h2>History</h2>
+<p>A concept borrowed from mathematical logic (named after logician Haskell Curry), used in functional programming languages long before JavaScript; it became a popular JS pattern especially with the rise of functional-programming-influenced libraries (Lodash, Ramda).</p>
+<h2>Why Currying Matters</h2>
+<p>It enables partial application — pre-filling some arguments to create specialized, reusable functions — useful for configuration, composition, and reducing repetition.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">function curriedAdd(a) {
+  return function (b) {
+    return a + b;
+  };
+}
+curriedAdd(2)(3); // 5
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Style</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manual nested functions</td>
+<td><code>a =&gt; b =&gt; a + b</code></td>
+</tr>
+<tr>
+<td>Curry utility (generic)</td>
+<td><code>curry(fn)</code> — converts any function automatically</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const add = a =&gt; b =&gt; c =&gt; a + b + c;
+console.log(add(1)(2)(3)); // 6
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">add(1) returns a NEW function that &quot;remembers&quot; a=1 (via closure)
+    │
+(that function)(2) returns ANOTHER function remembering a=1, b=2
+    │
+(that function)(3) finally computes and returns 1+2+3 = 6
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Call curried function with first argument
+        │
+Returns a NEW function (closure over that argument)
+        │
+Call it with the next argument
+        │
+Repeat until all expected arguments are supplied
+        │
+Final function call computes and returns the result
+</code></pre>
+<h2>Internal Working</h2>
+<p>Currying relies entirely on closures — each returned function "remembers" the arguments already supplied via its lexical scope, only computing the final result once the last expected argument arrives.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">function multiply(a) {
+  return function (b) {
+    return a * b;
+  };
+}
+const double = multiply(2);
+console.log(double(5)); // 10
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Arrow function shorthand version
+const multiplyArrow = a =&gt; b =&gt; a * b;
+const triple = multiplyArrow(3);
+console.log(triple(4)); // 12
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// A generic curry() utility that curries ANY function automatically
+function curry(fn) {
+  return function curried(...args) {
+    if (args.length &gt;= fn.length) {
+      return fn.apply(this, args);
+    }
+    return (...moreArgs) =&gt; curried(...args, ...moreArgs);
+  };
+}
+function sum3(a, b, c) { return a + b + c; }
+const curriedSum = curry(sum3);
+console.log(curriedSum(1)(2)(3));   // 6
+console.log(curriedSum(1, 2)(3));   // 6
+console.log(curriedSum(1, 2, 3));   // 6
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Creating specialized, reusable validators via partial application
+const isType = type =&gt; value =&gt; typeof value === type;
+const isString = isType(&quot;string&quot;);
+const isNumber = isType(&quot;number&quot;);
+console.log(isString(&quot;hi&quot;)); // true
+console.log(isNumber(5));     // true
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Libraries like Lodash provide _.curry() to convert any function
+// into a curried version, widely used in functional-style codebases
+// and Redux middleware/selector composition.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#currying">interview.md</a>
+1. What is currying, in your own words?
+2. How does currying relate to closures?
+3. What is "partial application," and how does it differ conceptually from full currying?
+4. Write (verbally describe) a generic <code>curry()</code> utility function's logic.
+5. Give a practical use case for currying in real application code.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#currying">mcq.md</a>
+1. <code>const add = a =&gt; b =&gt; a + b; add(2)(3)</code> evaluates to: (a) <code>a=&gt;b=&gt;a+b</code> (b) <strong>5</strong> (c) undefined (d) an error → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#currying">practice.md</a>
+1. <strong>(Easy)</strong> Write a curried <code>multiply(a)(b)</code> function.
+2. <strong>(Medium)</strong> Write a curried 3-argument function <code>volume(l)(w)(h)</code> computing volume.
+3. <strong>(Hard)</strong> Implement a generic <code>curry(fn)</code> utility that works for any function regardless of its argument count.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Convert a normal 3-argument function into a manually curried version.</li>
+<li>[ ] Explain, with an example, how currying enables creating specialized reusable functions (partial application).</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Validator Factory" using currying: a generic <code>isType(type)</code> curried function used to derive <code>isString</code>, <code>isNumber</code>, and <code>isBoolean</code> validators.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Confusing currying (returning single-argument function chains) with simple multi-argument functions.</li>
+<li>Writing a generic <code>curry()</code> utility that doesn't correctly handle functions accepting extra arguments in one call (<code>curriedSum(1, 2)(3)</code>).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use currying deliberately for genuine partial-application benefits, not just for its own sake — plain functions are often clearer for simple cases.</li>
+<li>Consider a well-tested generic <code>curry()</code> utility (or a library's) rather than hand-rolling one repeatedly.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Currying creates additional closures/function objects per call — for extremely hot code paths, a plain multi-argument function call may be marginally faster.</li>
+</ul>
+<h2>Summary</h2>
+<p>Currying transforms a multi-argument function into a chain of single-argument functions using closures, enabling powerful partial-application patterns for building specialized, reusable functions.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#currying">cheat-sheet.md</a></p>
+<hr />
+<p><a href="closure.html">← Closure</a> | <a href="README.html">Section Home</a> | <a href="memoization.html">Memoization →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
