@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Callback · Functions · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Functions</div>
+    <ul class="nav-list">
+      <li><a href="functions.html" class="">Functions</a></li>
+<li><a href="arrow-function.html" class="">Arrow Function</a></li>
+<li><a href="callback.html" class="active">Callback</a></li>
+<li><a href="closure.html" class="">Closure</a></li>
+<li><a href="currying.html" class="">Currying</a></li>
+<li><a href="memoization.html" class="">Memoization</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Functions</a> / <span>Callback</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Callback</h1>
+<blockquote>
+<p>Section: Functions · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>A callback is a function passed as an argument to another function, to be invoked (called back) at a later point — often after an operation completes or an event occurs.</p>
+<h2>History</h2>
+<p>Callbacks have existed since JavaScript's creation in 1995 as the original mechanism for async and event-driven code, later supplemented (not replaced) by Promises (ES2015) and async/await (ES2017).</p>
+<h2>Why Callbacks Matter</h2>
+<p>They're the foundational pattern underlying event handling, array iteration methods, and (historically) async operations — understanding them is a prerequisite to understanding Promises.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">function doSomething(callback) {
+  // ... some work ...
+  callback();
+}
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Synchronous callback</td>
+<td><code>[1,2,3].map(n =&gt; n*2)</code></td>
+</tr>
+<tr>
+<td>Asynchronous callback</td>
+<td><code>setTimeout(() =&gt; {}, 1000)</code></td>
+</tr>
+<tr>
+<td>Error-first callback (Node convention)</td>
+<td><code>fs.readFile(path, (err, data) =&gt; {})</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">function greet(name, callback) {
+  const message = `Hello, ${name}`;
+  callback(message);
+}
+greet(&quot;Shubham&quot;, (msg) =&gt; console.log(msg)); // &quot;Hello, Shubham&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">doSomething(callback)
+        │
+Function stored as a value, passed just like any other argument
+        │
+Invoked later — possibly synchronously (immediately) or
+asynchronously (after a timer/IO event completes)
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Call outer function, passing a callback
+        │
+Outer function does its work
+        │
+Work complete (sync) OR async event fires (timer, IO, network)
+        │
+Callback function is invoked with relevant result/error
+</code></pre>
+<h2>Internal Working</h2>
+<p>A callback is simply a regular function reference stored and invoked later by the receiving function — for async callbacks (like <code>setTimeout</code>), the callback is registered with the runtime's Web API/Node API, and only pushed onto the call stack once the corresponding async event fires and the call stack is empty.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">function processUserInput(callback) {
+  const name = &quot;Shubham&quot;;
+  callback(name);
+}
+processUserInput(name =&gt; console.log(`Hi, ${name}`));
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Error-first callback convention (common in Node.js)
+function readConfig(callback) {
+  const success = true;
+  if (success) callback(null, { debug: true });
+  else callback(new Error(&quot;Failed to read config&quot;));
+}
+readConfig((err, config) =&gt; {
+  if (err) return console.error(err.message);
+  console.log(config);
+});
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Callback hell — deeply nested async callbacks (the problem Promises later solved)
+getUser(1, (user) =&gt; {
+  getPosts(user.id, (posts) =&gt; {
+    getComments(posts[0].id, (comments) =&gt; {
+      console.log(comments); // 3 levels deep, hard to read/maintain
+    });
+  });
+});
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Array methods use synchronous callbacks extensively
+const total = [10, 20, 30].reduce((sum, n) =&gt; sum + n, 0);
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Express.js middleware chains are built entirely from callbacks
+app.use((req, res, next) =&gt; {
+  console.log(&quot;Request received&quot;);
+  next(); // calls the next middleware callback in the chain
+});
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#callback">interview.md</a>
+1. What is a callback function, in your own words?
+2. What's the difference between a synchronous and asynchronous callback?
+3. What is the "error-first callback" convention, and where does it come from?
+4. What is "callback hell," and what later features helped address it?
+5. Give an example of a built-in JS method that takes a callback.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#callback">mcq.md</a>
+1. Which of these uses a callback? (a) <code>let x = 5;</code> (b) <strong><code>arr.map(fn)</code></strong> (c) <code>const y = "hi";</code> (d) <code>if (x) {}</code> → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#callback">practice.md</a>
+1. <strong>(Easy)</strong> Write a function that takes a callback and calls it with a greeting message.
+2. <strong>(Medium)</strong> Write a function using the error-first callback convention to simulate a data-fetch that might fail.
+3. <strong>(Hard)</strong> Write 3 levels of nested callbacks simulating "callback hell," then note (in comments) how Promises would flatten it.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Write your own version of <code>Array.prototype.map</code> using a callback parameter.</li>
+<li>[ ] Explain, with an example, why deeply nested callbacks become hard to maintain.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple simulated "API client" using error-first callbacks for a <code>fetchUser</code>, <code>fetchPosts</code>, and <code>fetchComments</code> chain — then note where Promises would improve the code.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting to call the callback at all, silently breaking the flow.</li>
+<li>Calling the callback multiple times unintentionally.</li>
+<li>Not handling the "error" argument in error-first callbacks.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Follow the error-first convention (<code>callback(err, data)</code>) for consistency in Node-style async code.</li>
+<li>Prefer Promises/async-await over deeply nested callbacks for anything beyond 1-2 levels of async chaining.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Avoid creating new callback function instances unnecessarily inside hot loops/render cycles — reuse stable references where possible.</li>
+</ul>
+<h2>Summary</h2>
+<p>Callbacks are functions passed to be invoked later, forming the foundation of JS's event-driven and array-iteration patterns — while still essential to understand, deeply nested async callbacks ("callback hell") are the exact problem Promises and async/await were designed to solve.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#callback">cheat-sheet.md</a></p>
+<hr />
+<p><a href="arrow-function.html">← Arrow Function</a> | <a href="README.html">Section Home</a> | <a href="closure.html">Closure →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
