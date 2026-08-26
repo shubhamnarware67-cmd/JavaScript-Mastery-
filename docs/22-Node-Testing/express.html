@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Express · Node.js & Testing · JavaScript Mastery</title>
+<meta name="description" content="Express — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Node.js & Testing</div>
+    <ul class="nav-list">
+      <li><a href="nodejs.html" class="">Nodejs</a></li>
+<li><a href="express.html" class="active">Express</a></li>
+<li><a href="testing.html" class="">Testing</a></li>
+<li><a href="jest.html" class="">Jest</a></li>
+<li><a href="chrome-devtools.html" class="">Chrome Devtools</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Node.js & Testing</a> / <span>Express</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Express</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Express is a minimal, unopinionated web framework for Node.js that simplifies building HTTP servers and APIs through routing and middleware.</p>
+
+      <h2>Why Express Matters</h2>
+      <p>It removes the boilerplate of Node's raw <code>http</code> module — routing and body parsing become simple, declarative code.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">const express = require("express");
+const app = express();
+app.get("/users", (req, res) => res.json({ users: [] }));
+app.listen(3000);</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">const router = express.Router();
+router.get("/:id", (req, res) => res.json({ id: req.params.id }));
+app.use("/users", router);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  res.status(500).json({ error: err.message });
+});</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Incoming Request
+     │
+Middleware 1 (logging) ──► calls next()
+     │
+Middleware 2 (auth check) ──► calls next()
+     │
+Matching Route Handler ──► sends response
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Express processes requests through a <strong>middleware pipeline</strong> — each function receives <code>(req, res, next)</code> and must call <code>next()</code>.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Forgetting to call <code>next()</code>, causing requests to hang.</li>
+        <li>Placing route handlers before required middleware like <code>express.json()</code>.</li>
+        <li>Not centralizing error handling.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Express simplifies building Node.js servers through a middleware pipeline and declarative routing.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
