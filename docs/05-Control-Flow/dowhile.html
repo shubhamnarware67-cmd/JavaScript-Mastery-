@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do While · Control Flow · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Control Flow</div>
+    <ul class="nav-list">
+      <li><a href="if.html" class="">If</a></li>
+<li><a href="switch.html" class="">Switch</a></li>
+<li><a href="loops.html" class="">Loops</a></li>
+<li><a href="for.html" class="">For</a></li>
+<li><a href="while.html" class="">While</a></li>
+<li><a href="dowhile.html" class="active">Do While</a></li>
+<li><a href="forof.html" class="">For Of</a></li>
+<li><a href="forin.html" class="">For In</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Control Flow</a> / <span>Do While</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Do While</h1>
+<blockquote>
+<p>Section: Control Flow · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The <code>do...while</code> loop runs its body <strong>once before</strong> checking the condition, guaranteeing at least one execution regardless of whether the condition is true or false.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995, inherited from C-like <code>do...while</code> syntax.</p>
+<h2>Why Do While Matters</h2>
+<p>It's the right tool whenever a task must happen at least once before deciding whether to repeat it — e.g. showing a menu, then asking "run again?"</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">do {
+  // body — always runs at least once
+} while (condition);
+</code></pre>
+<p>Note the required semicolon after <code>while (condition)</code>.</p>
+<h2>Types</h2>
+<p>Not applicable — single loop form.</p>
+<h2>Examples</h2>
+<pre><code class="language-js">let i = 10;
+do {
+  console.log(i);
+  i++;
+} while (i &lt; 5);
+// Logs: 10 — runs once even though the condition (10 &lt; 5) was already false!
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — control flow topic.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Run body (always, at least once)
+        │
+Check condition
+        │
+   ┌────┴────┐
+ truthy     falsy
+   │           │
+Repeat      Exit loop
+</code></pre>
+<h2>Internal Working</h2>
+<p>Unlike <code>while</code>, which checks the condition <strong>before</strong> the first iteration, <code>do...while</code> defers the check until <strong>after</strong> the body has already executed once — the difference only matters when the condition happens to be false from the start.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let num = 1;
+do {
+  console.log(num);
+  num++;
+} while (num &lt;= 5);
+// 1 2 3 4 5
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Simulating a menu that always shows at least once
+let choice;
+do {
+  choice = getUserChoice(); // hypothetical input function
+  handleChoice(choice);
+} while (choice !== &quot;exit&quot;);
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Input validation pattern — always prompt at least once, repeat until valid
+let input;
+do {
+  input = getInput();
+} while (!isValid(input));
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Rolling a die until you get a 6 — you must roll at least once
+let roll;
+do {
+  roll = Math.floor(Math.random() * 6) + 1;
+  console.log(&quot;Rolled:&quot;, roll);
+} while (roll !== 6);
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Retry logic that always attempts once before checking success
+let result;
+let attempts = 0;
+do {
+  result = attemptOperation();
+  attempts++;
+} while (!result.success &amp;&amp; attempts &lt; 3);
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#dowhile">interview.md</a>
+1. What's the fundamental difference between <code>while</code> and <code>do...while</code>?
+2. Give a real scenario where <code>do...while</code> is clearly the right choice over <code>while</code>.
+3. What happens if a <code>do...while</code> loop's condition is false from the very start?
+4. Why does <code>do...while</code> require a semicolon after the <code>while(...)</code> part?
+5. Could every <code>do...while</code> loop be rewritten as a <code>while</code> loop? How?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#dowhile">mcq.md</a>
+1. A <code>do...while</code> loop checks its condition: (a) <strong>After the body</strong> (b) Before the body (c) Never (d) Twice → <strong>Answer: (a)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#dowhile">practice.md</a>
+1. <strong>(Easy)</strong> Write a <code>do...while</code> loop that logs numbers 1 to 5.
+2. <strong>(Medium)</strong> Simulate rolling a die repeatedly until a 6 appears, using <code>do...while</code>.
+3. <strong>(Hard)</strong> Implement an input-validation loop using <code>do...while</code> that always prompts at least once and repeats until input passes validation.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Write a <code>do...while</code> example where the condition is false from the start, and confirm the body still runs once.</li>
+<li>[ ] Convert a <code>do...while</code> loop into an equivalent <code>while</code> loop (adding the necessary setup).</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple number-guessing game loop (conceptually) using <code>do...while</code> that always lets the player guess at least once before checking if they won.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting the required semicolon after <code>while (condition);</code>.</li>
+<li>Using <code>do...while</code> when <code>while</code> would be clearer, in cases where running the body zero times is actually valid/expected.</li>
+<li>Assuming <code>do...while</code> behaves identically to <code>while</code> in all cases (they differ specifically when the condition starts false).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Reserve <code>do...while</code> specifically for "must run at least once" scenarios — using it elsewhere can confuse readers expecting standard pre-condition-checked behavior.</li>
+<li>Always double-check semicolon placement to avoid syntax errors.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>No performance difference from <code>while</code> — the choice is purely about matching the loop's semantics to the task's requirements.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>do...while</code> guarantees its body executes at least once by checking the condition only after the first pass — ideal for menus, validation prompts, and "try once, then repeat if needed" patterns.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#dowhile">cheat-sheet.md</a></p>
+<hr />
+<p><a href="while.html">← While</a> | <a href="README.html">Section Home</a> | <a href="forof.html">For Of →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
