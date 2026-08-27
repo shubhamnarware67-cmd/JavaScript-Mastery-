@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For In · Control Flow · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Control Flow</div>
+    <ul class="nav-list">
+      <li><a href="if.html" class="">If</a></li>
+<li><a href="switch.html" class="">Switch</a></li>
+<li><a href="loops.html" class="">Loops</a></li>
+<li><a href="for.html" class="">For</a></li>
+<li><a href="while.html" class="">While</a></li>
+<li><a href="dowhile.html" class="">Do While</a></li>
+<li><a href="forof.html" class="">For Of</a></li>
+<li><a href="forin.html" class="active">For In</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Control Flow</a> / <span>For In</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>For In</h1>
+<blockquote>
+<p>Section: Control Flow · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>for...in</code> iterates over the <strong>enumerable property keys</strong> of an object (including inherited ones), making it suitable for plain objects but generally unsuitable for arrays.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995, predating <code>for...of</code> (ES2015) by two decades.</p>
+<h2>Why For In Matters</h2>
+<p>It's the classic way to enumerate an object's own (and inherited) property names — though modern code often prefers <code>Object.keys/values/entries</code> for more predictable, own-properties-only iteration.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">for (const key in object) {
+  // use key, or object[key]
+}
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — single loop form, but worth contrasting with modern alternatives (<code>Object.keys</code>, <code>Object.entries</code>).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">const user = { name: &quot;Shubham&quot;, age: 22 };
+for (const key in user) {
+  console.log(key, user[key]);
+}
+// &quot;name Shubham&quot;, &quot;age 22&quot;
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — control flow topic.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">for (const key in object)
+        │
+Enumerate ALL enumerable properties
+   (including inherited ones via the prototype chain)
+        │
+Assign each property NAME (string) to `key`
+        │
+Run body, repeat until no more keys remain
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>for...in</code> walks not just the object's own properties but also enumerable properties inherited via its prototype chain — this is why <code>hasOwnProperty()</code> checks are commonly added when only the object's own keys are wanted.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const car = { brand: &quot;Toyota&quot;, year: 2022 };
+for (const key in car) {
+  console.log(`${key}: ${car[key]}`);
+}
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Filtering to only the object's OWN properties
+const obj = Object.create({ inherited: true });
+obj.own = &quot;yes&quot;;
+for (const key in obj) {
+  if (Object.hasOwn(obj, key)) { // modern equivalent of obj.hasOwnProperty(key)
+    console.log(&quot;Own property:&quot;, key);
+  }
+}
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Why for...in on ARRAYS is discouraged
+const arr = [10, 20, 30];
+arr.customProp = &quot;extra&quot;;
+for (const key in arr) {
+  console.log(key); // &quot;0&quot; &quot;1&quot; &quot;2&quot; &quot;customProp&quot; — includes the non-index property too!
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Building a simple key-value summary of a config object
+const config = { debug: true, retries: 3, timeout: 5000 };
+let summary = &quot;&quot;;
+for (const key in config) {
+  summary += `${key}=${config[key]}; `;
+}
+console.log(summary);
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Legacy codebases sometimes use for...in for quick object dumps/logging,
+// though modern code favors Object.entries() + for...of or .forEach() for clarity.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#forin">interview.md</a>
+1. What does <code>for...in</code> iterate over — keys, values, or entries?
+2. Why is <code>for...in</code> discouraged for arrays?
+3. How would you restrict <code>for...in</code> to only an object's own properties?
+4. What's the modern alternative to <code>for...in</code> for plain objects, and why prefer it?
+5. Does <code>for...in</code> guarantee property order?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#forin">mcq.md</a>
+1. <code>for...in</code> iterates over: (a) Values (b) <strong>Enumerable property keys</strong> (c) Entries as pairs (d) Only array indices → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#forin">practice.md</a>
+1. <strong>(Easy)</strong> Use <code>for...in</code> to log all keys and values of a simple object.
+2. <strong>(Medium)</strong> Use <code>Object.hasOwn()</code> inside a <code>for...in</code> loop to filter out inherited properties.
+3. <strong>(Hard)</strong> Demonstrate the <code>for...in</code>-on-arrays pitfall by adding a custom property to an array and showing it leaking into the loop.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Rewrite a <code>for...in</code> loop over a plain object using <code>Object.entries()</code> + <code>for...of</code> instead.</li>
+<li>[ ] Explain, with a code example, why <code>for...in</code> is discouraged for arrays.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Object Inspector" that uses <code>for...in</code> (with an own-property check) to print a formatted list of any given object's own key-value pairs.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using <code>for...in</code> on arrays, potentially picking up unexpected non-index properties.</li>
+<li>Forgetting inherited properties can appear in <code>for...in</code>, causing unexpected extra keys.</li>
+<li>Assuming a guaranteed, consistent iteration order across all engines (mostly consistent in practice today, but not strictly guaranteed by spec for all key types).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer <code>Object.keys()</code>, <code>Object.values()</code>, or <code>Object.entries()</code> combined with <code>for...of</code>/<code>.forEach()</code> for predictable, own-properties-only iteration.</li>
+<li>Reserve <code>for...in</code> for cases where you specifically need to include inherited enumerable properties.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li><code>Object.keys/values/entries</code> create an array upfront (slight memory cost) but offer clearer, safer semantics than <code>for...in</code> for most modern use cases — a worthwhile tradeoff in the vast majority of code.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>for...in</code> enumerates an object's enumerable property keys (including inherited ones) — useful for plain objects but risky for arrays; modern code generally prefers <code>Object.keys/values/entries</code> for clearer, own-properties-only iteration.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#forin">cheat-sheet.md</a></p>
+<hr />
+<p><a href="forof.html">← For Of</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

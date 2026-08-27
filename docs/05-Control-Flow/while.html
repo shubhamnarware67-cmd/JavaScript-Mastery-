@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>While · Control Flow · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Control Flow</div>
+    <ul class="nav-list">
+      <li><a href="if.html" class="">If</a></li>
+<li><a href="switch.html" class="">Switch</a></li>
+<li><a href="loops.html" class="">Loops</a></li>
+<li><a href="for.html" class="">For</a></li>
+<li><a href="while.html" class="active">While</a></li>
+<li><a href="dowhile.html" class="">Do While</a></li>
+<li><a href="forof.html" class="">For Of</a></li>
+<li><a href="forin.html" class="">For In</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Control Flow</a> / <span>While</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>While</h1>
+<blockquote>
+<p>Section: Control Flow · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The <code>while</code> loop repeats a block as long as a condition remains truthy, checking the condition <strong>before</strong> each iteration — ideal when the number of iterations isn't known in advance.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995, inherited from C-like <code>while</code> loop syntax.</p>
+<h2>Why While Matters</h2>
+<p>Many real tasks (waiting for a condition to become true, processing until a queue is empty) don't have a fixed iteration count — <code>while</code> fits these naturally.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">while (condition) {
+  // body — runs repeatedly while condition is truthy
+}
+</code></pre>
+<h2>Types</h2>
+<p>Not applicable — single loop form (contrast with <code>do...while</code>, which checks the condition after the body).</p>
+<h2>Examples</h2>
+<pre><code class="language-js">let i = 0;
+while (i &lt; 5) {
+  console.log(i);
+  i++;
+}
+// 0 1 2 3 4
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — control flow topic.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Check condition
+        │
+   ┌────┴────┐
+ truthy     falsy
+   │           │
+Run body    Exit loop
+   │
+Back to condition check
+</code></pre>
+<h2>Internal Working</h2>
+<p>The condition is evaluated <strong>before</strong> the first (and every subsequent) execution of the body — if it's falsy from the very start, the body never runs even once, unlike <code>do...while</code>.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let count = 3;
+while (count &gt; 0) {
+  console.log(count);
+  count--;
+}
+// 3 2 1
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Processing a queue until empty
+const queue = [&quot;task1&quot;, &quot;task2&quot;, &quot;task3&quot;];
+while (queue.length &gt; 0) {
+  const task = queue.shift();
+  console.log(&quot;Processing:&quot;, task);
+}
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Polling pattern — retry until a condition is met or attempts run out
+let attempts = 0;
+let dataReady = false;
+while (!dataReady &amp;&amp; attempts &lt; 5) {
+  dataReady = checkIfDataReady(); // hypothetical check
+  attempts++;
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Reading input until a sentinel value is entered (conceptual/CLI context)
+let input = getNextInput();
+while (input !== &quot;quit&quot;) {
+  process(input);
+  input = getNextInput();
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Game loops (conceptually) run while a &quot;game is active&quot; flag remains true
+let isRunning = true;
+while (isRunning) {
+  updateGameState();
+  isRunning = checkGameOverCondition();
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#while">interview.md</a>
+1. When would you choose <code>while</code> over <code>for</code>?
+2. What happens if a <code>while</code> loop's condition is falsy on the very first check?
+3. How can a <code>while</code> loop accidentally become infinite, and how do you prevent it?
+4. Give an example of a real task better suited to <code>while</code> than <code>for</code>.
+5. What's the difference in condition-check timing between <code>while</code> and <code>do...while</code>?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#while">mcq.md</a>
+1. A <code>while</code> loop checks its condition: (a) After the body (b) <strong>Before the body</strong> (c) Never (d) Only once → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#while">practice.md</a>
+1. <strong>(Easy)</strong> Write a <code>while</code> loop counting down from 10 to 1.
+2. <strong>(Medium)</strong> Process a queue (array) using <code>while</code> and <code>.shift()</code> until it's empty.
+3. <strong>(Hard)</strong> Implement a retry-with-backoff pattern using <code>while</code>, capped at a maximum number of attempts.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Convert a <code>for</code> loop into an equivalent <code>while</code> loop and explain the tradeoffs.</li>
+<li>[ ] Write a short explanation of how to safely prevent infinite <code>while</code> loops.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple "Countdown Timer" (conceptually, using <code>while</code> and a decrementing counter) that logs each second remaining until zero.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting to update the condition variable inside the loop body, causing an infinite loop.</li>
+<li>Using <code>while</code> when the iteration count is actually known in advance (where <code>for</code> would be clearer).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Always ensure something inside the loop body will eventually make the condition false.</li>
+<li>Add a maximum iteration/attempt safeguard for polling/retry-style <code>while</code> loops to avoid true infinite loops in production.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>For tight polling loops, add a delay (e.g. via <code>setTimeout</code> in async contexts) rather than tight-looping synchronously, which would otherwise block the single JS thread.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>while</code> repeats a block based purely on a condition checked before each iteration — ideal for condition-driven tasks with an unknown iteration count, but requires care to avoid accidental infinite loops.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#while">cheat-sheet.md</a></p>
+<hr />
+<p><a href="for.html">← For</a> | <a href="README.html">Section Home</a> | <a href="dowhile.html">Do While →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
