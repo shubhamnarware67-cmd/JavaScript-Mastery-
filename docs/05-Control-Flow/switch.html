@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Switch · Control Flow · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Control Flow</div>
+    <ul class="nav-list">
+      <li><a href="if.html" class="">If</a></li>
+<li><a href="switch.html" class="active">Switch</a></li>
+<li><a href="loops.html" class="">Loops</a></li>
+<li><a href="for.html" class="">For</a></li>
+<li><a href="while.html" class="">While</a></li>
+<li><a href="dowhile.html" class="">Do While</a></li>
+<li><a href="forof.html" class="">For Of</a></li>
+<li><a href="forin.html" class="">For In</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Control Flow</a> / <span>Switch</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Switch</h1>
+<blockquote>
+<p>Section: Control Flow · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p><code>switch</code> compares an expression against multiple <code>case</code> values using strict equality, executing the matching case's code (and, without <code>break</code>, all subsequent cases too).</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995, inherited from C-like switch syntax.</p>
+<h2>Why Switch Matters</h2>
+<p>It's often clearer than a long <code>if/else if</code> chain when comparing one value against many discrete possibilities.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">switch (expression) {
+  case value1:
+    // code
+    break;
+  case value2:
+    // code
+    break;
+  default:
+    // code
+}
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard <code>switch</code> with <code>break</code></td>
+<td>Each case runs independently</td>
+</tr>
+<tr>
+<td><code>switch</code> without <code>break</code> (fall-through)</td>
+<td>Execution continues into the next case</td>
+</tr>
+<tr>
+<td>Grouped cases</td>
+<td>Multiple <code>case</code> labels sharing one block</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">let day = 3;
+switch (day) {
+  case 1: console.log(&quot;Monday&quot;); break;
+  case 2: console.log(&quot;Tuesday&quot;); break;
+  case 3: console.log(&quot;Wednesday&quot;); break;
+  default: console.log(&quot;Invalid day&quot;);
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — control flow topic.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">switch (day)
+    │
+day === 1? ──Yes──► &quot;Monday&quot; ──► break
+    │No
+day === 2? ──Yes──► &quot;Tuesday&quot; ──► break
+    │No
+day === 3? ──Yes──► &quot;Wednesday&quot; ──► break
+    │No
+default ──► &quot;Invalid day&quot;
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>switch</code> compares the expression to each <code>case</code> value using <strong>strict equality (<code>===</code>)</strong> — no type coercion occurs, unlike some loosely-typed comparisons elsewhere in JS.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let fruit = &quot;apple&quot;;
+switch (fruit) {
+  case &quot;apple&quot;: console.log(&quot;Red fruit&quot;); break;
+  case &quot;banana&quot;: console.log(&quot;Yellow fruit&quot;); break;
+  default: console.log(&quot;Unknown fruit&quot;);
+}
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Grouped cases sharing one block (fall-through intentionally used)
+let month = 4;
+switch (month) {
+  case 12: case 1: case 2:
+    console.log(&quot;Winter&quot;); break;
+  case 3: case 4: case 5:
+    console.log(&quot;Spring&quot;); break;
+  default:
+    console.log(&quot;Other season&quot;);
+}
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Forgetting `break` causes accidental fall-through (a classic bug)
+let grade = &quot;B&quot;;
+switch (grade) {
+  case &quot;A&quot;:
+    console.log(&quot;Excellent&quot;);
+  case &quot;B&quot;:
+    console.log(&quot;Good&quot;); // runs
+  case &quot;C&quot;:
+    console.log(&quot;Average&quot;); // ALSO runs — no break above stopped it!
+    break;
+  default:
+    console.log(&quot;Unknown&quot;);
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// HTTP status code handling
+function getStatusMessage(code) {
+  switch (code) {
+    case 200: return &quot;OK&quot;;
+    case 404: return &quot;Not Found&quot;;
+    case 500: return &quot;Server Error&quot;;
+    default: return &quot;Unknown Status&quot;;
+  }
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Redux reducers historically used switch statements to handle action types
+function reducer(state, action) {
+  switch (action.type) {
+    case &quot;INCREMENT&quot;: return { count: state.count + 1 };
+    case &quot;DECREMENT&quot;: return { count: state.count - 1 };
+    default: return state;
+  }
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#switch">interview.md</a>
+1. What comparison type does <code>switch</code> use (loose or strict)?
+2. What happens if you forget <code>break</code> in a case block?
+3. What is "case grouping" and when is it useful?
+4. Where should <code>default</code> be placed, and does its position matter?
+5. When would <code>if/else if</code> be preferred over <code>switch</code>?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#switch">mcq.md</a>
+1. <code>switch</code> compares values using: (a) <code>==</code> (b) <strong><code>===</code></strong> (c) <code>Object.is</code> (d) No comparison → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#switch">practice.md</a>
+1. <strong>(Easy)</strong> Write a <code>switch</code> mapping day numbers 1-7 to day names.
+2. <strong>(Medium)</strong> Use grouped cases to map 12 months into 4 seasons.
+3. <strong>(Hard)</strong> Intentionally demonstrate a fall-through bug (missing <code>break</code>), then fix it.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Convert an <code>if/else if</code> chain with 5 branches into an equivalent <code>switch</code>.</li>
+<li>[ ] Explain, with an example, when fall-through is used intentionally vs accidentally.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple "HTTP Status Explainer" using <code>switch</code> that maps common status codes (200, 301, 404, 500) to human-readable messages.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting <code>break</code>, causing unintended fall-through execution.</li>
+<li>Using <code>switch</code> for range-based conditions (like <code>&gt; 90</code>), which it doesn't support directly — <code>if/else if</code> is better there.</li>
+<li>Assuming <code>switch</code> uses loose equality like <code>==</code>.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Always include <code>break</code> unless fall-through is intentional and clearly commented.</li>
+<li>Always include a <code>default</code> case to handle unexpected values.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Some engines can optimize large <code>switch</code> statements (via jump tables) better than an equivalent long <code>if/else if</code> chain — a minor factor, not typically the deciding reason to choose one over the other.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>switch</code> compares an expression against multiple values using strict equality, executing matching cases — remember <code>break</code> to avoid fall-through, and prefer <code>if/else if</code> for range-based conditions that <code>switch</code> can't express directly.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#switch">cheat-sheet.md</a></p>
+<hr />
+<p><a href="if.html">← If</a> | <a href="README.html">Section Home</a> | <a href="loops.html">Loops →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
