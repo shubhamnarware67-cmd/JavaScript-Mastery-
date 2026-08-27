@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>If · Control Flow · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Control Flow</div>
+    <ul class="nav-list">
+      <li><a href="if.html" class="active">If</a></li>
+<li><a href="switch.html" class="">Switch</a></li>
+<li><a href="loops.html" class="">Loops</a></li>
+<li><a href="for.html" class="">For</a></li>
+<li><a href="while.html" class="">While</a></li>
+<li><a href="dowhile.html" class="">Do While</a></li>
+<li><a href="forof.html" class="">For Of</a></li>
+<li><a href="forin.html" class="">For In</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Control Flow</a> / <span>If</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>If</h1>
+<blockquote>
+<p>Section: Control Flow · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The <code>if</code> statement executes a block of code only when a specified condition evaluates to truthy, optionally paired with <code>else if</code>/<code>else</code> for alternative branches.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995, inherited from C-like conditional syntax.</p>
+<h2>Why If Matters</h2>
+<p>It's the most fundamental way programs make decisions — nearly every non-trivial script uses conditional branching.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">if (condition) {
+  // runs if condition is truthy
+} else if (otherCondition) {
+  // runs if otherCondition is truthy
+} else {
+  // runs if none matched
+}
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>if</code> alone</td>
+<td>Single conditional action</td>
+</tr>
+<tr>
+<td><code>if...else</code></td>
+<td>Two mutually exclusive branches</td>
+</tr>
+<tr>
+<td><code>if...else if...else</code></td>
+<td>Multiple ordered conditions</td>
+</tr>
+<tr>
+<td>Nested <code>if</code></td>
+<td>Conditions depending on other conditions</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">let marks = 75;
+if (marks &gt;= 90) {
+  console.log(&quot;Grade A&quot;);
+} else if (marks &gt;= 60) {
+  console.log(&quot;Grade B&quot;);
+} else {
+  console.log(&quot;Grade C&quot;);
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — control flow topic, not a memory-layout concept.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">        ┌─────────────┐
+        │ marks &gt;= 90 │── true ──► Grade A
+        └──────┬──────┘
+              false
+               ▼
+        ┌─────────────┐
+        │ marks &gt;= 60 │── true ──► Grade B
+        └──────┬──────┘
+              false
+               ▼
+            Grade C
+</code></pre>
+<h2>Internal Working</h2>
+<p>The engine evaluates the condition expression to a boolean (coercing if needed via ToBoolean rules), then executes only the matching block; conditions are checked top-to-bottom, and the first truthy one wins — later <code>else if</code>s are never evaluated.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">let age = 20;
+if (age &gt;= 18) {
+  console.log(&quot;You can vote.&quot;);
+}
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">function categorize(temp) {
+  if (temp &lt; 0) return &quot;Freezing&quot;;
+  else if (temp &lt; 15) return &quot;Cold&quot;;
+  else if (temp &lt; 25) return &quot;Mild&quot;;
+  else return &quot;Hot&quot;;
+}
+console.log(categorize(20)); // &quot;Mild&quot;
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Guard clauses instead of deep nesting — a common best practice
+function processOrder(order) {
+  if (!order) return &quot;No order provided&quot;;
+  if (!order.items.length) return &quot;Order is empty&quot;;
+  if (order.total &lt;= 0) return &quot;Invalid total&quot;;
+  return &quot;Processing order...&quot;;
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Form validation using sequential if checks
+function validate(form) {
+  if (!form.email.includes(&quot;@&quot;)) return &quot;Invalid email&quot;;
+  if (form.password.length &lt; 8) return &quot;Password too short&quot;;
+  return &quot;Valid&quot;;
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Feature flag gating in production code
+if (featureFlags.newCheckout) {
+  renderNewCheckout();
+} else {
+  renderLegacyCheckout();
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#if">interview.md</a>
+1. What's the difference between <code>if...else if</code> and multiple separate <code>if</code> statements?
+2. What is a "guard clause" and why is it preferred over deep nesting?
+3. How does JS coerce a non-boolean condition in an <code>if</code> statement?
+4. Why might excessive nested <code>if</code>s hurt code readability/maintainability?
+5. Can <code>if</code> be used without curly braces? What's the risk of doing so?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#if">mcq.md</a>
+1. In an <code>if...else if...else</code> chain, how many blocks can execute? (a) All matching ones (b) <strong>Only the first matching one</strong> (c) None (d) The last one → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#if">practice.md</a>
+1. <strong>(Easy)</strong> Write an <code>if/else</code> that logs "Even" or "Odd" for a number.
+2. <strong>(Medium)</strong> Write a grading function using <code>if/else if/else</code> for 4 grade bands.
+3. <strong>(Hard)</strong> Refactor a deeply nested <code>if</code> pyramid into guard clauses, preserving identical behavior.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Convert 3 separate independent <code>if</code> statements into an <code>if/else if/else</code> chain and explain the behavior difference.</li>
+<li>[ ] Rewrite a nested <code>if</code> function using guard clauses.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple traffic-light state describer: given a color string, use <code>if/else if/else</code> to log the correct action ("Stop", "Get Ready", "Go").</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting curly braces on multi-line blocks, leading to only the first line being conditional.</li>
+<li>Using multiple independent <code>if</code>s when <code>else if</code> was intended, causing unintended blocks to run together.</li>
+<li>Deep nesting instead of guard clauses, hurting readability.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer guard clauses (early returns) over deeply nested conditionals.</li>
+<li>Always use curly braces, even for single-line bodies, for clarity and to avoid bugs when editing later.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Order <code>else if</code> conditions from most likely to least likely to marginally reduce average comparisons made.</li>
+</ul>
+<h2>Summary</h2>
+<p><code>if</code>/<code>else if</code>/<code>else</code> is JavaScript's core conditional branching construct — evaluated top-to-bottom with only the first matching branch executing; guard clauses are a key technique for keeping conditional logic readable.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#if">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="switch.html">Switch →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
