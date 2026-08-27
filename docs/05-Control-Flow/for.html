@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For · Control Flow · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Control Flow</div>
+    <ul class="nav-list">
+      <li><a href="if.html" class="">If</a></li>
+<li><a href="switch.html" class="">Switch</a></li>
+<li><a href="loops.html" class="">Loops</a></li>
+<li><a href="for.html" class="active">For</a></li>
+<li><a href="while.html" class="">While</a></li>
+<li><a href="dowhile.html" class="">Do While</a></li>
+<li><a href="forof.html" class="">For Of</a></li>
+<li><a href="forin.html" class="">For In</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">Control Flow</a> / <span>For</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>For</h1>
+<blockquote>
+<p>Section: Control Flow · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The <code>for</code> loop repeats a block a specific number of times, defined by an initializer, a condition, and an increment/decrement expression, all in one line.</p>
+<h2>History</h2>
+<p>Present since JavaScript's creation in 1995, inherited from C-like <code>for</code> loop syntax.</p>
+<h2>Why For Matters</h2>
+<p>It's the most explicit loop form for "repeat N times" tasks, keeping the counter's setup, condition, and update all visible together.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">for (initializer; condition; update) {
+  // body
+}
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard ascending</td>
+<td><code>for (let i=0; i&lt;n; i++)</code></td>
+</tr>
+<tr>
+<td>Descending</td>
+<td><code>for (let i=n; i&gt;0; i--)</code></td>
+</tr>
+<tr>
+<td>Custom step</td>
+<td><code>for (let i=0; i&lt;n; i+=2)</code></td>
+</tr>
+<tr>
+<td>Multiple variables</td>
+<td><code>for (let i=0, j=n; i&lt;j; i++, j--)</code></td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">for (let i = 0; i &lt; 5; i++) {
+  console.log(i); // 0 1 2 3 4
+}
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">Each iteration with `let i` creates a FRESH binding of i
+in that iteration's block scope (important for closures in callbacks)
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Run initializer once (let i = 0)
+        │
+Check condition (i &lt; n)? ──false──► exit loop
+        │true
+Run loop body
+        │
+Run update (i++)
+        │
+Back to condition check
+</code></pre>
+<h2>Internal Working</h2>
+<p>The initializer runs exactly once before the loop starts; the condition is checked before every iteration (including the first); the update expression runs after every body execution, right before the next condition check.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">for (let i = 1; i &lt;= 5; i++) {
+  console.log(`Line ${i}`);
+}
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Iterating an array by index
+const fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;];
+for (let i = 0; i &lt; fruits.length; i++) {
+  console.log(i, fruits[i]);
+}
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Nested for loops — building a multiplication table
+for (let i = 1; i &lt;= 3; i++) {
+  for (let j = 1; j &lt;= 3; j++) {
+    console.log(`${i} x ${j} = ${i * j}`);
+  }
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Pagination: looping through pages of results
+for (let page = 1; page &lt;= totalPages; page++) {
+  fetchPage(page);
+}
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Rendering a fixed-size grid (e.g. a chessboard or game board)
+for (let row = 0; row &lt; 8; row++) {
+  for (let col = 0; col &lt; 8; col++) {
+    renderSquare(row, col);
+  }
+}
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#for">interview.md</a>
+1. What are the 3 parts of a <code>for</code> loop's header, and when does each run?
+2. Why does using <code>let</code> (not <code>var</code>) in a <code>for</code> loop matter for closures/callbacks?
+3. How would you loop backward through an array using <code>for</code>?
+4. What's a common off-by-one mistake with <code>for</code> loop conditions?
+5. When would nested <code>for</code> loops be appropriate, and what's their time complexity implication?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#for">mcq.md</a>
+1. In <code>for (let i=0; i&lt;5; i++)</code>, how many times does the body run? (a) 4 (b) <strong>5</strong> (c) 6 (d) Infinite → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#for">practice.md</a>
+1. <strong>(Easy)</strong> Write a <code>for</code> loop printing even numbers from 2 to 20.
+2. <strong>(Medium)</strong> Write nested <code>for</code> loops printing a 5x5 multiplication table.
+3. <strong>(Hard)</strong> Write a <code>for</code> loop that reverses an array in place without using <code>.reverse()</code>.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Write a <code>for</code> loop counting down from 10 to 1.</li>
+<li>[ ] Explain, with an example, why <code>let</code> (not <code>var</code>) is important in <code>for</code> loops used with <code>setTimeout</code>/closures.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a simple "Multiplication Table Generator" using nested <code>for</code> loops that prints a table for a user-specified number.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Off-by-one errors (<code>&lt;=</code> vs <code>&lt;</code>) causing one extra or missing iteration.</li>
+<li>Using <code>var</code> instead of <code>let</code>, causing all closures to share the final loop value.</li>
+<li>Forgetting to update the loop variable, causing an infinite loop.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use <code>let</code> for loop variables (not <code>var</code>) to get correct per-iteration scoping.</li>
+<li>Keep loop bodies focused; extract complex logic into a named function for readability.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>For very large arrays, a simple indexed <code>for</code> loop is often the fastest iteration method in JS engines, faster than <code>forEach</code>/<code>map</code> for pure performance-critical code.</li>
+</ul>
+<h2>Summary</h2>
+<p>The <code>for</code> loop's three-part header (initializer, condition, update) makes it ideal for counted iteration — using <code>let</code> ensures correct per-iteration scoping, which matters heavily when loops interact with closures or async callbacks.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#for">cheat-sheet.md</a></p>
+<hr />
+<p><a href="loops.html">← Loops</a> | <a href="README.html">Section Home</a> | <a href="while.html">While →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
