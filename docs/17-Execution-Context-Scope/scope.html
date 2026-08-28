@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scope · Execution Context & Scope · JavaScript Mastery</title>
+<meta name="description" content="Scope — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Execution Context & Scope</div>
+    <ul class="nav-list">
+      <li><a href="execution-context.html" class="">Execution Context</a></li>
+<li><a href="hoisting.html" class="">Hoisting</a></li>
+<li><a href="scope.html" class="active">Scope</a></li>
+<li><a href="scope-chain.html" class="">Scope Chain</a></li>
+<li><a href="garbage-collection.html" class="">Garbage Collection</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Execution Context & Scope</a> / <span>Scope</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Scope</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Scope defines the region of code where a particular variable or function is accessible.</p>
+
+      <h2>Why Scope Matters</h2>
+      <p>It prevents naming collisions, controls what parts of code can read/modify a variable, and is foundational to closures and module encapsulation.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">function outer() {
+  let x = 10; // function-scoped to outer()
+  if (true) {
+    let y = 20; // block-scoped to this if block
+  }
+  // y is not accessible here
+}</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">for (var i = 0; i < 3; i++) {}
+console.log(i); // 3 — var leaks outside the loop's block
+
+for (let j = 0; j < 3; j++) {}
+console.log(typeof j); // "undefined" — j is block-scoped</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Global Scope
+  └── Function Scope (outer)
+        └── Block Scope (if/for/while)
+              let/const invisible outside; var leaks up
+      </div>
+
+      <h2>Internal Working</h2>
+      <p><code>var</code> is function-scoped, while <code>let</code>/<code>const</code> are block-scoped — this is why a <code>var</code> inside an <code>if</code> block "leaks" outside it.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Using <code>var</code> inside loops expecting each iteration to have its own value.</li>
+        <li>Assuming block scope applies to <code>var</code> like <code>let</code>/<code>const</code>.</li>
+        <li>Creating unintentional global variables by forgetting a declaration keyword.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Scope determines where a variable is visible — <code>var</code> is function-scoped, while <code>let</code>/<code>const</code> are block-scoped, forming the basis for closures and encapsulation.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
