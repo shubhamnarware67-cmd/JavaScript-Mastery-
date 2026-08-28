@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garbage Collection · Execution Context & Scope · JavaScript Mastery</title>
+<meta name="description" content="Garbage Collection — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Execution Context & Scope</div>
+    <ul class="nav-list">
+      <li><a href="execution-context.html" class="">Execution Context</a></li>
+<li><a href="hoisting.html" class="">Hoisting</a></li>
+<li><a href="scope.html" class="">Scope</a></li>
+<li><a href="scope-chain.html" class="">Scope Chain</a></li>
+<li><a href="garbage-collection.html" class="active">Garbage Collection</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Execution Context & Scope</a> / <span>Garbage Collection</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Garbage Collection</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Garbage collection is the automatic process by which JavaScript's engine reclaims memory from objects no longer reachable from any active scope.</p>
+
+      <h2>Why Garbage Collection Matters</h2>
+      <p>It removes the burden of manual memory management, though it doesn't eliminate the possibility of memory leaks entirely.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">let obj = { data: "large payload" };
+obj = null; // removes the only reference, eligible for GC</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">function setup() {
+  const heavyObject = { /* large data */ };
+  function handler() { console.log(heavyObject); }
+  window.addEventListener("resize", handler);
+  // If never removed via removeEventListener, heavyObject leaks.
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Roots: Global Object, active Call Stack frames
+        │
+Reachable objects (kept alive)
+        │
+Unreachable objects ──► garbage collected
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Modern engines like V8 use a <strong>generational</strong> approach: most objects "die young," so a fast "minor GC" cleans young objects, while a "major GC" handles older survivors.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Assuming GC means memory leaks are impossible (still possible via lingering references).</li>
+        <li>Forgetting to remove event listeners or clear timers, keeping closures alive.</li>
+        <li>Holding references in long-lived caches without ever clearing unneeded entries.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Garbage collection automatically reclaims memory from unreachable objects using generational mark-and-sweep, but developers must still avoid patterns like forgotten event listeners that keep memory alive.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>

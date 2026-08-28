@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proxy · Advanced Object Tools · JavaScript Mastery</title>
+<meta name="description" content="Proxy — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Advanced Object Tools</div>
+    <ul class="nav-list">
+      <li><a href="weakmap.html" class="">Weakmap</a></li>
+<li><a href="weakset.html" class="">Weakset</a></li>
+<li><a href="proxy.html" class="active">Proxy</a></li>
+<li><a href="reflect.html" class="">Reflect</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Advanced Object Tools</a> / <span>Proxy</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Proxy</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p><code>Proxy</code> is an object that wraps another object (the "target") and lets you intercept and customize fundamental operations on it via configurable "traps."</p>
+
+      <h2>Why Proxy Matters</h2>
+      <p>It enables powerful patterns like validation, logging, reactive data-binding (used by Vue 3), and virtual objects.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">const proxy = new Proxy(target, handler);
+// handler = { get(target, prop) {...}, set(target, prop, value) {...} }</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">const target = { name: "Alex" };
+const handler = {
+  get(obj, prop) {
+    console.log(`Accessing ${prop}`);
+    return obj[prop];
+  },
+};
+const proxy = new Proxy(target, handler);
+proxy.name; // logs "Accessing name", returns "Alex"</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Proxy(target, handler)
+   │
+Every operation (get, set, delete) on the proxy
+   │
+Passes through the corresponding trap in handler
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Traps intercept operations at the language level; traps commonly use <code>Reflect</code> internally to perform the default operation while adding custom logic.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Forgetting <code>set</code> traps must return <code>true</code> on success.</li>
+        <li>Overusing <code>Proxy</code> for simple cases where a plain getter/setter would be clearer.</li>
+        <li>Not using <code>Reflect</code> inside traps, breaking inheritance chains.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p><code>Proxy</code> wraps a target object and lets you intercept fundamental operations via traps, enabling meta-programming patterns like validation and reactivity.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
