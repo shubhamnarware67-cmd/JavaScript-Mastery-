@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scope Chain · Execution Context & Scope · JavaScript Mastery</title>
+<meta name="description" content="Scope Chain — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Execution Context & Scope</div>
+    <ul class="nav-list">
+      <li><a href="execution-context.html" class="">Execution Context</a></li>
+<li><a href="hoisting.html" class="">Hoisting</a></li>
+<li><a href="scope.html" class="">Scope</a></li>
+<li><a href="scope-chain.html" class="active">Scope Chain</a></li>
+<li><a href="garbage-collection.html" class="">Garbage Collection</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Execution Context & Scope</a> / <span>Scope Chain</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Scope Chain</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>The scope chain is the ordered list of scopes JavaScript searches — from innermost to outermost — when resolving a variable reference.</p>
+
+      <h2>Why Scope Chain Matters</h2>
+      <p>It explains how nested functions can access variables from enclosing functions (closures), and why lookups fail only after checking every level.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">const outer = "I'm outer";
+function middle() {
+  const inner = "I'm inner";
+  function innermost() {
+    console.log(outer); // found by walking UP the scope chain
+    console.log(inner);
+  }
+  innermost();
+}</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">function makeMultiplier(factor) {
+  return function (n) {
+    return n * factor; // `factor` found via scope chain — a closure
+  };
+}
+const double = makeMultiplier(2);
+console.log(double(5)); // 10</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+innermost() scope     ──► { }
+      │ (not found, look up)
+middle() scope         ──► { inner: "I'm inner" }
+      │ (not found, look up)
+Global scope            ──► { outer: "I'm outer" }
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>The scope chain is fixed at the time a function is <strong>defined</strong> (lexical scoping), not when it's called.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Assuming scope is determined by the call site (dynamic scoping) rather than definition site.</li>
+        <li>Shadowing an outer variable and being surprised which value is used.</li>
+        <li>Not realizing closures work because of the scope chain persisting after the outer function returns.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>The scope chain is the lexical path JavaScript follows to resolve variables — searching the current scope first, then each enclosing scope — forming the mechanism behind closures.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
