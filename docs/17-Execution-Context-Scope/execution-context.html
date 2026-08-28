@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Execution Context · Execution Context & Scope · JavaScript Mastery</title>
+<meta name="description" content="Execution Context — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Execution Context & Scope</div>
+    <ul class="nav-list">
+      <li><a href="execution-context.html" class="active">Execution Context</a></li>
+<li><a href="hoisting.html" class="">Hoisting</a></li>
+<li><a href="scope.html" class="">Scope</a></li>
+<li><a href="scope-chain.html" class="">Scope Chain</a></li>
+<li><a href="garbage-collection.html" class="">Garbage Collection</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Execution Context & Scope</a> / <span>Execution Context</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Execution Context</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>An execution context is the environment in which JavaScript code is evaluated and executed — holding info about variables, arguments, <code>this</code>, and the surrounding scope.</p>
+
+      <h2>Why Execution Context Matters</h2>
+      <p>It explains why variables are or aren't accessible at certain points, how <code>this</code> gets its value, and why hoisting behaves the way it does.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">console.log(x); // undefined (hoisting within this context)
+var x = 5;</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">function regularFn() { console.log(this); }
+const arrowFn = () => console.log(this);
+
+regularFn(); // this = global object (non-strict) or undefined (strict)
+arrowFn();   // this = whatever `this` was in the enclosing scope</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Execution Context = {
+  Variable Environment: { var declarations, function declarations }
+  Lexical Environment: { let/const declarations, scope chain }
+  this binding: depends on how the function was called
+}
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Every execution context has two phases: a <strong>creation phase</strong> (hoisting, setting up <code>this</code>/scope chain) and an <strong>execution phase</strong> (code runs line by line).</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Assuming <code>let</code>/<code>const</code> are hoisted the same way as <code>var</code>.</li>
+        <li>Confusing execution context with scope — related but distinct.</li>
+        <li>Misunderstanding how <code>this</code> is determined in regular vs arrow functions.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>An execution context is JavaScript's environment for running code, created in two phases, determining variable hoisting, scope chain access, and <code>this</code>.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
