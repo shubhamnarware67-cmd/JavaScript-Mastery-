@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tree Shaking · Performance Optimization · JavaScript Mastery</title>
+<meta name="description" content="Tree Shaking — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Performance Optimization</div>
+    <ul class="nav-list">
+      <li><a href="performance.html" class="">Performance</a></li>
+<li><a href="debounce.html" class="">Debounce</a></li>
+<li><a href="throttle.html" class="">Throttle</a></li>
+<li><a href="lazy-loading.html" class="">Lazy Loading</a></li>
+<li><a href="tree-shaking.html" class="active">Tree Shaking</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Performance Optimization</a> / <span>Tree Shaking</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Tree Shaking</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Tree shaking is a build-time optimization that removes unused exports (dead code) from the final bundle, based on statically analyzing ES Module <code>import</code>/<code>export</code> statements.</p>
+
+      <h2>Why Tree Shaking Matters</h2>
+      <p>It significantly reduces final bundle size by excluding code you import a library for but never actually use.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">// utils.js
+export function used() { /* ... */ }
+export function unused() { /* ... */ }
+
+// app.js
+import { used } from "./utils.js";
+used(); // `unused` is dropped from the final bundle</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">import { debounce } from "lodash-es"; // tree-shakeable
+// vs
+import _ from "lodash"; // often pulls in the ENTIRE library</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+utils.js exports: { used, unused, alsoUnused }
+        │
+Bundler analyzes all imports across the app
+        │
+Only `used` is imported anywhere
+        │
+Final bundle: only `used`'s code is included
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Tree shaking relies on ES Modules being <strong>statically analyzable</strong> — unlike CommonJS's dynamic <code>require()</code>, a bundler can build an accurate dependency graph at build time.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Importing an entire library's default export when only a few functions are used.</li>
+        <li>Writing modules with unintended side effects, preventing safe removal.</li>
+        <li>Assuming tree shaking works with CommonJS (it generally doesn't).</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Tree shaking removes unused exported code by statically analyzing ES Module imports/exports, significantly reducing bundle size.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
