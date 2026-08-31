@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Throttle · Performance Optimization · JavaScript Mastery</title>
+<meta name="description" content="Throttle — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Performance Optimization</div>
+    <ul class="nav-list">
+      <li><a href="performance.html" class="">Performance</a></li>
+<li><a href="debounce.html" class="">Debounce</a></li>
+<li><a href="throttle.html" class="active">Throttle</a></li>
+<li><a href="lazy-loading.html" class="">Lazy Loading</a></li>
+<li><a href="tree-shaking.html" class="">Tree Shaking</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Performance Optimization</a> / <span>Throttle</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Throttle</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Throttling ensures a function executes <strong>at most once</strong> within a specified time window, regardless of how many times the triggering event fires.</p>
+
+      <h2>Why Throttle Matters</h2>
+      <p>It guarantees a function runs at a steady, predictable rate during continuous events like scrolling or mouse movement.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">function throttle(fn, limit) {
+  let inThrottle = false;
+  return (...args) => {
+    if (inThrottle) return;
+    fn(...args);
+    inThrottle = true;
+    setTimeout(() => (inThrottle = false), limit);
+  };
+}</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">const throttledScroll = throttle(() => {
+  console.log("Scroll position:", window.scrollY);
+}, 200);
+
+window.addEventListener("scroll", throttledScroll);</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Scroll event fires rapidly: |||||||||||||||||||||||||
+Throttle (200ms window):    X.......X.......X.......X
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Throttle uses a boolean flag with <code>setTimeout</code> to enforce a "cooldown" window — unlike debounce, the timer isn't reset on every call.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Using debounce when throttle is actually needed.</li>
+        <li>Setting the throttle limit too low, negating its performance benefit.</li>
+        <li>Missing the "final" event in a burst without a trailing call.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Throttle ensures a function executes at most once per fixed window — ideal for continuous events like scrolling where regular execution matters.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
