@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Localstorage · Browser Storage · JavaScript Mastery</title>
+<meta name="description" content="Localstorage — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Browser Storage</div>
+    <ul class="nav-list">
+      <li><a href="cookies.html" class="">Cookies</a></li>
+<li><a href="localstorage.html" class="active">Localstorage</a></li>
+<li><a href="sessionstorage.html" class="">Sessionstorage</a></li>
+<li><a href="indexeddb.html" class="">Indexeddb</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Browser Storage</a> / <span>Localstorage</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>LocalStorage</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p><code>localStorage</code> is a browser API that lets JavaScript store key-value string data on the user's device with <strong>no expiration</strong>, persisting even after the browser is closed and reopened.</p>
+
+      <h2>Why LocalStorage Matters</h2>
+      <p>It provides an easy, synchronous way to persist small amounts of data (like user preferences) directly in the browser, without any server round-trip.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">localStorage.setItem("key", "value");
+localStorage.getItem("key");
+localStorage.removeItem("key");
+localStorage.clear();</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">localStorage.setItem("theme", "dark");
+console.log(localStorage.getItem("theme")); // "dark"
+
+// Storing objects
+const user = { name: "Shubham", age: 25 };
+localStorage.setItem("user", JSON.stringify(user));
+const savedUser = JSON.parse(localStorage.getItem("user"));</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Origin: https://example.com
+localStorage:
+  { "theme": "dark", "lang": "en" }
+      persists across tabs, browser restarts — until explicitly cleared
+      </div>
+
+      <h2>Internal Working</h2>
+      <p><code>localStorage</code> only stores <strong>strings</strong> — storing an object requires <code>JSON.stringify()</code> first; it's also <strong>synchronous</strong>, meaning large reads/writes can briefly block the main thread.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Forgetting <code>localStorage</code> only stores strings, then storing an object directly and getting <code>"[object Object]"</code>.</li>
+        <li>Assuming <code>localStorage</code> is secure for sensitive data (it's plain text, readable via DevTools).</li>
+        <li>Not wrapping calls in <code>try...catch</code> (can throw in private browsing or when quota is exceeded).</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p><code>localStorage</code> provides simple, synchronous, string-based key-value storage that persists indefinitely per origin — ideal for small non-sensitive data, but unsuitable for large datasets or sensitive information.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
