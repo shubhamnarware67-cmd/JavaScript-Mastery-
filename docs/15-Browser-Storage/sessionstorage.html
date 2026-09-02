@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sessionstorage · Browser Storage · JavaScript Mastery</title>
+<meta name="description" content="Sessionstorage — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Browser Storage</div>
+    <ul class="nav-list">
+      <li><a href="cookies.html" class="">Cookies</a></li>
+<li><a href="localstorage.html" class="">Localstorage</a></li>
+<li><a href="sessionstorage.html" class="active">Sessionstorage</a></li>
+<li><a href="indexeddb.html" class="">Indexeddb</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Browser Storage</a> / <span>Sessionstorage</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>SessionStorage</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p><code>sessionStorage</code> is a browser API that stores key-value string data scoped to a <strong>single tab's session</strong> — cleared automatically when that tab or window is closed.</p>
+
+      <h2>Why SessionStorage Matters</h2>
+      <p>It's ideal for data that should only last as long as the current tab is open, without leaking into other tabs or persisting after the tab closes.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">sessionStorage.setItem("key", "value");
+sessionStorage.getItem("key");
+sessionStorage.removeItem("key");
+sessionStorage.clear();</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">sessionStorage.setItem("step", "2");
+console.log(sessionStorage.getItem("step")); // "2"
+
+function saveFormProgress(step, data) {
+  sessionStorage.setItem(`form-step-${step}`, JSON.stringify(data));
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Tab A: sessionStorage { step: "2" }   ← isolated to this tab
+Tab B: sessionStorage { }             ← empty, even on the same site
+Closing Tab A ──► its sessionStorage is destroyed
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Unlike <code>localStorage</code>, <code>sessionStorage</code> is scoped per <strong>browsing context</strong> (tab/window) — even two tabs open to the same URL have completely separate <code>sessionStorage</code>.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Confusing <code>sessionStorage</code>'s per-tab scope with <code>localStorage</code>'s cross-tab, cross-session scope.</li>
+        <li>Expecting data to survive across different tabs of the same site.</li>
+        <li>Not accounting for closing/reopening the browser creating a fresh, empty <code>sessionStorage</code>.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p><code>sessionStorage</code> offers the same simple API as <code>localStorage</code>, but scoped strictly to a single tab's session — ideal for short-lived, per-tab state.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
