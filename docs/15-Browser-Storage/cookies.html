@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookies · Browser Storage · JavaScript Mastery</title>
+<meta name="description" content="Cookies — JavaScript Mastery documentation by Shubham Narware">
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div>
+        <div class="brand-title">JavaScript Mastery</div>
+        <div class="brand-owner">by Shubham Narware</div>
+      </div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">Browser Storage</div>
+    <ul class="nav-list">
+      <li><a href="cookies.html" class="active">Cookies</a></li>
+<li><a href="localstorage.html" class="">Localstorage</a></li>
+<li><a href="sessionstorage.html" class="">Sessionstorage</a></li>
+<li><a href="indexeddb.html" class="">Indexeddb</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / <a href="index.html">Browser Storage</a> / <span>Cookies</span>
+      </div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Cookies</h1>
+      <p class="status-badge">✅ Complete</p>
+
+      <h2>Definition</h2>
+      <p>Cookies are small pieces of key-value data stored by the browser and automatically sent to the server with every matching HTTP request.</p>
+
+      <h2>Why Cookies Matter</h2>
+      <p>They remain the standard way to handle server-side session identification (like login sessions), since they're automatically included in every HTTP request to the matching domain.</p>
+
+      <h2>Syntax</h2>
+      <pre><code class="language-javascript">document.cookie = "username=Shubham; expires=Fri, 31 Dec 2026 23:59:59 GMT; path=/";
+console.log(document.cookie);</code></pre>
+
+      <h2>Examples</h2>
+      <pre><code class="language-javascript">function getCookie(name) {
+  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
+  return match ? match[2] : null;
+}
+
+function setCookie(name, value, days) {
+  const date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/; Secure; SameSite=Lax`;
+}</code></pre>
+
+      <h2>Diagrams</h2>
+      <div class="diagram-placeholder">
+Browser cookie jar (per domain):
+  { theme: "dark", sessionId: "abc123" }
+        │
+Automatically attached to every matching HTTP request's headers
+      </div>
+
+      <h2>Internal Working</h2>
+      <p>Cookies are limited to about <strong>4KB</strong> each and sent with <strong>every</strong> matching HTTP request; <code>HttpOnly</code> cookies can't be read via <code>document.cookie</code>, protecting them from XSS.</p>
+
+      <h2>Common Mistakes</h2>
+      <ul>
+        <li>Storing large amounts of data in cookies, unnecessarily bloating every HTTP request.</li>
+        <li>Forgetting to set the <code>path</code> attribute, scoping the cookie more narrowly than intended.</li>
+        <li>Not setting <code>Secure</code>/<code>HttpOnly</code> on sensitive cookies.</li>
+      </ul>
+
+      <h2>Summary</h2>
+      <p>Cookies are the oldest browser storage mechanism, automatically attached to every matching HTTP request, ideal for server-recognized session data but a poor choice for large client-only data.</p>
+
+      <h2>Interview · MCQ · Practice · Cheat Sheet</h2>
+      <ul>
+        <li><a href="interview.md">Interview Questions</a></li>
+        <li><a href="mcq.md">MCQs</a></li>
+        <li><a href="practice.md">Coding Practice</a></li>
+        <li><a href="cheat-sheet.md">Cheat Sheet</a></li>
+      </ul>
+
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
