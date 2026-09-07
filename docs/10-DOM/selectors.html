@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selectors · DOM Manipulation · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">DOM Manipulation</div>
+    <ul class="nav-list">
+      <li><a href="dom.html" class="">Dom</a></li>
+<li><a href="selectors.html" class="active">Selectors</a></li>
+<li><a href="traversing.html" class="">Traversing</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">DOM Manipulation</a> / <span>Selectors</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Selectors</h1>
+<blockquote>
+<p>Section: DOM Manipulation · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>DOM selectors are methods used to find and retrieve one or more elements from the page so they can be read or modified — ranging from older ID/class-specific methods to the modern, flexible <code>querySelector</code>/<code>querySelectorAll</code>.</p>
+<h2>History</h2>
+<p><code>getElementById</code>/<code>getElementsByClassName</code>/<code>getElementsByTagName</code> existed from the earliest DOM APIs; <code>querySelector</code>/<code>querySelectorAll</code> (accepting full CSS selectors) were added in the DOM Selectors API, widely supported since around 2009-2011.</p>
+<h2>Why Selectors Matter</h2>
+<p>Selecting the right element(s) is the first step of virtually every DOM manipulation task — the flexibility and correctness of your selector directly impacts code reliability.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">document.getElementById(&quot;id&quot;);
+document.getElementsByClassName(&quot;class&quot;);
+document.getElementsByTagName(&quot;tag&quot;);
+document.querySelector(&quot;.class&quot;);
+document.querySelectorAll(&quot;.class&quot;);
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Returns</th>
+<th>Live or Static?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getElementById</code></td>
+<td>Single element or <code>null</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>getElementsByClassName</code></td>
+<td>HTMLCollection</td>
+<td>Live</td>
+</tr>
+<tr>
+<td><code>getElementsByTagName</code></td>
+<td>HTMLCollection</td>
+<td>Live</td>
+</tr>
+<tr>
+<td><code>querySelector</code></td>
+<td>First matching element or <code>null</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>querySelectorAll</code></td>
+<td>NodeList</td>
+<td>Static (snapshot)</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const byId = document.getElementById(&quot;title&quot;);
+const byClass = document.querySelectorAll(&quot;.item&quot;);
+const firstMatch = document.querySelector(&quot;.item&quot;); // just the FIRST match
+</code></pre>
+<h2>Memory Diagram</h2>
+<p>Not applicable — selectors query the existing DOM tree, they don't create new memory structures themselves.</p>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Need to select element(s)?
+        │
+Need any valid CSS selector (class, attribute, nested, pseudo-class)?
+        │
+       Yes ──► use querySelector()/querySelectorAll()
+        │
+        No, just a simple id/class/tag lookup?
+        │
+       Either works — querySelector is generally preferred for consistency
+</code></pre>
+<h2>Internal Working</h2>
+<p><code>querySelectorAll()</code> returns a <strong>static</strong> NodeList — a snapshot taken at call time that won't reflect later DOM changes — while <code>getElementsByClassName</code>/<code>getElementsByTagName</code> return <strong>live</strong> HTMLCollections that automatically update as the DOM changes.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const heading = document.querySelector(&quot;h1&quot;);
+console.log(heading.textContent);
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Selecting all matching elements and looping over them
+const items = document.querySelectorAll(&quot;.todo-item&quot;);
+items.forEach(item =&gt; item.classList.add(&quot;visible&quot;));
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Demonstrating live vs static collections
+const liveCollection = document.getElementsByClassName(&quot;box&quot;);
+const staticList = document.querySelectorAll(&quot;.box&quot;);
+document.body.appendChild(document.createElement(&quot;div&quot;)); // add a new .box... hypothetically with that class
+console.log(liveCollection.length); // updates automatically if new matching elements are added
+console.log(staticList.length);      // stays fixed at the time querySelectorAll was called
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Selecting elements with complex CSS selectors, something older methods can't do directly
+const firstListItemInNav = document.querySelector(&quot;nav ul li:first-child&quot;);
+const requiredInputs = document.querySelectorAll(&quot;input[required]&quot;);
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Testing libraries and automation tools rely heavily on precise
+// CSS/attribute selectors (data-testid attributes are a common convention)
+// const submitBtn = document.querySelector('[data-testid=&quot;submit-button&quot;]');
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#selectors">interview.md</a>
+1. What's the difference between <code>querySelector</code> and <code>querySelectorAll</code>?
+2. What's the difference between a "live" and a "static" collection?
+3. Why might <code>querySelectorAll</code> be preferred over <code>getElementsByClassName</code> in modern code?
+4. Can <code>querySelector</code> accept any valid CSS selector? Give an example of a complex one.
+5. What does <code>querySelector</code> return if no element matches?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#selectors">mcq.md</a>
+1. <code>querySelectorAll</code> returns a: (a) Live HTMLCollection (b) <strong>Static NodeList</strong> (c) Single element (d) String → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#selectors">practice.md</a>
+1. <strong>(Easy)</strong> Select an element by class and log its text content.
+2. <strong>(Medium)</strong> Select all elements with a <code>data-active</code> attribute and add a class to each.
+3. <strong>(Hard)</strong> Demonstrate the difference between a live <code>HTMLCollection</code> and a static <code>NodeList</code> by adding a new matching element after the initial selection.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] List all 5 major selector methods and explain when to use each.</li>
+<li>[ ] Write 3 different <code>querySelector</code> calls using complex CSS selectors (attribute, pseudo-class, descendant combinator).</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Element Highlighter" tool: given a CSS selector input, highlight all matching elements on a sample page using <code>querySelectorAll</code>.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Forgetting <code>querySelector</code> only returns the FIRST match, not all matches (use <code>querySelectorAll</code> for that).</li>
+<li>Assuming <code>querySelectorAll</code>'s NodeList updates automatically like a live HTMLCollection (it doesn't).</li>
+<li>Using overly broad selectors that unintentionally match unrelated elements.</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Prefer <code>querySelector</code>/<code>querySelectorAll</code> for their flexibility and consistency with CSS selector syntax.</li>
+<li>Use specific, purpose-built attributes (like <code>data-testid</code>) for selectors used in automated testing, decoupled from styling classes.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Cache selector results in a variable when reused multiple times, rather than re-querying the DOM repeatedly for the same elements.</li>
+</ul>
+<h2>Summary</h2>
+<p>DOM selectors locate elements for reading or modification — modern code generally prefers <code>querySelector</code>/<code>querySelectorAll</code> for their full CSS selector support, while understanding the live-vs-static distinction from older methods remains useful for reading legacy code.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#selectors">cheat-sheet.md</a></p>
+<hr />
+<p><a href="dom.html">← Dom</a> | <a href="README.html">Section Home</a> | <a href="traversing.html">Traversing →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
