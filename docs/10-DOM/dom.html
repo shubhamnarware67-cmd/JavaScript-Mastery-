@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dom · DOM Manipulation · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">DOM Manipulation</div>
+    <ul class="nav-list">
+      <li><a href="dom.html" class="active">Dom</a></li>
+<li><a href="selectors.html" class="">Selectors</a></li>
+<li><a href="traversing.html" class="">Traversing</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">DOM Manipulation</a> / <span>Dom</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Dom</h1>
+<blockquote>
+<p>Section: DOM Manipulation · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>The Document Object Model (DOM) is a tree-structured, in-memory representation of an HTML page that JavaScript can read and modify to change what's displayed live in the browser.</p>
+<h2>History</h2>
+<p>The DOM has existed since early browsers (mid-1990s), standardized progressively by the W3C/WHATWG — modern DOM APIs (<code>querySelector</code>, <code>classList</code>) were added mainly in the mid-2000s to 2010s to replace older, clunkier methods.</p>
+<h2>Why DOM Matters</h2>
+<p>It's the bridge between JavaScript and what the user actually sees — nearly all interactive web behavior involves reading or modifying the DOM in some way.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">document.getElementById(&quot;id&quot;);
+document.querySelector(&quot;.class&quot;);
+element.textContent = &quot;New text&quot;;
+</code></pre>
+<h2>Types (DOM node types, simplified)</h2>
+<table>
+<thead>
+<tr>
+<th>Node Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Document</td>
+<td><code>document</code> itself</td>
+</tr>
+<tr>
+<td>Element</td>
+<td><code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;button&gt;</code></td>
+</tr>
+<tr>
+<td>Text</td>
+<td>The text content inside an element</td>
+</tr>
+<tr>
+<td>Attribute</td>
+<td><code>id</code>, <code>class</code>, <code>href</code> on an element</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const title = document.querySelector(&quot;#title&quot;);
+title.textContent = &quot;Updated Heading&quot;;
+title.style.color = &quot;blue&quot;;
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">              document
+                  │
+               &lt;html&gt;
+                  │
+        ┌────────┴─────────┐
+      &lt;head&gt;              &lt;body&gt;
+                             │
+                          &lt;h1 id=&quot;title&quot;&gt;
+                          &quot;Original Heading&quot;
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">JavaScript wants to change the page
+        │
+Select the target element (querySelector, getElementById, etc.)
+        │
+Modify it: content (textContent/innerHTML), style, attributes, or classes
+        │
+Browser re-renders the affected part of the page automatically
+</code></pre>
+<h2>Internal Working</h2>
+<p>The browser parses HTML into the DOM tree once on load; JavaScript then interacts with this live in-memory tree — any change to it (adding a node, changing text, updating a style) triggers the browser's rendering engine to update the visible page accordingly.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">document.querySelector(&quot;h1&quot;).textContent = &quot;Hello from JS!&quot;;
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Creating and appending a new element
+const newItem = document.createElement(&quot;li&quot;);
+newItem.textContent = &quot;New list item&quot;;
+document.querySelector(&quot;ul&quot;).appendChild(newItem);
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Updating multiple elements at once with a batch DOM operation
+document.querySelectorAll(&quot;.card&quot;).forEach(card =&gt; {
+  card.classList.add(&quot;highlighted&quot;);
+});
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Toggling a mobile navigation menu
+const menuButton = document.querySelector(&quot;#menu-toggle&quot;);
+const nav = document.querySelector(&quot;nav&quot;);
+menuButton.addEventListener(&quot;click&quot;, () =&gt; nav.classList.toggle(&quot;open&quot;));
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Frameworks like React ultimately still update the REAL DOM under the hood,
+// using a virtual DOM diffing strategy to minimize the number of actual
+// DOM mutations needed per render — because direct DOM manipulation
+// is comparatively expensive.
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#dom">interview.md</a>
+1. What is the DOM, in your own words?
+2. How does the browser build the DOM from an HTML file?
+3. Why is direct DOM manipulation considered relatively "expensive"?
+4. What's the difference between the DOM tree and the original HTML source?
+5. How does a change to the DOM end up visible on screen?</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#dom">mcq.md</a>
+1. The DOM represents a web page as a: (a) Flat list (b) <strong>Tree structure</strong> (c) Table (d) Graph with cycles → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#dom">practice.md</a>
+1. <strong>(Easy)</strong> Select an element by id and change its text content.
+2. <strong>(Medium)</strong> Create a new element, set its content, and append it to an existing list.
+3. <strong>(Hard)</strong> Write a function that updates multiple elements matching a class in a single batch operation.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Diagram the DOM tree for a simple HTML page with a header, a paragraph, and a list.</li>
+<li>[ ] Explain, with an example, why frameworks use a virtual DOM to reduce direct DOM operations.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Live Text Editor" page: typing into an input updates a <code>&lt;div&gt;</code>'s text content in real time via the DOM.</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Assuming changes to a JS variable automatically reflect in the DOM without explicitly updating an element.</li>
+<li>Repeatedly querying the DOM for the same element inside a loop instead of caching the reference once.</li>
+<li>Confusing the DOM tree (live, in-memory) with the original static HTML source (view-source).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Cache DOM element references in variables when reused multiple times, rather than re-querying repeatedly.</li>
+<li>Batch multiple DOM changes together where possible to minimize layout recalculations ("reflows").</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Minimize direct DOM manipulation in tight loops; build content as a string or document fragment, then insert once.</li>
+</ul>
+<h2>Summary</h2>
+<p>The DOM is the live, tree-structured representation of a web page that JavaScript reads and modifies to create interactive behavior — understanding it is foundational to nearly all front-end JavaScript work.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#dom">cheat-sheet.md</a></p>
+<hr />
+<p><a href="README.html">← Section Home</a> | <a href="README.html">Section Home</a> | <a href="selectors.html">Selectors →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
