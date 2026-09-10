@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traversing · DOM Manipulation · JavaScript Mastery</title>
+<meta name="author" content="Shubham Narware">
+<link rel="icon" href="../../assets/images/favicon.svg">
+<link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="../../assets/images/logo.svg" alt="logo" class="brand-logo">
+      <div><div class="brand-title">JavaScript Mastery</div><div class="brand-owner">by Shubham Narware</div></div>
+    </div>
+    <input type="text" id="sidebarSearch" class="search-box" placeholder="Search topics...">
+    <div class="section-label">DOM Manipulation</div>
+    <ul class="nav-list">
+      <li><a href="dom.html" class="">Dom</a></li>
+<li><a href="selectors.html" class="">Selectors</a></li>
+<li><a href="traversing.html" class="active">Traversing</a></li>
+    </ul>
+    <a href="../../index.html" class="back-home">← All Sections</a>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb"><a href="../../index.html">Home</a> / <a href="index.html">DOM Manipulation</a> / <span>Traversing</span></div>
+      <button id="themeToggle" class="theme-toggle">🌓</button>
+    </div>
+    <article class="content">
+      <h1>Traversing</h1>
+<blockquote>
+<p>Section: DOM Manipulation · Owner: <strong>Shubham Narware</strong></p>
+</blockquote>
+<h2>Definition</h2>
+<p>DOM traversal is navigating between related elements in the DOM tree — moving to parents, children, or siblings of a given element — without needing a fresh selector query each time.</p>
+<h2>History</h2>
+<p>Traversal properties (<code>parentNode</code>, <code>childNodes</code>, <code>nextSibling</code>) existed since the earliest DOM specs; element-specific variants (<code>parentElement</code>, <code>children</code>, <code>nextElementSibling</code>) were added later to avoid accidentally including text/comment nodes.</p>
+<h2>Why Traversing Matters</h2>
+<p>Real UIs often need to act relative to a clicked element (e.g. "find this button's parent card and remove it") — traversal lets you navigate the tree structurally instead of re-querying from scratch.</p>
+<h2>Syntax</h2>
+<pre><code class="language-js">element.parentElement;
+element.children;
+element.nextElementSibling;
+element.previousElementSibling;
+</code></pre>
+<h2>Types</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>parentElement</code></td>
+<td>Up</td>
+</tr>
+<tr>
+<td><code>children</code></td>
+<td>Down (all direct child elements)</td>
+</tr>
+<tr>
+<td><code>firstElementChild</code>/<code>lastElementChild</code></td>
+<td>Down (specific child)</td>
+</tr>
+<tr>
+<td><code>nextElementSibling</code>/<code>previousElementSibling</code></td>
+<td>Sideways</td>
+</tr>
+</tbody>
+</table>
+<h2>Examples</h2>
+<pre><code class="language-js">const item = document.querySelector(&quot;.item&quot;);
+console.log(item.parentElement);       // the containing element
+console.log(item.children);              // its direct child elements
+console.log(item.nextElementSibling);     // the next sibling element
+</code></pre>
+<h2>Memory Diagram</h2>
+<pre><code class="language-javascript">        parentElement
+              ▲
+   ┌─────────┴─────────┐
+ prev ──── element ──── next   (siblings, via nextElementSibling/previousElementSibling)
+              │
+         children ▼
+     (firstElementChild ... lastElementChild)
+</code></pre>
+<h2>Flowchart</h2>
+<pre><code class="language-javascript">Have a reference to one element
+        │
+Need to act on something RELATED to it?
+        │
+Its container? ──► parentElement
+Its contents? ──► children / firstElementChild / lastElementChild
+Something next to it? ──► nextElementSibling / previousElementSibling
+</code></pre>
+<h2>Internal Working</h2>
+<p>Traversal properties read the DOM tree's existing structural links directly (each node internally references its parent, children, and siblings) — this is generally faster than re-running a fresh <code>querySelector</code> search from the document root.</p>
+<h2>Beginner Example</h2>
+<pre><code class="language-js">const listItem = document.querySelector(&quot;li&quot;);
+console.log(listItem.parentElement.tagName); // &quot;UL&quot; (or &quot;OL&quot;)
+</code></pre>
+<h2>Intermediate Example</h2>
+<pre><code class="language-js">// Removing a card when its own &quot;close&quot; button is clicked
+document.querySelectorAll(&quot;.close-btn&quot;).forEach(btn =&gt; {
+  btn.addEventListener(&quot;click&quot;, () =&gt; {
+    btn.parentElement.remove(); // remove the containing card
+  });
+});
+</code></pre>
+<h2>Advanced Example</h2>
+<pre><code class="language-js">// Walking up multiple levels to find a specific ancestor (manual version of .closest())
+function findAncestorWithClass(el, className) {
+  let current = el;
+  while (current &amp;&amp; !current.classList.contains(className)) {
+    current = current.parentElement;
+  }
+  return current;
+}
+</code></pre>
+<h2>Real World Example</h2>
+<pre><code class="language-js">// Using the built-in .closest() method (simpler than manual traversal above)
+document.addEventListener(&quot;click&quot;, (e) =&gt; {
+  const card = e.target.closest(&quot;.card&quot;);
+  if (card) console.log(&quot;Clicked inside card:&quot;, card);
+});
+</code></pre>
+<h2>Industry Example</h2>
+<pre><code class="language-js">// Table row actions commonly traverse from a clicked icon up to its row,
+// then across to sibling cells, to read related data without extra selectors:
+button.closest(&quot;tr&quot;).querySelector(&quot;.username&quot;).textContent;
+</code></pre>
+<h2>Interview Questions</h2>
+<p>See full list → <a href="./interview.md#traversing">interview.md</a>
+1. What's the difference between <code>children</code> and <code>childNodes</code>?
+2. How would you find the parent of a clicked element?
+3. What does <code>.closest()</code> do, and how does it relate to manual traversal?
+4. Why prefer <code>nextElementSibling</code> over <code>nextSibling</code> in most cases?
+5. Give a real UI scenario where traversal is more convenient than re-querying with <code>querySelector</code>.</p>
+<h2>MCQs</h2>
+<p>See full list → <a href="./mcq.md#traversing">mcq.md</a>
+1. <code>element.parentElement</code> returns: (a) Its children (b) <strong>Its containing element</strong> (c) A sibling (d) null always → <strong>Answer: (b)</strong></p>
+<h2>Coding Questions</h2>
+<p>See full list → <a href="./practice.md#traversing">practice.md</a>
+1. <strong>(Easy)</strong> Select an element and log its parent's tag name.
+2. <strong>(Medium)</strong> Remove a card element when its internal "close" button is clicked, using <code>parentElement</code>.
+3. <strong>(Hard)</strong> Write a manual <code>findAncestorWithClass(el, className)</code> function without using <code>.closest()</code>.</p>
+<h2>Assignments</h2>
+<ul>
+<li>[ ] Explain, with an example, why <code>children</code> (elements only) differs from <code>childNodes</code> (includes text/comment nodes).</li>
+<li>[ ] Rewrite a manual ancestor-search loop using the built-in <code>.closest()</code> method instead.</li>
+</ul>
+<h2>Mini Project</h2>
+<p>Build a small "Dismissible Card List": each card has a close button; clicking it should traverse to and remove just that card, using DOM traversal (<code>.closest()</code>/<code>parentElement</code>).</p>
+<h2>Common Mistakes</h2>
+<ul>
+<li>Using <code>childNodes</code> when only element children were intended, unexpectedly including whitespace text nodes.</li>
+<li>Manually writing ancestor-search loops when the built-in <code>.closest()</code> method already solves that exact problem.</li>
+<li>Assuming <code>nextSibling</code>/<code>previousSibling</code> skip whitespace text nodes (they don't — use the <code>*ElementSibling</code> variants).</li>
+</ul>
+<h2>Best Practices</h2>
+<ul>
+<li>Use the <code>*Element*</code> variants (<code>children</code>, <code>nextElementSibling</code>, etc.) to avoid accidentally including non-element nodes.</li>
+<li>Use <code>.closest()</code> instead of manual parent-walking loops for finding an ancestor matching a selector.</li>
+</ul>
+<h2>Optimization Tips</h2>
+<ul>
+<li>Traversal from a known element reference is generally faster than a fresh <code>querySelector</code> search from the document root — prefer it when you already have a relevant starting element (e.g. inside an event handler).</li>
+</ul>
+<h2>Summary</h2>
+<p>DOM traversal navigates between related elements (parent, children, siblings) using the tree's existing structural links — essential for acting on elements relative to a known reference, such as within event handlers, without needing fresh selector queries.</p>
+<h2>Cheat Sheet</h2>
+<p>See → <a href="./cheat-sheet.md#traversing">cheat-sheet.md</a></p>
+<hr />
+<p><a href="selectors.html">← Selectors</a> | <a href="README.html">Section Home</a> | <a href="README.html">Section Home →</a></p>
+<p><em>Part of <a href="../../README.md">JavaScript Mastery</a> — Owner: </em><em>Shubham Narware</em>**</p>
+      <footer class="page-footer">Created with ❤️ by <b>Shubham Narware</b></footer>
+    </article>
+  </main>
+</div>
+<script src="../../assets/js/main.js"></script>
+</body>
+</html>
